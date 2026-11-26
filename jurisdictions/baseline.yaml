@@ -1,12 +1,58 @@
 # Comparison data. The format is defined by fpsot-spec-doc (model/jurisdiction.yaml).
-# This example row compares requirement TPL-001. Replace it with the rows of this specification.
-# Add one file per jurisdiction, such as ca.yaml or ca/qc.yaml, only when a source exists.
+# The international column draws on GOV.UK, GovStack Registration, Démarche Numérique and the
+# Danish digital-by-default rules, which bind no Canadian body. This file is informational and not
+# legal advice.
 topics:
-  keywords: {en: Requirement keywords, fr: Mots clés des exigences}
+  receipt: {en: Receipt and acknowledgment, fr: Réception et accusé de réception}
+  requests: {en: Requests for information and deadlines, fr: Demandes de renseignements et échéances}
+  languages: {en: Languages and prefill, fr: Langues et préremplissage}
+  channels: {en: Channels and status, fr: Canaux et état}
 rows:
-  - id: TPL-001
-    topic: keywords
-    requirement: {en: Use the BCP 14 keywords., fr: Utiliser les mots clés du BCP 14.}
-    international: {en: "BCP 14 defines MUST, SHOULD and MAY. Only the capital forms carry that meaning.", fr: "Le BCP 14 définit MUST, SHOULD et MAY. Seules les majuscules ont ce sens."}
-    international_source: {title: "RFC 8174, Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words (BCP 14)", version: "BCP 14", date: "2017-05", url: "https://www.rfc-editor.org/info/rfc8174", archive: "https://web.archive.org/web/20261103005743/https://www.rfc-editor.org/info/rfc8174/"}
-    fpsot: {en: "Keywords in capitals, with a fixed French mapping.", fr: "Mots clés en majuscules, avec une correspondance française fixe."}
+  - id: APP-041
+    topic: receipt
+    requirement: {en: "Record as received instant the moment when the submission became accessible to the body, to the second, and keep it across channels and systems.", fr: "Consigner comme instant de réception le moment où le dépôt est devenu accessible à l’organisme, à la seconde, et le garder d’un canal et d’un système à l’autre."}
+    international: {en: "The audit office of the United Kingdom found that staff could not tell when a passport case had moved from the digital system to paper, so some cases showed the wrong age.", fr: "Le vérificateur du Royaume-Uni a constaté que le personnel ne savait plus quand un dossier de passeport était passé du numérique au papier, et certains dossiers affichaient un âge erroné."}
+    international_source: {title: "Investigation into the performance of HM Passport Office, summary, National Audit Office, HC 949", date: "2022-12-09", url: "https://www.nao.org.uk/wp-content/uploads/2022/12/Investigation-into-the-performance-of-HM-Passport-Office-Summary.pdf", archive: "https://web.archive.org/web/20260204133202/https://www.nao.org.uk/wp-content/uploads/2022/12/Investigation-into-the-performance-of-HM-Passport-Office-Summary.pdf"}
+    fpsot: {en: "A sealed receipt record with the instant in UTC and in the legal time zone, the channel, the submitter and the SHA-256 digests.", fr: "Un constat de réception cacheté avec l’instant en UTC et dans le fuseau horaire légal, le canal, la personne qui dépose et les condensés SHA-256."}
+  - id: APP-043
+    topic: receipt
+    requirement: {en: "Acknowledge each submission with the reference, the received instant, the handling body, the expected date and how to see the status.", fr: "Accuser réception de chaque dépôt avec le numéro, l’instant de réception, l’organisme responsable, la date prévue et la façon de consulter l’état."}
+    international: {en: "GOV.UK shows the reference number on the confirmation page, says what happens next and when, and offers a record to keep.", fr: "GOV.UK affiche le numéro de référence sur la page de confirmation, dit ce qui suit et quand, et offre une copie à conserver."}
+    international_source: {title: "Confirmation pages, GOV.UK Design System", date: "2026-11-23", url: "https://design-system.service.gov.uk/patterns/confirmation-pages/", archive: "https://web.archive.org/web/20261029121649/https://design-system.service.gov.uk/patterns/confirmation-pages/"}
+    fpsot: {en: "An acknowledgment for every submission, at once on a digital channel, or a notice of registration first.", fr: "Un accusé de réception pour chaque dépôt, tout de suite sur un canal numérique, ou d’abord un avis d’enregistrement."}
+  - id: APP-052
+    topic: requests
+    requirement: {en: "Decide no adverse outcome while a request for information is open and in time.", fr: "Ne rendre aucun résultat défavorable tant qu’une demande de renseignements est ouverte et dans les délais."}
+    international: {en: "GovStack Registration bars a decision while a required document is missing, and lets staff send a file back with the fields to correct.", fr: "GovStack Registration interdit une décision tant qu’un document exigé manque, et permet au personnel de renvoyer un dossier avec les champs à corriger."}
+    international_source: {title: "GovStack Registration Building Block, functional requirements, repository commit f439f80", date: "2024-12-24", url: "https://github.com/GovStackWorkingGroup/bb-registration/blob/f439f802c93a43a6d2083971e973e88552e04a24/spec/6-functional-requirements.md", archive: "https://web.archive.org/web/20261123155717/https://specs.govstack.global/registration"}
+    fpsot: {en: "One open request at a time, with its items, deadline and clock effects as data, and no adverse decision while it is open and in time.", fr: "Une seule demande ouverte à la fois, avec ses éléments, son échéance et ses effets sur les décomptes en données, et aucune décision défavorable pendant qu’elle est ouverte et dans les délais."}
+  - id: APP-054
+    topic: requests
+    requirement: {en: "Hold each clock as data, with the effect of each request on it, and compute each deadline from the calendar data of the profile.", fr: "Garder chaque décompte en données, avec l’effet de chaque demande de renseignements sur lui, et calculer chaque échéance à partir des données de calendrier du profil."}
+    international: {en: "Démarche Numérique logs an operation that suspends the clock of silence when it sends a file back for correction under the rules of silence.", fr: "Démarche Numérique consigne une opération qui suspend le délai du silence quand elle renvoie un dossier pour correction sous les règles du silence."}
+    international_source: {title: "Démarche Numérique, model of a correctable file, release 2026-11-19-02", date: "2026-11-19", url: "https://github.com/demarche-numerique/demarche.numerique.gouv.fr/blob/45f9ede2ada6cde5f03df822d7c83e3e3a3ab486/app/models/concerns/dossier_correctable_concern.rb", archive: "https://github.com/demarche-numerique/demarche.numerique.gouv.fr/blob/45f9ede2ada6cde5f03df822d7c83e3e3a3ab486/app/models/concerns/dossier_correctable_concern.rb"}
+    fpsot: {en: "Clocks declared by each program, their changes recorded on the file, and dated holidays, a legal time zone and a roll rule in each profile.", fr: "Des décomptes déclarés par chaque programme, leurs changements consignés au dossier, et des jours fériés datés, un fuseau horaire légal et une règle de report dans chaque profil."}
+  - id: APP-025
+    topic: languages
+    requirement: {en: "Offer the languages that the profile requires, and record the language of correspondence with its basis.", fr: "Offrir les langues que le profil exige, et consigner la langue de correspondance avec sa base."}
+    international: {en: "GOV.UK Forms keeps one form document per language, English or Welsh, with each version.", fr: "GOV.UK Forms garde un document de formulaire par langue, l’anglais ou le gallois, avec chaque version."}
+    international_source: {title: "GOV.UK Forms, forms-admin database schema, commit 6cd0ad2", date: "2026-11-23", url: "https://github.com/govuk-forms/forms-admin/blob/6cd0ad2e3dd6d2935452af0de83f52323532c1b5/db/schema.rb", archive: "https://github.com/govuk-forms/forms-admin/blob/6cd0ad2e3dd6d2935452af0de83f52323532c1b5/db/schema.rb"}
+    fpsot: {en: "A label in each language of the form, and a basis code from the profile on each file.", fr: "Une étiquette dans chaque langue du formulaire, et un code de base tiré du profil dans chaque dossier."}
+  - id: APP-024
+    topic: languages
+    requirement: {en: "Prefill an answer only from a named source, on a basis of the profile, and show the applicant what was filled.", fr: "Ne préremplir une réponse qu’à partir d’une source nommée, sur une base du profil, et montrer à la personne ce qui a été rempli."}
+    international: {en: "GovStack Registration does not ask again for a document that an earlier registration of the same service produced.", fr: "GovStack Registration ne redemande pas un document qu’une inscription antérieure du même service a produit."}
+    international_source: {title: "GovStack Registration Building Block, functional requirements, repository commit f439f80", date: "2024-12-24", url: "https://github.com/GovStackWorkingGroup/bb-registration/blob/f439f802c93a43a6d2083971e973e88552e04a24/spec/6-functional-requirements.md", archive: "https://web.archive.org/web/20261123155717/https://specs.govstack.global/registration"}
+    fpsot: {en: "A source and a basis on each question that can be filled, and the profile decides between consent and a legal basis.", fr: "Une source et une base sur chaque question préremplissable, et le profil choisit entre le consentement et une base légale."}
+  - id: APP-093
+    topic: channels
+    requirement: {en: "Offer a route that is not digital to the same file, unless a law cited in the profile allows otherwise.", fr: "Offrir une voie non numérique vers le même dossier, sauf si une loi citée dans le profil permet autre chose."}
+    international: {en: "Denmark makes many services digital by default, and authorities must offer an alternative to people who cannot use them.", fr: "Le Danemark rend bien des services numériques par défaut, et les autorités doivent offrir une autre voie aux personnes qui ne peuvent pas s’en servir."}
+    international_source: {title: "Mandatory self-service, Life in Denmark", date: "2026-06-26", url: "https://lifeindenmark.borger.dk/apps-and-digital-services/mandatory-self-service", archive: "https://web.archive.org/web/20261015011506/https://lifeindenmark.borger.dk/apps-and-digital-services/mandatory-self-service"}
+    fpsot: {en: "Every channel feeds the same file, with the same form version and checks, and a digital-only service cites its law.", fr: "Chaque canal alimente le même dossier, avec la même version de formulaire et les mêmes vérifications, et un service seulement numérique cite sa loi."}
+  - id: APP-080
+    topic: channels
+    requirement: {en: "Show the applicant a status from a closed, published list that reveals no internal state and no outcome.", fr: "Montrer à la personne un état tiré d’une liste fermée et publiée qui ne révèle aucun état interne ni aucun résultat."}
+    international: {en: "GOV.UK sends no sensitive data by email or text message, and links only to its own domain, in full.", fr: "GOV.UK n’envoie aucune donnée sensible par courriel ou par texto, et ne renvoie qu’à son propre domaine, au long."}
+    international_source: {title: "Sending emails and text messages, GOV.UK Service Manual", date: "2017-10-03", url: "https://www.gov.uk/service-manual/design/sending-emails-and-text-messages", archive: "https://web.archive.org/web/20260802115617/https://www.gov.uk/service-manual/design/sending-emails-and-text-messages"}
+    fpsot: {en: "Seven labels mapped from the states, one of them action-needed, and notifications that say where to look and nothing more.", fr: "Sept étiquettes tirées des états, dont action-needed, et des notifications qui disent où regarder, rien de plus."}

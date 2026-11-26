@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fpsot.org/schemas/applications/events/org.fpsot.applications.information-request.changed.schema.json",
+  "$comment": "SPDX-License-Identifier: Community-Spec-1.0. FPSOT applications event data (APP-088). The data holds identifiers, codes and instants only, never a party id, a reference number, an answer, a name or an address. A consumer reads the file by its id. The CloudEvents attributes follow API-101, and the subject is the id of the file.",
+  "title": "org.fpsot.applications.information-request.changed",
+  "description": "A request for information opened, was resolved, was cancelled or expired (APP-050, APP-051, APP-088).",
+  "type": "object",
+  "required": [
+    "requestId",
+    "fileId",
+    "status",
+    "reason",
+    "deadline",
+    "changedAt"
+  ],
+  "properties": {
+    "requestId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "description": "The request (APP-050)."
+    },
+    "fileId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "description": "The file (APP-030)."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "open",
+        "resolved",
+        "cancelled",
+        "expired"
+      ],
+      "description": "The new status (APP-051)."
+    },
+    "reason": {
+      "type": "string",
+      "enum": [
+        "incorrect",
+        "incomplete",
+        "outdated",
+        "complement"
+      ],
+      "description": "The reason of the request (APP-050)."
+    },
+    "deadline": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$",
+      "description": "The deadline in the legal time zone (APP-055)."
+    },
+    "changedAt": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?Z$",
+      "description": "When the status changed (APP-051)."
+    }
+  },
+  "additionalProperties": false
+}

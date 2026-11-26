@@ -1,0 +1,26 @@
+@startuml application-lifecycle-en
+' SPDX-License-Identifier: Community-Spec-1.0
+' State diagram of an application file (spec/en/lifecycle.adoc, APP-030 to APP-032, APP-038, APP-051, APP-057).
+title State diagram of an application file
+hide empty description
+skinparam monochrome true
+[*] --> draft
+draft --> submitted : submit
+draft --> [*] : purge after notice
+submitted --> in_review : start review
+submitted --> information_requested : open request
+submitted --> decided : decision record
+submitted --> withdrawn : withdraw
+in_review --> information_requested : open request
+in_review --> decided : decision record
+in_review --> withdrawn : withdraw
+information_requested --> in_review : reply or cancel
+information_requested --> decided : decision record, not adverse
+information_requested --> withdrawn : withdraw
+information_requested --> closed : request expired and contact attempt logged
+state "in-review" as in_review
+state "information-requested" as information_requested
+decided --> [*]
+withdrawn --> [*]
+closed --> [*]
+@enduml

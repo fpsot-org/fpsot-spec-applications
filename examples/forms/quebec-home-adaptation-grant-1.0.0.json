@@ -1,0 +1,105 @@
+{
+  "url": "https://formulaires.example.org/aide-adaptation-domicile",
+  "version": "1.0.0",
+  "status": "active",
+  "title": [
+    {
+      "language": "fr",
+      "text": "Demande d’aide financière pour l’adaptation du domicile"
+    }
+  ],
+  "languages": [
+    "fr"
+  ],
+  "profiles": [
+    "core",
+    "ca-qc"
+  ],
+  "publishedAt": "2026-03-02T14:00:00Z",
+  "collectionNotice": [
+    {
+      "language": "fr",
+      "uri": "https://formulaires.example.org/avis-de-collecte"
+    }
+  ],
+  "questions": [
+    {
+      "id": "applicantName",
+      "kind": "answer",
+      "labels": [
+        {
+          "language": "fr",
+          "text": "Nom de la personne requérante"
+        }
+      ],
+      "required": true,
+      "purpose": "identify-applicant"
+    },
+    {
+      "id": "homeAddress",
+      "kind": "answer",
+      "labels": [
+        {
+          "language": "fr",
+          "text": "Adresse du domicile"
+        }
+      ],
+      "required": true,
+      "purpose": "locate-home"
+    },
+    {
+      "id": "worksDescription",
+      "kind": "answer",
+      "labels": [
+        {
+          "language": "fr",
+          "text": "Travaux prévus"
+        }
+      ],
+      "required": true,
+      "purpose": "assess-works"
+    },
+    {
+      "id": "proofOfAddress",
+      "kind": "attachment",
+      "labels": [
+        {
+          "language": "fr",
+          "text": "Preuve d’adresse récente"
+        }
+      ],
+      "required": true,
+      "purpose": "prove-residence"
+    }
+  ],
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://formulaires.example.org/aide-adaptation-domicile/1.0.0/schema.json",
+    "type": "object",
+    "properties": {
+      "applicantName": {
+        "type": "string",
+        "minLength": 1
+      },
+      "homeAddress": {
+        "type": "string",
+        "minLength": 1
+      },
+      "worksDescription": {
+        "type": "string",
+        "minLength": 1
+      },
+      "proofOfAddress": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+      }
+    },
+    "required": [
+      "applicantName",
+      "homeAddress",
+      "worksDescription",
+      "proofOfAddress"
+    ],
+    "additionalProperties": false
+  }
+}

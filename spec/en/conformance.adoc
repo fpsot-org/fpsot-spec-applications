@@ -1,0 +1,63 @@
+= Interfaces, handoffs and conformance
+include::_fpsot-terms.adoc[]
+
+A body may change its portal, its case system or its fee engine, and keep its files.
+This page sets the interface of an intake service and the handoff to the other specifications.
+It also sets the fixtures that prove both.
+
+== Interfaces
+
+[[APP-100]]
+*APP-100.* An interface MUST create drafts, submissions, replies and withdrawals with `POST` and an `Idempotency-Key`, under API-060.
+It MUST NOT offer an operation that edits or deletes a submitted file version, a receipt record or a request.
+The same holds for an acknowledgment.
+A withdrawal or a cancellation MUST be a new resource, never a `DELETE`.
+The interface MUST ask the authorization engine on every request, under IAM-050.
+
+A withdrawal as a resource keeps its own id, its instant and its actor.
+A `DELETE` would erase that trace.
+
+== Handoffs
+
+[[APP-101]]
+*APP-101.* A file MUST record in `handoffs` each record that it starts in another specification, by kind and id.
+A submission MAY start a fee order under FEE-040, a filing under REG-020 to REG-024, or a decision under DEC-040.
+The intake service MUST NOT set the payment status of a fee order or the status of a filing.
+It MUST NOT set the result of a decision.
+It reads them from their owners.
+
+The pleasure craft example starts both a fee order and a filing from one submission.
+The fee engine then owns the payment, and the register owns the license.
+
+== Fixtures
+
+[[APP-102]]
+*APP-102.* A conformance suite of this specification MUST hold forms and service declarations.
+It MUST hold files with the versions, receipt records and requests that belong to them.
+It MUST also hold scenarios in English and in French, under TST-020 to TST-036.
+Each scenario MUST state its dates and name its states.
+A producer SHOULD test each event against the schema of its type, under TST-043.
+
+The folder `examples/` holds the first such fixtures, and `examples/test-examples.sh` checks that the check rejects broken copies.
+
+[[APP-103]]
+*APP-103.* Fixtures, examples and tests MUST use synthetic data only, under TST-050.
+Parties, accounts, reference numbers and attachments MUST be fictional.
+Domains MUST be those that standards reserve for documentation, such as `example.org` or a name under `.example`.
+
+[[APP-104]]
+*APP-104.* A service MAY offer an adapter to the Registration building block of GovStack.
+Such an adapter MUST map each requirement that it claims to a rule of this specification.
+
+[[APP-105]]
+*APP-105.* A service or a front end that replaces another one MUST pass the same conformance suite, under TST-045.
+
+A body can then change its supplier without a change to its files.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-26 |First version.
+|===

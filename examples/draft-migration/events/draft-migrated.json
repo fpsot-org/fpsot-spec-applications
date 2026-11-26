@@ -1,0 +1,16 @@
+{
+  "specversion": "1.0",
+  "id": "019c5a00-00e0-7000-8000-000000000007",
+  "source": "/v1/applications",
+  "type": "org.fpsot.applications.draft.migrated",
+  "time": "2026-09-03T14:12:00Z",
+  "datacontenttype": "application/json",
+  "subject": "019c5a00-0001-7000-8000-000000000008",
+  "dataschema": "https://fpsot.org/schemas/applications/events/org.fpsot.applications.draft.migrated.schema.json",
+  "data": {
+    "fileId": "019c5a00-0001-7000-8000-000000000008",
+    "fromFormVersion": "1.0.0",
+    "toFormVersion": "1.1.0",
+    "migratedAt": "2026-09-03T14:12:00Z"
+  }
+}

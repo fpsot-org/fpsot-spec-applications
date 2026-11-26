@@ -1,0 +1,271 @@
+{
+  "files": [
+    {
+      "id": "019c5a00-0001-7000-8000-000000000001",
+      "service": "pleasure-craft-licensing",
+      "reference": "7HQ3-MZ4K-4",
+      "formUrl": "https://forms.example.org/pleasure-craft-license",
+      "formVersion": "2.0.0",
+      "subjectPartyId": "019c4e00-0010-7000-8000-000000000001",
+      "state": "decided",
+      "stateHistory": [
+        {
+          "state": "draft",
+          "at": "2026-03-09T23:10:00Z",
+          "actor": {
+            "actorId": "acct-7d41c2",
+            "role": "applicant",
+            "actingPartyId": "019c4e00-0010-7000-8000-000000000001",
+            "subjectPartyId": "019c4e00-0010-7000-8000-000000000001",
+            "assurance": "verified"
+          },
+          "reason": "draft-started"
+        },
+        {
+          "state": "submitted",
+          "at": "2026-03-10T14:58:30Z",
+          "actor": {
+            "actorId": "acct-7d41c2",
+            "role": "applicant",
+            "actingPartyId": "019c4e00-0010-7000-8000-000000000001",
+            "subjectPartyId": "019c4e00-0010-7000-8000-000000000001",
+            "assurance": "verified"
+          },
+          "reason": "applicant-submitted"
+        },
+        {
+          "state": "in-review",
+          "at": "2026-03-10T15:00:00Z",
+          "actor": {
+            "actorId": "svc-intake-01",
+            "role": "service",
+            "subjectPartyId": "019c4e00-0010-7000-8000-000000000001",
+            "assurance": "verified"
+          },
+          "reason": "automatic-review"
+        },
+        {
+          "state": "decided",
+          "at": "2026-03-10T15:05:00Z",
+          "actor": {
+            "actorId": "svc-intake-01",
+            "role": "service",
+            "subjectPartyId": "019c4e00-0010-7000-8000-000000000001",
+            "assurance": "verified"
+          },
+          "reason": "decision-recorded",
+          "decisionRecordId": "019c5a00-000b-7000-8000-000000000001",
+          "adverseOutcome": false
+        }
+      ],
+      "assurance": "verified",
+      "correspondenceLanguage": "en",
+      "languageBasis": "official-languages-choice-en",
+      "handlingBodyPartyId": "019a1b2c-3d4e-7f01-8a01-000000000103",
+      "draftStartedAt": "2026-03-09T23:10:00Z",
+      "clocks": [
+        {
+          "code": "service-standard",
+          "changes": [
+            {
+              "change": "started",
+              "at": "2026-03-10T14:58:30Z"
+            },
+            {
+              "change": "stopped",
+              "at": "2026-03-10T15:05:00Z"
+            }
+          ]
+        }
+      ],
+      "handoffs": [
+        {
+          "kind": "fee-order",
+          "id": "019c4e00-0002-7000-8000-000000000001"
+        },
+        {
+          "kind": "filing",
+          "id": "019c4e00-0011-7000-8000-000000000001"
+        },
+        {
+          "kind": "decision-record",
+          "id": "019c5a00-000b-7000-8000-000000000001"
+        }
+      ],
+      "createdAt": "2026-03-09T23:10:00Z",
+      "updatedAt": "2026-03-10T15:05:00Z"
+    }
+  ],
+  "versions": [
+    {
+      "id": "019c5a00-0002-7000-8000-000000000001",
+      "fileId": "019c5a00-0001-7000-8000-000000000001",
+      "number": 1,
+      "formUrl": "https://forms.example.org/pleasure-craft-license",
+      "formVersion": "2.0.0",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "0a2f4932fb8c3053c80f4b00a6e939d8d9794cebeaf1f24a701ca4930292781f"
+      },
+      "answers": {
+        "hullSerialNumber": "EXA12345B626",
+        "craftLengthMeters": "6.1",
+        "propulsion": "outboard",
+        "ownerName": "Alex Example",
+        "declaresSection35Right": true,
+        "proofOfOwnership": "019c5a00-0006-7000-8000-000000000001"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "4ce882dcc56f6f72862d2b6d035ffe361e7fd7c710239f604307c8388b1cf55b"
+      },
+      "attachmentIds": [
+        "019c5a00-0006-7000-8000-000000000001"
+      ],
+      "channel": "digital",
+      "submittedBy": {
+        "actorId": "acct-7d41c2",
+        "role": "applicant",
+        "actingPartyId": "019c4e00-0010-7000-8000-000000000001",
+        "subjectPartyId": "019c4e00-0010-7000-8000-000000000001",
+        "assurance": "verified"
+      },
+      "submittedAt": "2026-03-10T14:58:30Z",
+      "idempotencyKey": "5c0e5d9a-6f0b-4b2e-9a51-6a1f4f0e2d11"
+    }
+  ],
+  "receiptRecords": [
+    {
+      "id": "019c5a00-0003-7000-8000-000000000001",
+      "fileId": "019c5a00-0001-7000-8000-000000000001",
+      "fileVersionId": "019c5a00-0002-7000-8000-000000000001",
+      "reference": "7HQ3-MZ4K-4",
+      "receivedAt": "2026-03-10T14:58:30Z",
+      "receivedLocal": {
+        "localDateTime": "2026-03-10T10:58:30",
+        "timeZone": "America/Toronto"
+      },
+      "channel": "digital",
+      "submitter": {
+        "actorId": "acct-7d41c2",
+        "role": "applicant",
+        "actingPartyId": "019c4e00-0010-7000-8000-000000000001",
+        "subjectPartyId": "019c4e00-0010-7000-8000-000000000001",
+        "assurance": "verified"
+      },
+      "destination": "https://licensing.example.org/apply",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "0a2f4932fb8c3053c80f4b00a6e939d8d9794cebeaf1f24a701ca4930292781f"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "4ce882dcc56f6f72862d2b6d035ffe361e7fd7c710239f604307c8388b1cf55b"
+      },
+      "attachmentDigests": [
+        {
+          "attachmentId": "019c5a00-0006-7000-8000-000000000001",
+          "digest": {
+            "algorithm": "sha-256",
+            "value": "f30df380212b4de0d0cf20fbaec1deaa77e9e668efd6266d13aaf8e1e318ed5c"
+          }
+        }
+      ],
+      "renditionDigest": {
+        "algorithm": "sha-256",
+        "value": "502d5e56ddba02f4c6b92c6fef5abff33887f2a5b226c19e720dfd30fad4bf2d"
+      },
+      "assurance": "verified",
+      "sealProfile": "seal-log",
+      "createdAt": "2026-03-10T14:58:30Z"
+    }
+  ],
+  "acknowledgments": [
+    {
+      "id": "019c5a00-0004-7000-8000-000000000001",
+      "kind": "acknowledgment",
+      "receiptRecordId": "019c5a00-0003-7000-8000-000000000001",
+      "fileId": "019c5a00-0001-7000-8000-000000000001",
+      "reference": "7HQ3-MZ4K-4",
+      "receivedLocal": {
+        "localDateTime": "2026-03-10T10:58:30",
+        "timeZone": "America/Toronto"
+      },
+      "handlingBodyPartyId": "019a1b2c-3d4e-7f01-8a01-000000000103",
+      "handlingContact": "https://licensing.example.org/contact",
+      "serviceStandard": "P5D",
+      "statusUri": "https://licensing.example.org/status",
+      "language": "en",
+      "sentAt": "2026-03-10T14:58:30Z"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "019c5a00-0006-7000-8000-000000000001",
+      "fileId": "019c5a00-0001-7000-8000-000000000001",
+      "questionId": "proofOfOwnership",
+      "version": 1,
+      "originalName": "bill-of-sale.pdf",
+      "storageName": "019c5a00-5701-7000-8000-000000000001",
+      "path": "attachments/bill-of-sale.pdf",
+      "detectedMediaType": "application/pdf",
+      "byteSize": 124,
+      "digest": {
+        "algorithm": "sha-256",
+        "value": "f30df380212b4de0d0cf20fbaec1deaa77e9e668efd6266d13aaf8e1e318ed5c"
+      },
+      "scanState": "clean",
+      "scannedAt": "2026-03-10T14:55:32Z",
+      "receivedAt": "2026-03-10T14:55:12Z",
+      "uploadedBy": {
+        "actorId": "acct-7d41c2",
+        "role": "applicant",
+        "actingPartyId": "019c4e00-0010-7000-8000-000000000001",
+        "subjectPartyId": "019c4e00-0010-7000-8000-000000000001",
+        "assurance": "verified"
+      }
+    }
+  ],
+  "projections": [
+    {
+      "fileId": "019c5a00-0001-7000-8000-000000000001",
+      "label": "decision-made",
+      "since": "2026-03-10T15:05:00Z",
+      "reference": "7HQ3-MZ4K-4",
+      "receivedAt": "2026-03-10T14:58:30Z",
+      "handlingBodyPartyId": "019a1b2c-3d4e-7f01-8a01-000000000103",
+      "serviceStandard": "P5D",
+      "updatedAt": "2026-03-10T15:05:00Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "019c5a00-0007-7000-8000-000000000001",
+      "fileId": "019c5a00-0001-7000-8000-000000000001",
+      "kind": "receipt",
+      "channel": "email",
+      "recipientRole": "applicant",
+      "language": "en",
+      "template": "receipt-confirmation",
+      "links": [
+        "https://licensing.example.org/status"
+      ],
+      "sentAt": "2026-03-10T14:58:31Z",
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "019c5a00-0007-7000-8000-000000000002",
+      "fileId": "019c5a00-0001-7000-8000-000000000001",
+      "kind": "decision-available",
+      "channel": "email",
+      "recipientRole": "applicant",
+      "language": "en",
+      "template": "decision-available",
+      "links": [
+        "https://licensing.example.org/status"
+      ],
+      "sentAt": "2026-03-10T15:05:10Z",
+      "deliveryStatus": "delivered"
+    }
+  ]
+}

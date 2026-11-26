@@ -1,0 +1,205 @@
+{
+  "files": [
+    {
+      "id": "019c5a00-0001-7000-8000-000000000008",
+      "service": "example-federal-benefit",
+      "reference": "V8NQ-4C2M-U",
+      "formUrl": "https://forms.example.org/example-benefit",
+      "formVersion": "1.1.0",
+      "subjectPartyId": "019c5a00-0010-7000-8000-000000000601",
+      "state": "submitted",
+      "stateHistory": [
+        {
+          "state": "draft",
+          "at": "2026-08-20T22:15:00Z",
+          "actor": {
+            "actorId": "acct-0d93f1",
+            "role": "applicant",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000601",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000601",
+            "assurance": "verified"
+          },
+          "reason": "draft-started"
+        },
+        {
+          "state": "submitted",
+          "at": "2026-09-03T14:31:09Z",
+          "actor": {
+            "actorId": "acct-0d93f1",
+            "role": "applicant",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000601",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000601",
+            "assurance": "verified"
+          },
+          "reason": "applicant-submitted"
+        }
+      ],
+      "assurance": "verified",
+      "correspondenceLanguage": "en",
+      "languageBasis": "official-languages-choice-en",
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000300",
+      "draftStartedAt": "2026-08-20T22:15:00Z",
+      "clocks": [
+        {
+          "code": "service-standard",
+          "changes": [
+            {
+              "change": "started",
+              "at": "2026-09-03T14:31:09Z"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-08-20T22:15:00Z",
+      "updatedAt": "2026-09-03T14:31:09Z"
+    }
+  ],
+  "versions": [
+    {
+      "id": "019c5a00-0002-7000-8000-000000000009",
+      "fileId": "019c5a00-0001-7000-8000-000000000008",
+      "number": 1,
+      "formUrl": "https://forms.example.org/example-benefit",
+      "formVersion": "1.1.0",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "0fd86abc2a11cccb05ec50ba596b330fa8b992df1bfca9391d09e3d20002be24"
+      },
+      "answers": {
+        "fullName": "Taylor Example",
+        "mailingAddress": "600 Example Lane, Exampletown ON",
+        "householdIncomeTaxYear": "27900.00",
+        "preferredContactChannel": "email"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "c47b0a087cc9a4f910a5561502e4552f7f06eb2308095aa0566e8012d7dddd60"
+      },
+      "channel": "digital",
+      "submittedBy": {
+        "actorId": "acct-0d93f1",
+        "role": "applicant",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000601",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000601",
+        "assurance": "verified"
+      },
+      "submittedAt": "2026-09-03T14:31:09Z"
+    }
+  ],
+  "receiptRecords": [
+    {
+      "id": "019c5a00-0003-7000-8000-000000000009",
+      "fileId": "019c5a00-0001-7000-8000-000000000008",
+      "fileVersionId": "019c5a00-0002-7000-8000-000000000009",
+      "reference": "V8NQ-4C2M-U",
+      "receivedAt": "2026-09-03T14:31:09Z",
+      "receivedLocal": {
+        "localDateTime": "2026-09-03T10:31:09",
+        "timeZone": "America/Toronto"
+      },
+      "channel": "digital",
+      "submitter": {
+        "actorId": "acct-0d93f1",
+        "role": "applicant",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000601",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000601",
+        "assurance": "verified"
+      },
+      "destination": "https://benefit.example.org/apply",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "0fd86abc2a11cccb05ec50ba596b330fa8b992df1bfca9391d09e3d20002be24"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "c47b0a087cc9a4f910a5561502e4552f7f06eb2308095aa0566e8012d7dddd60"
+      },
+      "renditionDigest": {
+        "algorithm": "sha-256",
+        "value": "706c8b2f236717f3e7a24351ba89ca55e283836ffc863d1bf2c16d06588cadd0"
+      },
+      "assurance": "verified",
+      "sealProfile": "seal-log",
+      "createdAt": "2026-09-03T14:31:09Z"
+    }
+  ],
+  "acknowledgments": [
+    {
+      "id": "019c5a00-0004-7000-8000-000000000009",
+      "kind": "acknowledgment",
+      "receiptRecordId": "019c5a00-0003-7000-8000-000000000009",
+      "fileId": "019c5a00-0001-7000-8000-000000000008",
+      "reference": "V8NQ-4C2M-U",
+      "receivedLocal": {
+        "localDateTime": "2026-09-03T10:31:09",
+        "timeZone": "America/Toronto"
+      },
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000300",
+      "handlingContact": "https://benefit.example.org/contact",
+      "serviceStandard": "P20D",
+      "statusUri": "https://benefit.example.org/status",
+      "language": "en",
+      "sentAt": "2026-09-03T14:31:09Z"
+    }
+  ],
+  "projections": [
+    {
+      "fileId": "019c5a00-0001-7000-8000-000000000008",
+      "label": "received",
+      "since": "2026-09-03T14:31:09Z",
+      "reference": "V8NQ-4C2M-U",
+      "receivedAt": "2026-09-03T14:31:09Z",
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000300",
+      "serviceStandard": "P20D",
+      "updatedAt": "2026-09-03T14:31:09Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "019c5a00-0007-7000-8000-00000000000f",
+      "fileId": "019c5a00-0001-7000-8000-000000000008",
+      "kind": "receipt",
+      "channel": "email",
+      "recipientRole": "applicant",
+      "language": "en",
+      "template": "receipt-confirmation",
+      "links": [
+        "https://benefit.example.org/status"
+      ],
+      "sentAt": "2026-09-03T14:31:10Z",
+      "deliveryStatus": "delivered"
+    }
+  ],
+  "draftEvents": [
+    {
+      "id": "019c5a00-000a-7000-8000-000000000001",
+      "fileId": "019c5a00-0001-7000-8000-000000000008",
+      "kind": "migrated",
+      "at": "2026-09-03T14:12:00Z",
+      "actor": {
+        "actorId": "acct-0d93f1",
+        "role": "applicant",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000601",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000601",
+        "assurance": "verified"
+      },
+      "fromFormVersion": "1.0.0",
+      "toFormVersion": "1.1.0",
+      "carriedQuestionIds": [
+        "fullName",
+        "mailingAddress"
+      ],
+      "changedQuestionIds": [
+        "mailingAddress"
+      ],
+      "newQuestionIds": [
+        "householdIncomeTaxYear",
+        "preferredContactChannel"
+      ],
+      "droppedQuestionIds": [
+        "householdIncome"
+      ],
+      "shownToApplicantAt": "2026-09-03T14:12:01Z"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "specversion": "1.0",
+  "id": "019c5a00-00e0-7000-8000-000000000006",
+  "source": "/v1/applications",
+  "type": "org.fpsot.applications.file.changed",
+  "time": "2026-09-16T13:00:00Z",
+  "datacontenttype": "application/json",
+  "subject": "019c5a00-0001-7000-8000-000000000004",
+  "dataschema": "https://fpsot.org/schemas/applications/events/org.fpsot.applications.file.changed.schema.json",
+  "data": {
+    "fileId": "019c5a00-0001-7000-8000-000000000004",
+    "from": "information-requested",
+    "to": "closed",
+    "reason": "closed-for-no-response",
+    "changedAt": "2026-09-16T13:00:00Z"
+  }
+}

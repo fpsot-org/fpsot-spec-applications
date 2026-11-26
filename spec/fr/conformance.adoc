@@ -1,0 +1,65 @@
+= Interfaces, transmissions et conformité
+include::_fpsot-terms.adoc[]
+
+Un organisme peut changer de portail, de système de dossiers ou de moteur de frais, et garder ses dossiers.
+Cette page fixe l’interface d’un service de réception et la transmission aux autres spécifications.
+Elle fixe aussi les jeux d’essai qui prouvent les deux.
+
+== Interfaces
+
+[[APP-100]]
+*APP-100.* Une interface DOIT créer les brouillons, les dépôts, les réponses et les retraits par `POST`.
+Elle DOIT alors exiger un `Idempotency-Key`, selon API-060.
+Elle NE DOIT PAS offrir d’opération qui modifie ou supprime une version déposée ou un constat de réception.
+Cela vaut aussi pour une demande de renseignements et un accusé de réception.
+Un retrait ou une annulation DOIT être une nouvelle ressource, jamais un `DELETE`.
+L’interface DOIT interroger le moteur d’autorisation à chaque requête, selon IAM-050.
+
+Un retrait sous forme de ressource garde son identifiant, son instant et la personne qui agit.
+Un `DELETE` effacerait cette trace.
+
+== Transmissions
+
+[[APP-101]]
+*APP-101.* Un dossier DOIT consigner dans `handoffs` chaque donnée qu’il amorce dans une autre spécification, par genre et identifiant.
+Un dépôt PEUT amorcer une demande de paiement selon FEE-040, ou une déclaration selon REG-020 à REG-024.
+Il PEUT aussi amorcer une décision selon DEC-040.
+Le service de réception NE DOIT PAS fixer le statut de paiement d’une demande de paiement, ni celui d’une déclaration.
+Il NE DOIT PAS fixer le résultat d’une décision.
+Il les lit auprès de leurs responsables.
+
+L’exemple de l’embarcation de plaisance amorce une demande de paiement et une déclaration à partir d’un seul dépôt.
+Le moteur de frais est alors responsable du paiement, et le registre du permis.
+
+== Jeux d’essai
+
+[[APP-102]]
+*APP-102.* Une suite de conformité de cette spécification DOIT contenir des formulaires et des déclarations de service.
+Elle DOIT contenir des dossiers avec leurs versions, leurs constats de réception et leurs demandes de renseignements.
+Elle DOIT aussi contenir des scénarios en anglais et en français, selon TST-020 à TST-036.
+Chaque scénario DOIT indiquer ses dates et nommer ses états.
+Un producteur DEVRAIT vérifier chaque événement selon le schéma de son type, selon TST-043.
+
+Le dossier `examples/` contient les premiers jeux d’essai, et `examples/test-examples.sh` vérifie que la vérification rejette des copies altérées.
+
+[[APP-103]]
+*APP-103.* Les jeux d’essai, les exemples et les essais DOIVENT employer des données synthétiques seulement, selon TST-050.
+Les parties, les comptes, les numéros de référence et les pièces jointes DOIVENT être fictifs.
+Les domaines DOIVENT être ceux que les normes réservent à la documentation, comme `example.org` ou un nom sous `.example`.
+
+[[APP-104]]
+*APP-104.* Un service PEUT offrir un adaptateur vers le bloc Registration de GovStack.
+Cet adaptateur DOIT faire correspondre chaque exigence qu’il déclare à une règle de cette spécification.
+
+[[APP-105]]
+*APP-105.* Un service ou une interface utilisateur qui en remplace un autre DOIT réussir la même suite, selon TST-045.
+
+Un organisme peut alors changer de fournisseur sans modifier ses dossiers.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-26 |Première version.
+|===

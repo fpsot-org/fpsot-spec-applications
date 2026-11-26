@@ -1,0 +1,16 @@
+# SPDX-License-Identifier: Community-Spec-1.0
+# Core profile of the FPSOT applications specification (APP-010, APP-014), in the form of the class
+# ApplicationProfile of model/applications.yaml. Released apart from the core rules (APP-011).
+# It holds no value of a law. It sets the defaults that apply when no other profile or service
+# declaration sets a value: an attachment limit of 10 MiB, PDF, JPEG and PNG as the attachment
+# types, SHA-256 as the only digest algorithm, seal-log as the lowest seal profile of a receipt
+# record, and a notice at least 14 days before a draft is purged.
+code: core
+version: 0.1.0
+title: {en: Core profile, fr: Profil de base}
+defaults:
+  maxAttachmentBytes: 10485760
+  allowedMediaTypes: [application/pdf, image/jpeg, image/png]
+  digestAlgorithm: sha-256
+  receiptSealProfile: seal-log
+  purgeNoticeDays: 14

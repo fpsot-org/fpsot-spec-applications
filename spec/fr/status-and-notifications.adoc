@@ -1,0 +1,124 @@
+= État et notifications
+include::_fpsot-terms.adoc[]
+
+Selon la Directive sur les services et le numérique, les nouveaux services en ligne affichent l’état en temps réel.
+L’outil de suivi du ministère fédéral de l’immigration montre trois états globaux.
+Un de ses états par section demande à la personne d’agir.
+Son état fermé ne dit rien du résultat, et la décision arrive dans sa propre lettre.
+GOV.UK exclut les données sensibles des courriels, et ne renvoie qu’à son propre domaine.
+Cette page reprend ces leçons, et fixe les événements que lisent les autres systèmes.
+
+== L’état que voit la personne requérante
+
+[[APP-080]]
+*APP-080.* L’état que voit une personne requérante DOIT être une `StatusProjection`, avec une étiquette de cette liste fermée.
+Chaque état d’un dossier DOIT correspondre à une étiquette, comme le montre le tableau.
+Le service DOIT publier les étiquettes et leurs traductions.
+
+[cols="1,1,2",options="header"]
+|===
+|État du dossier |Étiquette |Texte en anglais et en français
+|`draft` |`not-sent` |Not sent, Non transmise
+|`submitted` |`received` |Received, Reçue
+|`in-review` |`in-progress` |In progress, En traitement
+|`information-requested` |`action-needed` |Action needed, Action requise
+|`decided` |`decision-made` |Decision made, Décision rendue
+|`withdrawn` |`withdrawn` |Withdrawn, Retirée
+|`closed` |`closed` |Closed, Fermée
+|===
+
+Les gens peuvent apprendre une courte liste fermée.
+Chaque étape interne d’un examen s’affiche comme `in-progress`, et l’étiquette ne change qu’aux moments qui comptent.
+
+[[APP-081]]
+*APP-081.* `action-needed` DOIT être la seule étiquette qui demande à la personne d’agir.
+Avec elle, la projection DOIT montrer ce qu’il faut, pour quand, et comment répondre.
+Les éléments DOIVENT être ceux de la demande de renseignements ouverte.
+L’échéance DOIT être celle de cette demande, dans le fuseau horaire légal.
+
+[[APP-082]]
+*APP-082.* Une projection NE DOIT PAS montrer de file d’attente, de sous-état, d’indicateur de risque, de cote ni d’employé.
+Aucune étiquette NE DOIT montrer le résultat d’une décision.
+La décision parvient à la personne dans son avis, selon DEC-057.
+Une projection DOIT montrer le numéro de référence, l’instant de réception et l’organisme qui traite le dossier.
+Elle DOIT aussi montrer la date prévue ou la norme de service.
+
+Une étiquette sur un écran partagé ne dit alors à personne si la réponse est oui ou non.
+
+[[APP-083]]
+*APP-083.* Le service DOIT mettre à jour la projection à partir du dossier de référence à chaque changement.
+Cela comprend un changement fait par le personnel.
+Une projection NE DOIT PAS garder une copie de données qui peuvent s’écarter du dossier.
+
+Les gens appellent quand une page de suivi montre une ancienne date de naissance ou une ancienne adresse de courriel.
+
+== Notifications
+
+[[APP-084]]
+*APP-084.* Le service DOIT aviser la personne de chaque dépôt, par un canal qu’elle a choisi.
+Il DEVRAIT l’aviser quand une demande de renseignements s’ouvre, et avant son échéance.
+Il DEVRAIT aussi le faire quand une décision est disponible, et avant de purger un brouillon.
+Il NE DEVRAIT PAS envoyer d’avis pour un changement qui garde la même étiquette.
+
+La réception est en soi la nouvelle la plus utile.
+Un changement d’étape interne est du bruit, et provoque des appels.
+
+[[APP-085]]
+*APP-085.* Une notification NE DOIT PAS contenir le contenu d’une décision, ses motifs, une réponse ni aucune donnée sensible.
+Elle NE DOIT PAS demander de renseignements personnels, et NE DOIT PAS porter de pièce jointe.
+Elle DOIT dire où la personne peut lire le contenu, comme une page après connexion ou un avis officiel.
+Elle DEVRAIT nommer la personne dans le corps du message, ce qui complique l’hameçonnage.
+
+Les textos circulent sans chiffrement, et certains courriels aussi.
+Une notification dit donc que quelque chose a changé et où regarder, rien de plus.
+
+[[APP-086]]
+*APP-086.* Chaque lien d’une notification DOIT pointer vers un domaine de l’organisme, écrit au long.
+Il NE DOIT PAS passer par une redirection ni porter un paramètre de traçage.
+
+Une personne peut alors vérifier où mène un lien avant de le suivre.
+
+[[APP-087]]
+*APP-087.* Le service DOIT consigner au dossier le genre, le canal, l’instant et l’état de livraison de chaque notification.
+Il DOIT consigner chaque échec de livraison que le canal signale.
+Après un échec, le service DEVRAIT essayer un autre canal connu, comme la poste ou le représentant.
+
+La donnée de livraison est ce qui montre, selon APP-057, que l’organisme a tenté de joindre la personne.
+
+== Événements
+
+[[APP-088]]
+*APP-088.* Le service DOIT envoyer les événements de ce tableau comme des événements CloudEvents, selon API-100 à API-104.
+Les données de chaque type d’événement DOIVENT suivre son schéma JSON de `registry/events/`, selon API-103.
+Le `subject` de chaque événement DOIT être l’identifiant du dossier, même pour un brouillon.
+Les données NE DOIVENT contenir que des identifiants, des codes et des instants.
+Elles NE DOIVENT PAS contenir un identifiant de partie, un numéro de référence, une réponse, un nom ou une adresse.
+Chaque événement DOIT aussi être un événement d’affaires selon OBS-070, dont l’objet principal est le dossier, selon OBS-079.
+
+[cols="2,3",options="header"]
+|===
+|Type |Quand
+|`org.fpsot.applications.receipt.issued` |Un dépôt ou une réponse a créé un constat de réception.
+|`org.fpsot.applications.file.changed` |Un dossier est passé à un autre état.
+|`org.fpsot.applications.information-request.changed` |Une demande de renseignements s’est ouverte, a été close, annulée ou est échue.
+|`org.fpsot.applications.draft.migrated` |Un brouillon est passé à une version de formulaire plus récente.
+|`org.fpsot.applications.draft.purged` |Le service a purgé un brouillon.
+|===
+
+Un système de dossiers, un moteur de frais ou un registre lit ensuite le dossier par son identifiant.
+
+== Références
+
+=== Références informatives
+
+* link:https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32601[Directive sur les services et le numérique], Secrétariat du Conseil du Trésor du Canada, article 4.6.2, modifiée le 2025-08-29. link:https://web.archive.org/web/20261103225310/https://www.tbs-sct.canada.ca/pol/doc-fra.aspx?id=32601[Copie archivée]
+* link:https://www.gov.uk/service-manual/design/sending-emails-and-text-messages[Sending emails and text messages], GOV.UK Service Manual, mise à jour le 2017-10-03. link:https://web.archive.org/web/20260802115617/https://www.gov.uk/service-manual/design/sending-emails-and-text-messages[Copie archivée]
+* link:https://notification.canada.ca/security[Security, GC Notify], Service numérique canadien, lu le 2026-11-23. link:https://web.archive.org/web/20261003005850/https://notification.canada.ca/security[Copie archivée]
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-26 |Première version.
+|===

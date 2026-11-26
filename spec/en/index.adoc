@@ -1,8 +1,173 @@
 = FPSOT applications specification
 include::_fpsot-terms.adoc[]
 
-Replace this page with the normative text of the specification.
-Start with the scope, then the conformance classes, then the requirements.
+This specification sets what software must record and prove when a public body takes in an application.
+An application asks the body for a permit, a license, a benefit or another decision about one party.
+The rules cover the form, the draft, the submission, the receipt record and the acknowledgment.
+They also cover requests for information, attachments, representation, the status that the applicant sees and the channels of intake.
+They leave to jurisdiction profiles every value and every rule that a law sets.
+
+The research compared intake in Canada, Québec and France.
+France obliges a body to acknowledge each application, while Canada and Québec leave that to policy.
+Québec presumes that an electronic document arrives when it becomes accessible at the address of the body.
+Each jurisdiction has its own holidays, its own rules on language and its own rules on missing items.
+Yet all three need the same proof.
+They need to know what arrived, when, from whom and in which form, and what the body asked for later.
+
+The rules therefore rest on a few parts that work under any law.
+
+* The form: a versioned JSON Schema, sealed with each submission.
+* The application file: one lifecycle for every channel, with versions that never change once submitted.
+* The receipt record: when the submission became accessible to the body, to the second, sealed.
+* The request for information: a message with its reason, its items, its deadline and its effect on each clock.
+* The attachment: checked by content, hashed with SHA-256, scanned, and never overwritten.
+* The status: a small published vocabulary that never leaks an internal state or an outcome.
+
+The decision itself belongs to the decisions specification, and case work to a later case specification.
+Fees belong to the fees specification, and registry filings to the registry specification.
+The rules reuse the other specifications of the {abbr-fpsot-first} and redefine none of their parts.
+
+== Scope
+
+[[APP-001]]
+*APP-001.* These rules apply to software that takes in an application to a public body, in any channel.
+An application asks the body to decide about one party, such as on a permit, a benefit or a grant.
+A system MUST apply these rules to each application that it takes in, from the first draft to its end.
+Form builders, rule builders and flow builders are out of scope.
+So are case work, the decision, the fee and identity proofing.
+The records schedule of a closed file is out of scope as well.
+
+The specification stops at the decision.
+It sets what the intake keeps, and hands the file to the decision service, the fee engine or a register.
+The rules say "application file" for the record of one application.
+They say "applicant" for the party that applies.
+
+== Roles and conformance classes
+
+[[APP-002]]
+*APP-002.* Each party that claims conformance MUST state which of these four {term-conformance-class} names it claims.
+A party can claim more than one.
+
+[cols="1,2,3",options="header"]
+|===
+|Class |Who claims it |Rules
+|`service` |An intake service, which keeps drafts, files, receipt records, requests and attachments |The rules of every page, except those that bind only a front end, a profile or an operator
+|`front-end` |A portal, an app or a staff screen that collects answers and shows the status |APP-022, APP-023, APP-024, APP-033, APP-034, APP-035, APP-036, APP-044, APP-046, APP-061, APP-066, APP-070, APP-071, APP-080, APP-081, APP-082, APP-090, APP-091, APP-094 and APP-096
+|`profile` |The author of a jurisdiction profile or of a form definition |APP-010 to APP-014, APP-020, APP-021, APP-023, APP-024, APP-025, APP-055 and APP-060
+|`operator` |A {term-deploying-body} that runs intake for its programs |APP-003, APP-034, APP-043, APP-044, APP-054, APP-056, APP-057, APP-073, APP-084 to APP-087, APP-091, APP-093 and APP-096
+|===
+
+A buyer can then ask each supplier for the class it delivers.
+A front end that never stores a file still shows the status labels.
+It still keeps the internal states out of sight.
+
+== Legal status
+
+[[APP-003]]
+*APP-003.* A conformance claim MUST NOT state or suggest that an intake, an acknowledgment or a deadline meets any law.
+Conformance shows that the software keeps the records that several laws ask for.
+Only the body, with its counsel, can say what its law asks.
+
+This specification states the practice of {abbr-fpsot}, and it is not legal advice.
+Jurisdiction facts sit in the profile files and the comparison data, never in a rule.
+Legal questions sit on the page xref:questions-for-counsel.adoc[Questions for counsel].
+A legal text that the research did not read at its source carries the mark _to be verified_.
+The research read the federal and Québec texts at their sources, and the French code in archived copies only.
+
+== Owners of the parts
+
+[[APP-004]]
+*APP-004.* An implementation MUST take each part of this table from the specification that owns it.
+It MUST NOT define its own.
+
+[cols="2,3",options="header"]
+|===
+|Part |Owner and rules
+|Instants, local times, time zones, dates, durations, identifiers, multilingual text |Data types: DAT-004 to DAT-006, DAT-010, DAT-014, DAT-015, DAT-020 to DAT-023, DAT-030 to DAT-033, DAT-060 to DAT-066
+|Decision results, missing facts, decision records, review steps and notices |Decisions: DEC-024 to DEC-027, DEC-040 to DEC-046, DEC-057, DEC-062 and DEC-063
+|The applicant and the represented party as parties |Data models: DMO-040
+|Accounts, representation and the check of each request |Identity: IAM-050, IAM-060 to IAM-064, IAM-091
+|A fee order that an application creates |Fees: FEE-040
+|A filing that an application starts |Registry: REG-020 to REG-024
+|Seals, time stamps and the transparency log of receipt records |Signed records: LOG-002, LOG-010, LOG-019, LOG-022, LOG-082
+|Audit events, business events and personal information in records |Observability: OBS-024, OBS-027, OBS-070, OBS-079, OBS-090, OBS-091
+|Idempotency and events |RESTful API: API-060 to API-063, API-100 to API-104
+|The level of assurance of the software and its file handling |Security: SEC-005
+|Accessibility of forms and documents |Accessibility: ACC-001, ACC-023 to ACC-026, ACC-031
+|Languages, locales and messages |Internationalization: LOC-003 to LOC-005, LOC-012, LOC-020, LOC-030
+|Scenarios, conformance suites and synthetic data |Testing: TST-020 to TST-036, TST-044, TST-045, TST-050
+|===
+
+The model in `model/applications.yaml` imports unchanged copies of the data types, decisions and party models.
+It adds only what no other specification defines, such as the receipt record and the request for information.
+
+== Versions and conformance testing
+
+[[APP-005]]
+*APP-005.* An implementation MUST follow the versions of the outside standards that this page lists under Standards.
+It MAY follow a later version of the same standard when the parts that it uses keep their meaning.
+A receipt record must stay readable for as long as the body keeps the file.
+Each reader must then know which text applied.
+
+[[APP-006]]
+*APP-006.* A conformance suite of this specification MUST check the output of an implementation, under TST-044.
+The output is the forms, the files and their versions, the receipt records and the acknowledgments.
+It also holds the requests, the attachments, the status projections, the notifications and the events.
+The suite MUST NOT need the source code of the implementation.
+The folders `model/`, `profiles/`, `registry/` and `examples/` hold the first fixtures.
+The script `examples/check-examples.py` checks them.
+
+== Parts
+
+The rules come in ten parts, and two informative pages follow them.
+
+* xref:profiles.adoc[Jurisdiction profiles] sets the profile files, with their sources, their calendars and the defaults.
+* xref:forms.adoc[Forms] sets the form definition, its versions, its questions, prefill and languages.
+* xref:lifecycle.adoc[Lifecycle] sets the states of a file, drafts, submission and file versions.
+* xref:receipts.adoc[Receipts and acknowledgments] sets the receipt record, the acknowledgment and the reference number.
+* xref:requests.adoc[Requests for information and clocks] sets the request, the clocks, deadlines and outages.
+* xref:attachments.adoc[Attachments] sets what files a field takes, and how the service hashes, scans and keeps them.
+* xref:representation.adoc[Representation] sets how a person acts for another party.
+* xref:status-and-notifications.adoc[Status and notifications] sets what the applicant sees and receives, and the events.
+* xref:channels.adoc[Channels] sets assisted, paper and digital intake, outages and repeated submits.
+* xref:conformance.adoc[Interfaces, handoffs and conformance] sets the interfaces, the handoff to other specifications and the fixtures.
+* xref:alignment.adoc[Alignment with other standards] is informative.
+It maps the states to GovStack Registration, Démarche Numérique, FHIR Questionnaire, GOV.UK Forms, the Dutch case APIs and CloudEvents.
+* xref:questions-for-counsel.adoc[Questions for counsel] is informative, and lists the legal points that a lawyer must settle.
+
+== Related specifications
+
+This specification builds on other {abbr-fpsot} specifications, and cites their rules by number.
+
+* The decisions specification sets the result kinds under DEC-024, and bars an adverse outcome from a missing fact under DEC-025.
+It sets decision records under DEC-040 to DEC-046, and review steps under DEC-062 and DEC-063.
+* The identity and access specification sets one account per person under IAM-060, and representation under IAM-061 to IAM-064.
+* The data models specification sets the party under DMO-040.
+* The signed records specification sets the seal, its manifest and the log of sealed records, under LOG-002 to LOG-082.
+* The RESTful API specification sets idempotency under API-060 to API-063 and events under API-100 to API-104.
+* The fees specification sets the fee order under FEE-040, and the registry specification sets filings under REG-020 to REG-024.
+* The observability specification sets the business events under OBS-070, and the personal information in records under OBS-090.
+* The security specification sets the level of assurance under SEC-005, whose file handling chapter applies to attachments.
+* The accessibility specification sets the baseline under ACC-001, and the internationalization specification sets locales under LOC-003 to LOC-005.
+* The naming specification sets the names of fields, events and codes, under NAM-010, NAM-050 and NAM-060.
+
+== Examples
+
+The folder `examples/` holds synthetic applications under the profiles `ca-federal` and `ca-qc`.
+Every person, number, body and program in it is fictional, except the texts of law that the profiles cite.
+
+* `forms/` holds five form definitions, among them two versions of one form.
+* `services/` holds the declarations of the four fictional services.
+* `pleasure-craft/` holds an application for a pleasure craft license that creates the fee order of the fees examples.
+It also starts the filing of the registry pilot.
+* `quebec-business-permit/` holds a permit application of a business, in French only, under the Québec profile.
+* `information-request/` holds a request for information whose deadline falls on a holiday, and which suspends a clock.
+* `on-behalf/` holds a submission by a representative, and a self-declared submission for another person.
+* `paper-intake/` holds a paper application that staff keyed in five days after it arrived.
+* `draft-migration/` holds a draft that moved to a new form version before its submission.
+* `features/` holds the scenarios in English and in French.
+
+The script `examples/test-examples.sh` checks that `examples/check-examples.py` rejects broken copies of these files.
 
 == Conformance
 
@@ -11,35 +176,38 @@ ____
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 (link:https://www.rfc-editor.org/info/rfc2119[RFC 2119], link:https://www.rfc-editor.org/info/rfc8174[RFC 8174]) when, and only when, they appear in all capitals, as shown here.
 ____
 
-The keywords follow requirement WRT-010 of the {abbr-fpsot-first} writing specification.
+The keywords follow requirement WRT-010 of the {abbr-fpsot} writing specification.
 The French version uses the French keywords of WRT-011.
 
-== Requirements
+== Standards
 
-Give each requirement an anchor line with its ID, directly above its paragraph.
-The anchor looks like `+[[XYZ-001]]+`.
-The example below shows the form. Replace it with the first requirement.
+The rules summarize outside standards in their own words and take no text from them.
+They cite these versions.
 
-[[TPL-001]]
-*TPL-001.* A normative statement MUST use one of the {abbr-bcp-first} 14 keywords in capitals.
-The keyword gives the rule its strength.
+* Form data: link:https://json-schema.org/draft/2020-12[JSON Schema 2020-12], read on 2026-11-23.
+* Canonical form of the answers: link:https://www.rfc-editor.org/info/rfc8785[RFC 8785, JSON Canonicalization Scheme], 2020-06.
+* Digests on upload: link:https://www.rfc-editor.org/info/rfc9530[RFC 9530, Digest Fields], 2024-02.
+* Accessibility of forms: link:https://www.w3.org/TR/WCAG22/[WCAG 2.2], the W3C Recommendation dated 2024-12-12, through the accessibility specification.
+* Reference numbers: the link:https://www.crockford.com/base32.html[Base32 encoding of Douglas Crockford], read on 2026-11-23.
+* File handling: chapter V5 of the ASVS 5.0.0, which SEC-005 pins.
+* Events, records, scenarios and models: the versions that the API, signed records, testing and data models specifications pin.
 
 == References
-
-List here each outside source that this page cites, with the same address as its link in the text.
-Each entry gives the title, publisher, version, date and an archived copy.
 
 === Normative
 
 * link:https://www.rfc-editor.org/info/rfc2119[RFC 2119, Key words for use in RFCs to Indicate Requirement Levels], IETF, BCP 14, 1997-03. link:https://web.archive.org/web/20261103005705/https://www.rfc-editor.org/info/rfc2119/[Archived copy]
 * link:https://www.rfc-editor.org/info/rfc8174[RFC 8174, Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words], IETF, BCP 14, 2017-05. link:https://web.archive.org/web/20261103005743/https://www.rfc-editor.org/info/rfc8174/[Archived copy]
+* link:https://json-schema.org/draft/2020-12[JSON Schema 2020-12], JSON Schema organization, read 2026-11-23. link:https://web.archive.org/web/20261126210241/https://json-schema.org/draft/2020-12[Archived copy]
+* link:https://www.rfc-editor.org/info/rfc8785[RFC 8785, JSON Canonicalization Scheme (JCS)], IETF, 2020-06. link:https://web.archive.org/web/20261118021729/https://www.rfc-editor.org/info/rfc8785/[Archived copy]
+* link:https://www.rfc-editor.org/info/rfc9530[RFC 9530, Digest Fields], IETF, 2024-02. link:https://web.archive.org/web/20261107090504/https://www.rfc-editor.org/info/rfc9530/[Archived copy]
+* link:https://www.w3.org/TR/WCAG22/[Web Content Accessibility Guidelines (WCAG) 2.2], W3C Recommendation, 2024-12-12. link:https://web.archive.org/web/20261124112015/https://www.w3.org/TR/WCAG22/[Archived copy]
+* link:https://www.crockford.com/base32.html[Base 32], Douglas Crockford, read 2026-11-23. link:https://web.archive.org/web/20261105160756/http://www.crockford.com/base32.html[Archived copy]
 
 == Document history
-
-Add one row for each version that changes this page.
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Change
-|0.1.0 |2026-11-03 |First version.
+|0.1.0 |2026-11-26 |First version.
 |===

@@ -1,0 +1,37 @@
+# SPDX-License-Identifier: Community-Spec-1.0
+# Synthetic service declaration of the FPSOT applications examples (APP-012), in the form of the class
+# ServiceDeclaration of model/applications.yaml. Every body, program and address is fictional.
+code: pleasure-craft-licensing
+version: 1.0.0
+title:
+- language: en
+  text: Pleasure craft licensing
+- language: fr
+  text: Permis d’embarcation de plaisance
+deployingBodyPartyId: 019a1b2c-3d4e-7f01-8a01-000000000103
+profiles:
+- core
+- ca-federal
+forms:
+- https://forms.example.org/pleasure-craft-license|2.0.0
+applicationKind: any
+draftStorage: server
+draftInactivityDays: 30
+purgeNoticeDays: 14
+clocks:
+- code: service-standard
+  kind: service-standard
+  startsOn: submission
+  duration: P5D
+closingForNoResponse: false
+selfDeclaredSubmissions: false
+favorableWhileOpenAllowed: false
+channels:
+- digital
+- counter
+- paper
+serviceStandard: P5D
+handlingContact: https://licensing.example.org/contact
+statusUri: https://licensing.example.org/status
+domains:
+- licensing.example.org

@@ -1,0 +1,86 @@
+= Canaux
+include::_fpsot-terms.adoc[]
+
+En 2022, le bureau des passeports du Royaume-Uni a fait passer 134 000 demandes de son système numérique au papier.
+Le National Audit Office a constaté que le personnel ne savait plus quand un dossier avait changé de système.
+Certaines demandes affichaient alors un âge erroné.
+Une vérification fédérale de 2026 a constaté que seulement 41 % des demandes examinées au comptoir étaient sans erreur.
+Le Danemark rend bien des services numériques par défaut, mais offre une autre voie à qui ne peut s’en servir.
+Cette page fait en sorte que chaque canal alimente le même dossier, avec les mêmes règles.
+
+== Un seul dossier pour tous les canaux
+
+[[APP-090]]
+*APP-090.* La réception papier, téléphonique, au comptoir et numérique DOIT créer ou modifier le même genre de dossier.
+Elle DOIT suivre le même cycle de vie.
+Elle DOIT employer la même version de formulaire et les mêmes vérifications des réponses et des pièces jointes.
+Un écran du personnel NE DOIT PAS accepter une réponse que le canal numérique refuserait.
+
+La validation au moment de la saisie empêche la réception assistée d’ajouter des erreurs.
+
+[[APP-091]]
+*APP-091.* Chaque version du dossier DOIT consigner son `channel` : `digital`, `assisted-digital`, `counter`, `telephone`, `paper` ou `email`.
+Pour une saisie assistée, elle DOIT consigner dans `capturedBy` le membre du personnel qui a saisi les réponses.
+Ce membre du personnel figure aussi comme la personne qui agit, selon APP-071.
+
+[[APP-092]]
+*APP-092.* Pour le papier et les documents apportés au comptoir, l’instant de réception DOIT être l’estampille apposée à l’arrivée.
+Le service DOIT consigner à part l’instant de la saisie, dans `keyedAt`.
+La première version d’une demande papier DOIT contenir son original ou une numérisation avec son condensé, comme pièce jointe.
+
+Un retard au courrier n’écourte alors jamais le délai de la personne.
+
+[[APP-093]]
+*APP-093.* Un service numérique par défaut DOIT offrir une voie non numérique vers le même dossier.
+Un service PEUT n’offrir qu’une voie numérique quand son profil cite une loi qui le permet.
+La déclaration de service nomme alors cette source.
+
+Au Québec, le choix du support appartient à la personne quand un service existe sur plusieurs supports.
+La France permet à un organisme de n’accepter que son téléservice pour certaines démarches, et les données comparatives le mentionnent.
+
+== Dépôts répétés
+
+[[APP-094]]
+*APP-094.* Le dépôt d’un brouillon DOIT être idempotent.
+Un dépôt répété du même brouillon DOIT renvoyer le numéro de référence et le constat de réception existants.
+Il NE DOIT PAS créer un second dossier.
+Une interface de programmation DOIT accepter un `Idempotency-Key` au dépôt, selon API-060 à API-063.
+Elle DOIT refuser une clé qui revient avec un corps différent.
+
+Un double clic, un délai dépassé ou le bouton de retour ne crée alors jamais deux dossiers.
+GOV.UK rappelle qu’un bouton qui bloque le double clic ne fonctionne que dans le navigateur.
+Le serveur doit aussi se protéger.
+
+[[APP-095]]
+*APP-095.* Un service DEVRAIT signaler au personnel un second dossier ouvert de la même partie visée pour le même programme.
+Il NE DOIT PAS fusionner, supprimer ni refuser ce dossier de lui-même.
+
+La personne requérante et son représentant peuvent tous deux déposer.
+Seule une personne peut distinguer un doublon d’un second besoin réel.
+
+== Interruptions
+
+[[APP-096]]
+*APP-096.* Pendant l’interruption d’un canal numérique, l’exploitant DOIT accepter les mêmes demandes par un autre canal.
+L’instant de réception suit alors APP-041.
+Une page d’erreur ou d’interruption DOIT dire si le service a gardé les réponses en cours, et jusqu’à quand.
+Elle DOIT aussi dire quand le service prévoit de revenir, et ce qu’il advient des échéances.
+
+La donnée de l’interruption elle-même relève d’APP-056.
+
+== Références
+
+=== Références informatives
+
+* link:https://www.nao.org.uk/wp-content/uploads/2022/12/Investigation-into-the-performance-of-HM-Passport-Office-Summary.pdf[Investigation into the performance of HM Passport Office, summary], National Audit Office, HC 949, 2022-12-09. link:https://web.archive.org/web/20260204133202/https://www.nao.org.uk/wp-content/uploads/2022/12/Investigation-into-the-performance-of-HM-Passport-Office-Summary.pdf[Copie archivée]
+* link:https://www.canada.ca/en/employment-social-development/corporate/reports/audits/2026-passport-service-delivery.html[Audit of Passport Service Delivery], Emploi et Développement social Canada, 2026-09-25, page anglaise. link:https://web.archive.org/web/20261007095821/https://www.canada.ca/en/employment-social-development/corporate/reports/audits/2026-passport-service-delivery.html[Copie archivée]
+* link:https://lifeindenmark.borger.dk/apps-and-digital-services/mandatory-self-service[Mandatory self-service], Life in Denmark, mise à jour le 2026-06-26. link:https://web.archive.org/web/20261015011506/https://lifeindenmark.borger.dk/apps-and-digital-services/mandatory-self-service[Copie archivée]
+* link:https://design-system.service.gov.uk/components/button/[Button], GOV.UK Design System, lu le 2026-11-23. link:https://web.archive.org/web/20261123160403/https://design-system.service.gov.uk/components/button/[Copie archivée]
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-26 |Première version.
+|===

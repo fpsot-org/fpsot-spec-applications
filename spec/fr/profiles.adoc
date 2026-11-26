@@ -1,0 +1,119 @@
+= Profils juridictionnels
+include::_fpsot-terms.adoc[]
+
+Les règles de réception que la recherche a comparées partagent leurs mécanismes, mais divergent sur chaque valeur juridique.
+Le droit fédéral reporte un délai qui tombe un jour férié au jour suivant qui n’est pas férié.
+Le Québec le reporte au jour ouvrable suivant, et sa liste de jours fériés diffère de la liste fédérale.
+Le Québec présume du moment où un document technologique est reçu.
+Le droit fédéral laisse ce point à chaque programme.
+Le Québec exige qu’une entreprise demande un permis en français, et le droit fédéral offre deux langues.
+
+Aucune règle unique ne pourrait servir à tous.
+Cette page garde donc chaque valeur et chaque règle juridiques dans un profil juridictionnel, à part des règles de base.
+Un profil énonce la pratique de la {abbr-fpsot-first}, et il ne constitue pas un avis juridique.
+
+== Fichiers de profil
+
+[[APP-010]]
+*APP-010.* Chaque {term-deploying-body} DOIT nommer les profils dont le droit s’applique à chacun de ses services.
+Chaque profil DOIT être un fichier de la classe `ApplicationProfile` de `model/applications.yaml`, dans le dossier `profiles/`.
+Chaque profil DOIT énumérer ses sources.
+Pour chaque source, il DOIT indiquer si la recherche l’a lue, ou la marquer `to-be-verified`.
+Une source lue dans une copie archivée ne compte comme lue que si cette copie contient le texte en vigueur.
+
+[cols="2,3,4",options="header"]
+|===
+|Profil |S’applique à |Contenu de cette version
+|`core` |Chaque demande |Les valeurs par défaut d’APP-014.
+|`ca-federal` |Les demandes adressées aux organismes fédéraux du Canada |Les jours fériés et le report au jour suivant non férié, l’heure normale, l’état en temps réel et les normes de service, les deux langues officielles, la collecte directe et la conservation minimale de deux ans, et le moment de réception que fixe chaque programme.
+|`ca-qc` |Les demandes adressées aux organismes publics du Québec |Les jours fériés et le report au jour ouvrable suivant, la présomption de réception des documents technologiques, l’occasion de compléter le dossier, le français par défaut et le français seulement pour les permis et les subventions d’une entreprise, l’avis à la collecte, les sources officielles pour le préremplissage et le standard d’accessibilité.
+|===
+
+Aucun profil français n’existe dans cette version.
+La recherche n’a lu le code français que dans des copies archivées de 2024 et de 2025.
+Le fichier `jurisdictions/fr.yaml` décrit donc la France sans profil normatif.
+
+Le profil `ca-federal` suit la Loi d’interprétation et la Directive sur les services et le numérique.
+Il suit aussi la Loi sur les langues officielles et la Loi sur la protection des renseignements personnels.
+Son article 26 reporte un délai qui tombe un jour férié au jour suivant qui n’est pas férié.
+L’article 35 énumère les jours fériés : le dimanche en fait partie, mais pas le samedi.
+La loi fédérale sur les documents électroniques laisse chaque programme fixer par règlement le moment de réception.
+Le profil ne contient donc aucun moment de réception par défaut.
+
+Le profil `ca-qc` suit la Loi d’interprétation du Québec et la Loi concernant le cadre juridique des technologies de l’information.
+Il suit la Loi sur la justice administrative et la Charte de la langue française.
+Il suit aussi la loi québécoise sur l’accès aux documents, et la loi sur les ressources informationnelles des organismes publics.
+La recherche a lu le texte de chacune à LégisQuébec, à jour au 2026-10-15.
+
+L’article 52 de la loi québécoise reporte au jour ouvrable suivant un délai qui expire un jour férié.
+La question de savoir si le samedi est un jour ouvrable hors du registre foncier est _à vérifier_.
+Le profil saute donc aussi les samedis.
+
+== Sources, dates et versions
+
+[[APP-011]]
+*APP-011.* Chaque règle et chaque valeur d’un profil DOIT citer une des sources de ce profil.
+Chaque valeur datée, comme un jour férié, DOIT porter les dates auxquelles elle s’applique.
+Chaque profil DOIT avoir son propre numéro de version selon Semantic Versioning 2.0.0, distinct de la version de cette spécification.
+Une version qui retire ou assouplit une valeur du même profil DOIT prendre une nouvelle version majeure.
+
+Les jours fériés de 2027 sont alors une nouvelle version du profil, et non une modification des règles.
+La spécification sur les décisions date ses paramètres de la même façon, selon DEC-037.
+
+== Aucune loi dans les règles de base
+
+[[APP-012]]
+*APP-012.* Un service DOIT prendre chaque calendrier et chaque fuseau horaire légal dans un profil.
+Il DOIT prendre dans un profil chaque règle sur la langue et chaque règle sur le moment de réception.
+Il DOIT aussi y prendre chaque délai d’accusé de réception, chaque durée minimale de conservation et chaque base de préremplissage.
+Il NE DOIT PAS en coder un en dur.
+Un profil NE DOIT PAS assouplir une exigence DOIT des règles de base.
+
+Une déclaration de service contient les valeurs d’un programme, comme ses décomptes.
+Un profil contient le droit que plusieurs programmes partagent.
+Le même service reçoit alors un permis fédéral et un permis québécois, chacun avec son profil.
+
+== Valeurs manquantes
+
+[[APP-013]]
+*APP-013.* Une règle peut exiger une valeur que ni le profil, ni la déclaration de service, ni `core` ne donne.
+Un exemple est un calendrier qui ne contient aucun jour férié pour l’année d’une échéance.
+Le service NE DOIT PAS alors calculer la date ni appliquer la règle.
+Il DOIT confier le dossier à une personne, avec un code qui nomme la valeur manquante.
+Il NE DOIT PAS présumer une valeur.
+
+Une valeur par défaut silencieuse ferait d’une lacune du profil une échéance que personne n’a fixée.
+Les calendriers des exemples se terminent le 1er janvier 2027 pour cette raison.
+
+== Valeurs par défaut
+
+[[APP-014]]
+*APP-014.* Chaque service DOIT aussi suivre le profil `core`, qui fixe ces valeurs par défaut.
+
+* Une question de pièce jointe qui ne déclare aucune limite accepte des fichiers de 10 Mio au plus, selon APP-060.
+* Une question de pièce jointe qui ne déclare aucun type n’accepte que des fichiers PDF, JPEG et PNG.
+* Le condensé de chaque fichier et de chaque dépôt emploie SHA-256, selon APP-062.
+* Le service cachette chaque constat de réception au moins selon le profil `seal-log` de la spécification sur les documents signés.
+Cela suit APP-042.
+* Un avis part au moins 14 jours avant que le service purge un brouillon, selon APP-034.
+
+Une déclaration de service PEUT abaisser la limite de taille ou restreindre les types d’une question.
+Elle PEUT relever la limite de taille d’une question quand le programme exige de plus gros fichiers.
+Elle dit alors pourquoi.
+Elle NE DOIT PAS choisir un autre algorithme de condensé.
+
+== Références
+
+=== Références informatives
+
+* link:https://laws-lois.justice.gc.ca/fra/lois/I-21/TexteComplet.html[Loi d’interprétation], L.R.C. 1985, ch. I-21, articles 26, 29 et 35, site Web de la législation (Justice), à jour au 2026-10-29. link:https://web.archive.org/web/20260803141732/https://laws-lois.justice.gc.ca/fra/lois/I-21/TexteComplet.html[Copie archivée]
+* link:https://laws-lois.justice.gc.ca/fra/lois/P-8.6/TexteComplet.html[Loi sur la protection des renseignements personnels et les documents électroniques], L.C. 2000, ch. 5, partie 2, site Web de la législation (Justice), à jour au 2026-10-29. link:https://web.archive.org/web/20260910073849/https://laws-lois.justice.gc.ca/fra/lois/p-8.6/TexteComplet.html[Copie archivée]
+* link:https://www.legisquebec.gouv.qc.ca/fr/document/lc/I-16[Loi d’interprétation], RLRQ, c. I-16, articles 52 et 61, LégisQuébec, à jour au 2026-10-15. link:https://web.archive.org/web/20251107184320/https://www.legisquebec.gouv.qc.ca/fr/document/lc/I-16[Copie archivée]
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-26 |Première version.
+|===

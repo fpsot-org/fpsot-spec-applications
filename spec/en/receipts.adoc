@@ -1,0 +1,119 @@
+= Receipts and acknowledgments
+include::_fpsot-terms.adoc[]
+
+A deadline often turns on when an application arrived.
+Québec presumes that an electronic document arrives when it becomes accessible at the address that the body names.
+It accepts as proof stored data that fix the date, hour, minute and second, with the origin and the destination.
+France asks each body to acknowledge each application, and names what the acknowledgment holds.
+Canada leaves both points to each program.
+
+This page therefore records each arrival in the same way, and lets the profile say what that record proves.
+The receipt record here differs from the receipt of a fee: it proves an arrival, not a payment.
+
+== Receipt record
+
+[[APP-040]]
+*APP-040.* Each submission MUST create one record of the class `ReceiptRecord` of `model/applications.yaml`.
+That includes the first submission and each reply to a request for information.
+The record MUST NOT change once created.
+It MUST hold these parts.
+
+* The file, the file version and the reference number.
+* The received instant in UTC, to the second at least, under DAT-010.
+* The local date and time of receipt with the legal time zone of the profile, under DAT-015.
+* The channel, the submitter and any representative, under APP-071, and the destination, such as the address or the office.
+* The SHA-256 digests of the form version used, of the answers and of each attachment, under APP-062.
+* The digest of the archival rendition that APP-065 asks for.
+
+The local time with its zone matters where a law reads deadlines in local time.
+The federal Interpretation Act reads a time of day as standard time, and the profile says how to show it.
+
+[[APP-041]]
+*APP-041.* The received instant MUST be the instant when the submission became accessible in the system of the body.
+It MUST NOT be the instant when a person or a process first opened, checked or processed it.
+For paper, it MUST be the instant that the body stamped on the document when it arrived, under APP-092.
+The received instant MUST stay the same when the file moves to another channel or another system.
+
+A queue, a backlog or a migration then never changes the age of a file.
+The profile states what the received instant proves in its law.
+
+[[APP-042]]
+*APP-042.* The {term-deploying-body} MUST seal each receipt record under the signed records specification, in a format of LOG-010.
+The id of the receipt record MUST be the id of its seal manifest, under LOG-019.
+The seal MUST cover the receipt record and the copy of the form version of APP-036.
+The seal profile MUST be `seal-log` or higher, under LOG-002.
+A correction MUST be a new receipt record that names the one that it corrects, under LOG-082.
+
+The time stamp of the seal shows when the record existed, under LOG-022.
+The log then proves that nobody moved the received instant later.
+
+== Acknowledgment
+
+[[APP-043]]
+*APP-043.* The service MUST send an `Acknowledgment` for each submission, in the language of the file.
+Each acknowledgment MUST hold these parts.
+
+* The reference number and the received instant, shown in the legal time zone.
+* The body that handles the application, with a way to contact it.
+* The expected date of a decision, or the service standard of the program.
+* Each missing item with its deadline, when the service already knows of one.
+* How to see the status of the application.
+
+A profile MAY add parts, such as the effect of silence or the routes of appeal that France asks for.
+
+An email that says "received" cuts calls from people who wonder whether their application arrived.
+The acknowledgment holds no answer and no attachment, under APP-085.
+
+[[APP-044]]
+*APP-044.* A digital channel SHOULD show the acknowledgment at once, on the confirmation page.
+When the service cannot acknowledge at once, it MUST send at once a notice of registration.
+That notice holds the reference number and the received instant.
+It MUST then send the acknowledgment within the period that the profile sets.
+The confirmation page MUST offer a copy of the submission to keep, such as its archival rendition.
+A return to the confirmation page MUST NOT submit again.
+
+France asks for a notice of registration within one working day when the full acknowledgment cannot come at once.
+The model of this rule comes from there, and the period comes from each profile.
+
+== Reference numbers
+
+[[APP-045]]
+*APP-045.* Each file MUST have a reference number of eight random characters and one check character.
+A random source fit for cryptography MUST draw the eight characters from the Base32 alphabet of Crockford.
+The check character MUST be the value of the eight characters modulo 37, in the check symbols of that scheme.
+The reference MUST appear as `XXXX-XXXX-C`, in capitals.
+It MUST NOT follow a sequence, and MUST NOT encode a person, a place, a program or a subject.
+
+That alphabet holds the digits and the letters except I, L, O and U.
+DAT-062 already bars an identifier that tells something about a person, a place or a business.
+
+The reference is like a bearer token, so a sequence would let someone guess the files of others.
+Eight characters give about a trillion values, and the check character catches a wrong character or two swapped ones.
+The check symbols include `*`, `~`, `$`, `=` and `U`.
+A front end therefore shows the reference in a monospace font.
+
+[[APP-046]]
+*APP-046.* A service MUST read a reference without regard to case, spaces and hyphens.
+It MUST read I and L as 1, and O as 0.
+It MUST refuse a reference whose check character does not match, and say that it may hold a typo.
+A lookup of status by reference MUST also ask for a second factor, such as a sign-in.
+Its answer MUST be the same whether or not the reference exists.
+
+A typo then never shows the file of another person.
+The same answer for a missing reference stops a person from testing references one by one.
+
+== References
+
+=== Informative
+
+* link:https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-1.1[Loi concernant le cadre juridique des technologies de l'information], RLRQ, c. C-1.1, article 31, LégisQuébec, current to 2026-10-15. link:https://web.archive.org/web/20260209145552/https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-1.1[Archived copy]
+* link:https://www.crockford.com/base32.html[Base 32], Douglas Crockford, read 2026-11-23. link:https://web.archive.org/web/20261105160756/http://www.crockford.com/base32.html[Archived copy]
+* link:https://design-system.service.gov.uk/patterns/confirmation-pages/[Confirmation pages], GOV.UK Design System, read 2026-11-23. link:https://web.archive.org/web/20261029121649/https://design-system.service.gov.uk/patterns/confirmation-pages/[Archived copy]
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-26 |First version.
+|===

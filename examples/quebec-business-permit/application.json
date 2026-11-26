@@ -1,0 +1,248 @@
+{
+  "files": [
+    {
+      "id": "019c5a00-0001-7000-8000-000000000002",
+      "service": "example-operating-permit",
+      "reference": "Q2X8-PR5D-X",
+      "formUrl": "https://formulaires.example.org/permis-exploitation",
+      "formVersion": "1.0.0",
+      "subjectPartyId": "019c5a00-0010-7000-8000-000000000201",
+      "state": "in-review",
+      "stateHistory": [
+        {
+          "state": "draft",
+          "at": "2026-06-12T18:20:00Z",
+          "actor": {
+            "actorId": "acct-91b3e7",
+            "role": "representative",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000202",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000201",
+            "representationId": "rel-qc-7f3a21",
+            "authorityCheckedAt": "2026-06-12T18:20:00Z",
+            "assurance": "verified"
+          },
+          "reason": "draft-started"
+        },
+        {
+          "state": "submitted",
+          "at": "2026-06-15T13:42:07Z",
+          "actor": {
+            "actorId": "acct-91b3e7",
+            "role": "representative",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000202",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000201",
+            "representationId": "rel-qc-7f3a21",
+            "authorityCheckedAt": "2026-06-15T13:42:06Z",
+            "assurance": "verified"
+          },
+          "reason": "applicant-submitted"
+        },
+        {
+          "state": "in-review",
+          "at": "2026-06-16T13:00:00Z",
+          "actor": {
+            "actorId": "staff-4a8e02",
+            "role": "staff",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000203",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000201",
+            "assurance": "verified"
+          },
+          "reason": "staff-review-started"
+        }
+      ],
+      "assurance": "verified",
+      "correspondenceLanguage": "fr",
+      "languageBasis": "charter-21-9",
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000100",
+      "draftStartedAt": "2026-06-12T18:20:00Z",
+      "clocks": [
+        {
+          "code": "service-standard",
+          "changes": [
+            {
+              "change": "started",
+              "at": "2026-06-15T13:42:07Z"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-06-12T18:20:00Z",
+      "updatedAt": "2026-06-16T13:00:00Z"
+    }
+  ],
+  "versions": [
+    {
+      "id": "019c5a00-0002-7000-8000-000000000002",
+      "fileId": "019c5a00-0001-7000-8000-000000000002",
+      "number": 1,
+      "formUrl": "https://formulaires.example.org/permis-exploitation",
+      "formVersion": "1.0.0",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "b6abe33ca89ec5badbef9628821f0c0eed2bc779ee690dfda9b2b0c2560a22a8"
+      },
+      "answers": {
+        "businessNumber": "1100000001",
+        "establishmentAddress": "100, rue Exemple, Exempleville (Québec)",
+        "activityCode": "food-retail",
+        "floorPlan": "019c5a00-0006-7000-8000-000000000002"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "f77c6ad35b7276b799b0009e283ab3e4fa2d6ca0e0ce12797ffda5e8ff3e9d2e"
+      },
+      "attachmentIds": [
+        "019c5a00-0006-7000-8000-000000000002"
+      ],
+      "channel": "digital",
+      "submittedBy": {
+        "actorId": "acct-91b3e7",
+        "role": "representative",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000202",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000201",
+        "representationId": "rel-qc-7f3a21",
+        "authorityCheckedAt": "2026-06-15T13:42:06Z",
+        "assurance": "verified"
+      },
+      "submittedAt": "2026-06-15T13:42:07Z"
+    }
+  ],
+  "receiptRecords": [
+    {
+      "id": "019c5a00-0003-7000-8000-000000000002",
+      "fileId": "019c5a00-0001-7000-8000-000000000002",
+      "fileVersionId": "019c5a00-0002-7000-8000-000000000002",
+      "reference": "Q2X8-PR5D-X",
+      "receivedAt": "2026-06-15T13:42:07Z",
+      "receivedLocal": {
+        "localDateTime": "2026-06-15T09:42:07",
+        "timeZone": "America/Toronto"
+      },
+      "channel": "digital",
+      "submitter": {
+        "actorId": "acct-91b3e7",
+        "role": "representative",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000202",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000201",
+        "representationId": "rel-qc-7f3a21",
+        "authorityCheckedAt": "2026-06-15T13:42:06Z",
+        "assurance": "verified"
+      },
+      "destination": "https://permis.example.org/depot",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "b6abe33ca89ec5badbef9628821f0c0eed2bc779ee690dfda9b2b0c2560a22a8"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "f77c6ad35b7276b799b0009e283ab3e4fa2d6ca0e0ce12797ffda5e8ff3e9d2e"
+      },
+      "attachmentDigests": [
+        {
+          "attachmentId": "019c5a00-0006-7000-8000-000000000002",
+          "digest": {
+            "algorithm": "sha-256",
+            "value": "11392f3481b43bdef14d9cda29209ce5dddcd68cf26884c3fd6e8281447297dd"
+          }
+        }
+      ],
+      "renditionDigest": {
+        "algorithm": "sha-256",
+        "value": "f626560d7afb9d8676d03c91e39da16a5bbed03347352ab3e6a31d698ef3dfd5"
+      },
+      "assurance": "verified",
+      "sealProfile": "seal-log",
+      "createdAt": "2026-06-15T13:42:07Z"
+    }
+  ],
+  "acknowledgments": [
+    {
+      "id": "019c5a00-0004-7000-8000-000000000002",
+      "kind": "acknowledgment",
+      "receiptRecordId": "019c5a00-0003-7000-8000-000000000002",
+      "fileId": "019c5a00-0001-7000-8000-000000000002",
+      "reference": "Q2X8-PR5D-X",
+      "receivedLocal": {
+        "localDateTime": "2026-06-15T09:42:07",
+        "timeZone": "America/Toronto"
+      },
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000100",
+      "handlingContact": "https://permis.example.org/nous-joindre",
+      "serviceStandard": "P30D",
+      "statusUri": "https://permis.example.org/etat",
+      "language": "fr",
+      "sentAt": "2026-06-15T13:42:07Z"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "019c5a00-0006-7000-8000-000000000002",
+      "fileId": "019c5a00-0001-7000-8000-000000000002",
+      "questionId": "floorPlan",
+      "version": 1,
+      "originalName": "plan-etablissement.pdf",
+      "storageName": "019c5a00-5701-7000-8000-000000000002",
+      "path": "attachments/plan-etablissement.pdf",
+      "detectedMediaType": "application/pdf",
+      "byteSize": 115,
+      "digest": {
+        "algorithm": "sha-256",
+        "value": "11392f3481b43bdef14d9cda29209ce5dddcd68cf26884c3fd6e8281447297dd"
+      },
+      "scanState": "clean",
+      "scannedAt": "2026-06-15T13:40:22Z",
+      "receivedAt": "2026-06-15T13:40:02Z",
+      "uploadedBy": {
+        "actorId": "acct-91b3e7",
+        "role": "representative",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000202",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000201",
+        "representationId": "rel-qc-7f3a21",
+        "authorityCheckedAt": "2026-06-15T13:40:01Z",
+        "assurance": "verified"
+      }
+    }
+  ],
+  "projections": [
+    {
+      "fileId": "019c5a00-0001-7000-8000-000000000002",
+      "label": "in-progress",
+      "since": "2026-06-16T13:00:00Z",
+      "reference": "Q2X8-PR5D-X",
+      "receivedAt": "2026-06-15T13:42:07Z",
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000100",
+      "serviceStandard": "P30D",
+      "updatedAt": "2026-06-16T13:00:00Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "019c5a00-0007-7000-8000-000000000003",
+      "fileId": "019c5a00-0001-7000-8000-000000000002",
+      "kind": "receipt",
+      "channel": "email",
+      "recipientRole": "representative",
+      "language": "fr",
+      "template": "confirmation-reception",
+      "links": [
+        "https://permis.example.org/etat"
+      ],
+      "sentAt": "2026-06-15T13:42:08Z",
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "019c5a00-0007-7000-8000-000000000010",
+      "fileId": "019c5a00-0001-7000-8000-000000000002",
+      "kind": "on-behalf-submitted",
+      "channel": "email",
+      "recipientRole": "represented-party",
+      "language": "fr",
+      "template": "depot-pour-l-entreprise",
+      "links": [
+        "https://permis.example.org/etat"
+      ],
+      "sentAt": "2026-06-15T13:42:09Z",
+      "deliveryStatus": "delivered"
+    }
+  ]
+}

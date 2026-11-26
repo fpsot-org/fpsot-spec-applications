@@ -1,0 +1,70 @@
+= Representation
+include::_fpsot-terms.adoc[]
+
+Many applications come from someone other than the applicant.
+It may be a parent, a mandatary, an accountant or the officer of a business.
+The identity and access specification already sets who may act for whom, under IAM-060 to IAM-064.
+Démarche Numérique accepts a file for another person on a declaration alone.
+The Dutch case APIs record the authorized party and the principal as two roles on the case.
+This page checks the authority on every act, and records the two parties apart.
+
+== Authority
+
+[[APP-070]]
+*APP-070.* An act for another party MUST rest on a representation under IAM-061, chosen in the session under IAM-064.
+The service MUST ask the {term-authorization-engine} on each act, under IAM-050, and not only at submission.
+That covers each save of a draft, each submission, each reply, each withdrawal and each lookup.
+The service MUST refuse the act when no valid representation covers it.
+A representative MUST act from their own account, under IAM-060, never from the account of the represented party.
+
+A representation can end between the draft and the reply.
+A check on each act then stops a person whose mandate ended.
+
+[[APP-071]]
+*APP-071.* Each act on a file MUST record an `ActingParty` that keeps the acting party and the subject apart.
+It holds the account of the actor by an opaque id.
+It holds the party who acts and the party whose file it is, both under DMO-040.
+It also holds the role of the actor, the representation by id and the instant of the check.
+A staff member who keys in an application MUST appear as the actor, with the role `staff`.
+
+The file then answers two questions for each act: who did it, and for whom.
+FHIR keeps the same split between the subject of a response, its source and its author.
+
+[[APP-072]]
+*APP-072.* A service MAY accept a submission that a person declares for another party, without a representation under IAM-061.
+It MUST do so only when its declaration allows it.
+It MUST then mark the file and each act with the assurance `self-declared`.
+Staff MUST see that mark, and the receipt record MUST hold it.
+A self-declared submission MUST NOT give the declarant any later access to the file without a representation.
+
+A person who helps a neighbor once can then still submit, and the body knows how much to trust it.
+
+== Notice and revocation
+
+[[APP-073]]
+*APP-073.* When a person submits for another party, the service MUST notify the represented party of the submission.
+It MAY skip the notice when no contact is on record.
+It MAY also skip it when the profile or a court order says that it puts a person at risk.
+It MUST then record the reason.
+
+A notice tells a person that someone applied in their name, and lets them object.
+
+[[APP-074]]
+*APP-074.* A revoked or ended representation MUST block each new act that rests on it.
+It MUST NOT erase or change the acts done before.
+The represented party MUST be able to see, on their own file, who acted for them and when.
+
+== References
+
+=== Informative
+
+* link:https://hl7.org/fhir/R5/questionnaireresponse.html[QuestionnaireResponse], HL7 FHIR R5, version 5.0.0. link:https://web.archive.org/web/20261123155929/https://hl7.org/fhir/R5/questionnaireresponse.html[Archived copy]
+* link:https://github.com/VNG-Realisatie/gemma-zaken/blob/ab62b315fc901a04b5806b47131757de3cf74ea7/docs/standaard/zaken/zrc/1.8.x/1.8.0/openapi.yaml[Zaken API 1.8.0, OpenAPI description], VNG Realisatie, commit ab62b31.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-26 |First version.
+|===

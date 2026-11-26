@@ -1,15 +1,75 @@
-= Guide
-:page-type: explanation
+= Take in applications under the applications specification
+:page-type: how-to
 include::_fpsot-terms.adoc[]
 
-This page explains the specification for the people who adopt it.
-Each guide page has one type.
-It is a tutorial, a how-to guide, a reference or an explanation.
+This guide takes a public body from one program to a conforming intake.
+Each step cites the rule that it meets.
+It is not legal advice, and the page of questions for counsel lists the points that a lawyer must settle.
+The files in `examples/` follow six synthetic applications through every step.
+
+== Name the law
+
+Find the profile whose law applies to the program, such as `ca-federal` or `ca-qc`, under APP-010.
+If none fits, write one, and cite a source for each rule and each holiday, under APP-011.
+Mark each source that nobody read at its origin as `to-be-verified`.
+Keep every calendar, language rule and time of receipt in the profile, never in code, under APP-012.
+
+== Declare the service
+
+Write a service declaration with its forms, its clocks, its channels and its draft period.
+State whether the program allows closing for no response, under APP-057, and self-declared submissions, under APP-072.
+Offer a route that is not digital, under APP-093.
+The file `examples/services/example-home-adaptation-grant.yaml` shows a Québec program with two clocks.
+
+== Publish the form
+
+Write each form as a JSON Schema 2020-12 document with a canonical address and a version, under APP-020.
+Keep the id of each question while its meaning stays, and give a new id when it changes.
+Never change an active version: publish a new one, under APP-021.
+Give each question a label in each language, a purpose and a required flag, under APP-023 and APP-025.
+
+== Keep drafts and take submissions
+
+Keep drafts on the side of the service, and keep them past the end of a session, under APP-033.
+Tell the applicant how long a draft lasts, and send a notice before a purge, under APP-034.
+Show every answer before submission, then check the answers and refuse while a file is not clean, under APP-036.
+Make submit idempotent, under APP-094.
+
+== Record the arrival
+
+Create a sealed receipt record for each submission, with the instant when it became accessible, under APP-040 to APP-042.
+For paper, use the stamp on arrival, not the instant of keying, under APP-092.
+Send an acknowledgment with the reference, the received time, the handling body and the expected date, under APP-043.
+Draw each reference at random, with a Crockford check character, under APP-045.
+
+== Ask for more
+
+Open one request for information at a time, under APP-051.
+Give it a reason, its items, a deadline and its effect on each clock, under APP-050.
+Compute the deadline from the calendar of the profile, under APP-055.
+Decide nothing adverse while the request is open and in time, under APP-052.
+Close a file for no response only after an expired deadline and a logged contact attempt, under APP-057.
+
+== Handle files
+
+Check each file by its content, hash it with SHA-256 only, and keep its original, under APP-061, APP-062 and APP-064.
+Never use MD5 or SHA-1, not even as a checksum in transit.
+
+== Show the status
+
+Show one of seven labels, mapped from the state, under APP-080.
+Show what is needed, by when and how, only with `action-needed`, under APP-081.
+Keep notifications free of decisions and answers, and link only to your own domains, under APP-085 and APP-086.
+
+== Test
+
+Run `bash examples/test-examples.sh` after `pip install --require-hashes -r examples/requirements.txt`.
+Write scenarios in English and in French, under APP-102, with synthetic data only, under APP-103.
 
 == Document history
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Change
-|0.1.0 |2026-11-03 |First version.
+|0.1.0 |2026-11-26 |First version.
 |===

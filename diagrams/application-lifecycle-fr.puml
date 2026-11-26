@@ -1,0 +1,26 @@
+@startuml application-lifecycle-fr
+' SPDX-License-Identifier: Community-Spec-1.0
+' Diagramme d’états d’un dossier de demande (spec/fr/lifecycle.adoc, APP-030 à APP-032, APP-038, APP-051, APP-057).
+title Diagramme d’états d’un dossier de demande
+hide empty description
+skinparam monochrome true
+[*] --> draft
+draft --> submitted : dépôt
+draft --> [*] : purge après avis
+submitted --> in_review : début de l’examen
+submitted --> information_requested : demande de renseignements
+submitted --> decided : enregistrement de décision
+submitted --> withdrawn : retrait
+in_review --> information_requested : demande de renseignements
+in_review --> decided : enregistrement de décision
+in_review --> withdrawn : retrait
+information_requested --> in_review : réponse ou annulation
+information_requested --> decided : enregistrement de décision non défavorable
+information_requested --> withdrawn : retrait
+information_requested --> closed : échéance passée et tentative de contact consignée
+state "in-review" as in_review
+state "information-requested" as information_requested
+decided --> [*]
+withdrawn --> [*]
+closed --> [*]
+@enduml

@@ -1,0 +1,94 @@
+= Questions for counsel
+include::_fpsot-terms.adoc[]
+
+This page is informative.
+It sets no rule, and it is not legal advice.
+It lists the legal questions that this specification raises but cannot answer.
+A lawyer must answer each one before {abbr-fpsot-first} or a body that takes in applications relies on it.
+
+The research read the federal texts at the Justice Laws Website.
+It read the Québec texts at LégisQuébec, current to 2026-10-15.
+It read the French code in archived copies of 2024 and 2025 only.
+A point marked _to be verified_ rests on a secondary source, a search result or an old archived copy.
+
+== Time of receipt
+
+. *Federal receipt time.* The federal law on electronic documents sets no default time of receipt.
+Its section 50 lets each program set one by regulation.
+When the regulations of a program are silent, when does an online application count as filed?
+May a department fix that time in the published terms of use of its portal?
+
+. *Standard time.* Section 29 of the federal Interpretation Act reads a time of day as standard time.
+In summer, does a deadline at 23:59 mean 23:59 standard time, which is 00:59 local time?
+How should a service show such a deadline to the applicant?
+
+. *An address that is down.* Article 31 of the Québec law on information technology presumes receipt at an active address.
+If the portal is down at the deadline, is its address still active?
+Does a corrupt attachment rebut the presumption that the document is intelligible?
+What notice must the body then send?
+
+== Drafts and withdrawal
+
+[start=4]
+. *Abandoned drafts, federal.* Under the Privacy Act, does a portal hold the data of a draft for an administrative purpose?
+If so, the floor of two years of the Privacy Regulations would apply.
+May a service purge a draft sooner?
+
+. *Abandoned drafts, Québec.* Must the retention schedule under the Québec archives law cover a draft that nobody submitted?
+Or may the body destroy it under article 73 of the access law once the applicant leaves it?
+
+. *Withdrawal.* Does a withdrawal end the processing at once, in each jurisdiction?
+May the body still decide, such as on a fraud?
+Must the body keep a withdrawn file as long as a submitted one?
+
+== Language
+
+[start=7]
+. *Attachments under article 21.9.* Under the Charter, a business applies for a permit or a grant in French only.
+Article 22.5 excludes the documents joined to some applications from another rule.
+Does article 21.9 reach the foreign certificates and technical reports that a business attaches?
+Must a service refuse an application of a business in another language, or accept it and ask for French?
+
+. *English under articles 22.2 and 22.3.* How should a body check that a person is eligible for English instruction?
+How should it record that fact, and may it rely on the statement of the applicant?
+Does an English user interface for a form need a basis under article 22.3?
+
+== Prefill
+
+[start=9]
+. *Federal prefill.* May a federal form fill answers from another institution on consent shown in the form?
+Or does it need one of the grounds of disclosure of section 8 of the Privacy Act?
+Does section 5 of that Act bar prefill by default?
+
+. *Québec prefill.* Under the law on information resources, a decree can name the official sources of some data.
+Outside those sources, may a body prefill from a partner body?
+Does it need a separate agreement for each program under article 64 of the access law?
+
+== Representation and requests
+
+[start=11]
+. *Apparent mandate.* Article 2163 of the Civil Code of Québec binds a person who let another appear as their mandatary.
+The mandate may turn out not to exist.
+What check of the person who submits then protects the body and the represented party?
+
+. *The time that is needed.* Article 6 of the Act respecting administrative justice speaks of the time that is needed.
+The body delays an unfavorable decision for that time.
+May a service set a default period for a request for information, such as 30 days?
+Would that breach the duty to act with fairness?
+
+. *France.* The archived copies of the code on relations between the public and the administration date from 2024 and 2025.
+Have its article L231-1, or the decrees of exceptions, changed since?
+The live text at Légifrance is _to be verified_.
+
+. *Saturday in Québec.* Article 52 of the Québec Interpretation Act moves a time limit to the next working day.
+It names Saturday only for the land register.
+Is a Saturday a working day for other time limits?
+The `ca-qc` profile skips Saturdays until counsel answers.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-26 |First version.
+|===

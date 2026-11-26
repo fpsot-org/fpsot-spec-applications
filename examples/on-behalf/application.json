@@ -1,0 +1,363 @@
+{
+  "files": [
+    {
+      "id": "019c5a00-0001-7000-8000-000000000005",
+      "service": "example-federal-benefit",
+      "reference": "RB4T-6WXA-=",
+      "formUrl": "https://forms.example.org/example-benefit",
+      "formVersion": "1.0.0",
+      "subjectPartyId": "019c5a00-0010-7000-8000-000000000401",
+      "state": "submitted",
+      "stateHistory": [
+        {
+          "state": "draft",
+          "at": "2026-07-08T17:50:00Z",
+          "actor": {
+            "actorId": "acct-5e19a0",
+            "role": "representative",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000402",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000401",
+            "representationId": "rel-5b2e90",
+            "authorityCheckedAt": "2026-07-08T17:50:00Z",
+            "assurance": "verified"
+          },
+          "reason": "draft-started"
+        },
+        {
+          "state": "submitted",
+          "at": "2026-07-08T18:25:44Z",
+          "actor": {
+            "actorId": "acct-5e19a0",
+            "role": "representative",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000402",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000401",
+            "representationId": "rel-5b2e90",
+            "authorityCheckedAt": "2026-07-08T18:25:43Z",
+            "assurance": "verified"
+          },
+          "reason": "representative-submitted"
+        }
+      ],
+      "assurance": "verified",
+      "correspondenceLanguage": "en",
+      "languageBasis": "official-languages-choice-en",
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000300",
+      "draftStartedAt": "2026-07-08T17:50:00Z",
+      "clocks": [
+        {
+          "code": "service-standard",
+          "changes": [
+            {
+              "change": "started",
+              "at": "2026-07-08T18:25:44Z"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-07-08T17:50:00Z",
+      "updatedAt": "2026-07-08T18:25:44Z"
+    },
+    {
+      "id": "019c5a00-0001-7000-8000-000000000006",
+      "service": "example-federal-benefit",
+      "reference": "M9C2-HV7E-H",
+      "formUrl": "https://forms.example.org/example-benefit",
+      "formVersion": "1.0.0",
+      "subjectPartyId": "019c5a00-0010-7000-8000-000000000403",
+      "state": "submitted",
+      "stateHistory": [
+        {
+          "state": "draft",
+          "at": "2026-07-09T14:40:00Z",
+          "actor": {
+            "actorId": "acct-b70e33",
+            "role": "representative",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000404",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000403",
+            "assurance": "self-declared"
+          },
+          "reason": "draft-started"
+        },
+        {
+          "state": "submitted",
+          "at": "2026-07-09T15:02:11Z",
+          "actor": {
+            "actorId": "acct-b70e33",
+            "role": "representative",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000404",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000403",
+            "assurance": "self-declared"
+          },
+          "reason": "self-declared-submitted"
+        }
+      ],
+      "assurance": "self-declared",
+      "correspondenceLanguage": "fr",
+      "languageBasis": "official-languages-choice-fr",
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000300",
+      "draftStartedAt": "2026-07-09T14:40:00Z",
+      "clocks": [
+        {
+          "code": "service-standard",
+          "changes": [
+            {
+              "change": "started",
+              "at": "2026-07-09T15:02:11Z"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-07-09T14:40:00Z",
+      "updatedAt": "2026-07-09T15:02:11Z"
+    }
+  ],
+  "versions": [
+    {
+      "id": "019c5a00-0002-7000-8000-000000000006",
+      "fileId": "019c5a00-0001-7000-8000-000000000005",
+      "number": 1,
+      "formUrl": "https://forms.example.org/example-benefit",
+      "formVersion": "1.0.0",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "8e299756ed2c8e17f303e155931825e8f62f9fb6f0a90ce2fc95395898a7262e"
+      },
+      "answers": {
+        "fullName": "Jordan Example",
+        "mailingAddress": "400 Example Street, Exampletown ON",
+        "householdIncome": "31200.00"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "ed2655f72d3bc03d75d2893bd0c82f3c313fe79198c63a3072e7d1ab36409cac"
+      },
+      "channel": "digital",
+      "submittedBy": {
+        "actorId": "acct-5e19a0",
+        "role": "representative",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000402",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000401",
+        "representationId": "rel-5b2e90",
+        "authorityCheckedAt": "2026-07-08T18:25:43Z",
+        "assurance": "verified"
+      },
+      "submittedAt": "2026-07-08T18:25:44Z"
+    },
+    {
+      "id": "019c5a00-0002-7000-8000-000000000007",
+      "fileId": "019c5a00-0001-7000-8000-000000000006",
+      "number": 1,
+      "formUrl": "https://forms.example.org/example-benefit",
+      "formVersion": "1.0.0",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "8e299756ed2c8e17f303e155931825e8f62f9fb6f0a90ce2fc95395898a7262e"
+      },
+      "answers": {
+        "fullName": "Robin Example",
+        "mailingAddress": "410 Example Street, Exampletown ON",
+        "householdIncome": "18750.00"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "ff3d219d00f8e99a994078e5ec941a1d2272231c3129fd92307a08faee15c860"
+      },
+      "channel": "digital",
+      "submittedBy": {
+        "actorId": "acct-b70e33",
+        "role": "representative",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000404",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000403",
+        "assurance": "self-declared"
+      },
+      "submittedAt": "2026-07-09T15:02:11Z"
+    }
+  ],
+  "receiptRecords": [
+    {
+      "id": "019c5a00-0003-7000-8000-000000000006",
+      "fileId": "019c5a00-0001-7000-8000-000000000005",
+      "fileVersionId": "019c5a00-0002-7000-8000-000000000006",
+      "reference": "RB4T-6WXA-=",
+      "receivedAt": "2026-07-08T18:25:44Z",
+      "receivedLocal": {
+        "localDateTime": "2026-07-08T14:25:44",
+        "timeZone": "America/Toronto"
+      },
+      "channel": "digital",
+      "submitter": {
+        "actorId": "acct-5e19a0",
+        "role": "representative",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000402",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000401",
+        "representationId": "rel-5b2e90",
+        "authorityCheckedAt": "2026-07-08T18:25:43Z",
+        "assurance": "verified"
+      },
+      "destination": "https://benefit.example.org/apply",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "8e299756ed2c8e17f303e155931825e8f62f9fb6f0a90ce2fc95395898a7262e"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "ed2655f72d3bc03d75d2893bd0c82f3c313fe79198c63a3072e7d1ab36409cac"
+      },
+      "renditionDigest": {
+        "algorithm": "sha-256",
+        "value": "74ec49ee8596b7c26cfea6fda35eb5b1fe6ea6c772183e60988917151155cf8d"
+      },
+      "assurance": "verified",
+      "sealProfile": "seal-log",
+      "createdAt": "2026-07-08T18:25:44Z"
+    },
+    {
+      "id": "019c5a00-0003-7000-8000-000000000007",
+      "fileId": "019c5a00-0001-7000-8000-000000000006",
+      "fileVersionId": "019c5a00-0002-7000-8000-000000000007",
+      "reference": "M9C2-HV7E-H",
+      "receivedAt": "2026-07-09T15:02:11Z",
+      "receivedLocal": {
+        "localDateTime": "2026-07-09T11:02:11",
+        "timeZone": "America/Toronto"
+      },
+      "channel": "digital",
+      "submitter": {
+        "actorId": "acct-b70e33",
+        "role": "representative",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000404",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000403",
+        "assurance": "self-declared"
+      },
+      "destination": "https://benefit.example.org/apply",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "8e299756ed2c8e17f303e155931825e8f62f9fb6f0a90ce2fc95395898a7262e"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "ff3d219d00f8e99a994078e5ec941a1d2272231c3129fd92307a08faee15c860"
+      },
+      "renditionDigest": {
+        "algorithm": "sha-256",
+        "value": "b667d52226c998971da13e841136dd43aef7edc11031b58c8435e70135fa30ab"
+      },
+      "assurance": "self-declared",
+      "sealProfile": "seal-log",
+      "createdAt": "2026-07-09T15:02:11Z"
+    }
+  ],
+  "acknowledgments": [
+    {
+      "id": "019c5a00-0004-7000-8000-000000000006",
+      "kind": "acknowledgment",
+      "receiptRecordId": "019c5a00-0003-7000-8000-000000000006",
+      "fileId": "019c5a00-0001-7000-8000-000000000005",
+      "reference": "RB4T-6WXA-=",
+      "receivedLocal": {
+        "localDateTime": "2026-07-08T14:25:44",
+        "timeZone": "America/Toronto"
+      },
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000300",
+      "handlingContact": "https://benefit.example.org/contact",
+      "serviceStandard": "P20D",
+      "statusUri": "https://benefit.example.org/status",
+      "language": "en",
+      "sentAt": "2026-07-08T18:25:44Z"
+    },
+    {
+      "id": "019c5a00-0004-7000-8000-000000000007",
+      "kind": "acknowledgment",
+      "receiptRecordId": "019c5a00-0003-7000-8000-000000000007",
+      "fileId": "019c5a00-0001-7000-8000-000000000006",
+      "reference": "M9C2-HV7E-H",
+      "receivedLocal": {
+        "localDateTime": "2026-07-09T11:02:11",
+        "timeZone": "America/Toronto"
+      },
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000300",
+      "handlingContact": "https://benefit.example.org/contact",
+      "serviceStandard": "P20D",
+      "statusUri": "https://benefit.example.org/status",
+      "language": "fr",
+      "sentAt": "2026-07-09T15:02:11Z"
+    }
+  ],
+  "projections": [
+    {
+      "fileId": "019c5a00-0001-7000-8000-000000000005",
+      "label": "received",
+      "since": "2026-07-08T18:25:44Z",
+      "reference": "RB4T-6WXA-=",
+      "receivedAt": "2026-07-08T18:25:44Z",
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000300",
+      "serviceStandard": "P20D",
+      "updatedAt": "2026-07-08T18:25:44Z"
+    },
+    {
+      "fileId": "019c5a00-0001-7000-8000-000000000006",
+      "label": "received",
+      "since": "2026-07-09T15:02:11Z",
+      "reference": "M9C2-HV7E-H",
+      "receivedAt": "2026-07-09T15:02:11Z",
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000300",
+      "serviceStandard": "P20D",
+      "updatedAt": "2026-07-09T15:02:11Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "019c5a00-0007-7000-8000-00000000000a",
+      "fileId": "019c5a00-0001-7000-8000-000000000005",
+      "kind": "receipt",
+      "channel": "email",
+      "recipientRole": "representative",
+      "language": "en",
+      "template": "receipt-confirmation",
+      "links": [
+        "https://benefit.example.org/status"
+      ],
+      "sentAt": "2026-07-08T18:25:45Z",
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "019c5a00-0007-7000-8000-00000000000b",
+      "fileId": "019c5a00-0001-7000-8000-000000000005",
+      "kind": "on-behalf-submitted",
+      "channel": "email",
+      "recipientRole": "represented-party",
+      "language": "en",
+      "template": "on-behalf-submitted",
+      "links": [
+        "https://benefit.example.org/status"
+      ],
+      "sentAt": "2026-07-08T18:25:46Z",
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "019c5a00-0007-7000-8000-00000000000c",
+      "fileId": "019c5a00-0001-7000-8000-000000000006",
+      "kind": "receipt",
+      "channel": "email",
+      "recipientRole": "representative",
+      "language": "fr",
+      "template": "confirmation-reception",
+      "links": [
+        "https://benefit.example.org/status"
+      ],
+      "sentAt": "2026-07-09T15:02:12Z",
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "019c5a00-0007-7000-8000-00000000000d",
+      "fileId": "019c5a00-0001-7000-8000-000000000006",
+      "kind": "on-behalf-submitted",
+      "channel": "post",
+      "recipientRole": "represented-party",
+      "language": "fr",
+      "template": "depot-pour-autrui",
+      "sentAt": "2026-07-10T13:00:00Z",
+      "deliveryStatus": "delivered"
+    }
+  ]
+}

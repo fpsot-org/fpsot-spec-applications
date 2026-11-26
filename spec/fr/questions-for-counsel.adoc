@@ -1,0 +1,94 @@
+= Questions pour les conseillers juridiques
+include::_fpsot-terms.adoc[]
+
+Cette page est informative.
+Elle ne fixe aucune règle, et elle ne constitue pas un avis juridique.
+Elle énumère les questions juridiques que cette spécification soulève sans pouvoir y répondre.
+Un juriste doit répondre à chacune avant que la {abbr-fpsot-first} ou un organisme qui reçoit des demandes s’y fie.
+
+La recherche a lu les textes fédéraux sur le site Web de la législation (Justice).
+Elle a lu les textes québécois à LégisQuébec, à jour au 2026-10-15.
+Elle n’a lu le code français que dans des copies archivées de 2024 et de 2025.
+Un point marqué _à vérifier_ repose sur une source secondaire, un résultat de recherche ou une ancienne copie archivée.
+
+== Moment de réception
+
+. *Moment de réception fédéral.* La loi fédérale sur les documents électroniques ne fixe aucun moment de réception par défaut.
+Son article 50 permet à chaque programme d’en fixer un par règlement.
+Quand les règlements d’un programme sont muets, quand une demande en ligne est-elle déposée?
+Un ministère peut-il fixer ce moment dans les conditions d’utilisation publiées de son portail?
+
+. *Heure normale.* L’article 29 de la Loi d’interprétation fédérale lit une heure du jour comme l’heure normale.
+En été, une échéance à 23 h 59 vise-t-elle l’heure normale, soit 0 h 59 à l’heure locale?
+Comment un service doit-il afficher une telle échéance à la personne?
+
+. *Une adresse en panne.* L’article 31 de la loi québécoise sur les technologies présume la réception à une adresse active.
+Si le portail est en panne à l’échéance, son adresse reste-t-elle active?
+Une pièce jointe corrompue renverse-t-elle la présomption que le document est intelligible?
+Quel avis l’organisme doit-il alors envoyer?
+
+== Brouillons et retrait
+
+[start=4]
+. *Brouillons abandonnés, fédéral.* Selon la loi fédérale sur la vie privée, un portail garde-t-il un brouillon à une fin administrative?
+Si oui, la conservation minimale de deux ans du règlement s’appliquerait.
+Un service peut-il purger un brouillon plus tôt?
+
+. *Brouillons abandonnés, Québec.* Le calendrier de conservation selon la Loi sur les archives doit-il couvrir un brouillon jamais déposé?
+Ou l’organisme peut-il le détruire selon l’article 73 de la loi sur l’accès, une fois le brouillon abandonné?
+
+. *Retrait.* Dans chaque administration, un retrait met-il fin au traitement sur-le-champ?
+L’organisme peut-il encore décider, par exemple en cas de fraude?
+Doit-il garder un dossier retiré aussi longtemps qu’un dossier déposé?
+
+== Langue
+
+[start=7]
+. *Pièces jointes selon l’article 21.9.* Selon la Charte, une entreprise demande un permis ou une subvention en français seulement.
+L’article 22.5 exclut d’une autre règle les documents joints à certaines demandes.
+L’article 21.9 vise-t-il les certificats étrangers et les rapports techniques qu’une entreprise joint?
+Un service doit-il refuser la demande d’une entreprise dans une autre langue, ou l’accepter et demander le français?
+
+. *L’anglais selon les articles 22.2 et 22.3.* Comment un organisme doit-il vérifier qu’une personne est admissible à l’enseignement en anglais?
+Comment doit-il le consigner, et peut-il se fier à la déclaration de la personne?
+Une interface utilisateur en anglais pour un formulaire exige-t-elle une base selon l’article 22.3?
+
+== Préremplissage
+
+[start=9]
+. *Préremplissage fédéral.* Un formulaire fédéral peut-il préremplir des réponses auprès d’une autre institution, sur un consentement exprimé dans le formulaire?
+Ou exige-t-il un des motifs de communication de l’article 8 de la Loi sur la protection des renseignements personnels?
+L’article 5 de cette loi interdit-il le préremplissage par défaut?
+
+. *Préremplissage québécois.* Selon la loi sur les ressources informationnelles, un décret peut désigner les sources officielles de certaines données.
+Hors de ces sources, un organisme peut-il préremplir auprès d’un organisme partenaire?
+A-t-il besoin d’une entente distincte pour chaque programme selon l’article 64 de la loi sur l’accès?
+
+== Représentation et demandes de renseignements
+
+[start=11]
+. *Mandat apparent.* L’article 2163 du Code civil lie la personne qui a laissé croire qu’une autre était son mandataire.
+Le mandat peut se révéler inexistant.
+Quelle vérification de la personne qui dépose protège alors l’organisme et la partie représentée?
+
+. *Le temps nécessaire.* L’article 6 de la Loi sur la justice administrative parle du temps nécessaire.
+L’organisme retarde une décision défavorable pendant ce temps.
+Un service peut-il fixer un délai par défaut pour une demande de renseignements, par exemple 30 jours?
+Cela contreviendrait-il au devoir d’agir équitablement?
+
+. *France.* Les copies archivées du code des relations entre le public et l’administration datent de 2024 et de 2025.
+Son article L231-1, ou les décrets d’exceptions, ont-ils changé depuis?
+Le texte en vigueur sur Légifrance est _à vérifier_.
+
+. *Le samedi au Québec.* L’article 52 de la Loi d’interprétation du Québec reporte un délai au jour ouvrable suivant.
+Il ne nomme le samedi que pour le registre foncier.
+Le samedi est-il un jour ouvrable pour les autres délais?
+Le profil `ca-qc` saute les samedis jusqu’à la réponse des conseillers juridiques.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-26 |Première version.
+|===

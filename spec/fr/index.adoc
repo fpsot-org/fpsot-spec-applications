@@ -1,8 +1,184 @@
 = Spécification FPSOT sur les demandes
 include::_fpsot-terms.adoc[]
 
-Remplacez cette page par le texte normatif de la spécification.
-Commencez par la portée, puis les classes de conformité, puis les exigences.
+Cette spécification fixe ce qu’un logiciel doit consigner et prouver quand un organisme public reçoit une demande.
+Une demande sollicite de l’organisme un permis, une licence, une prestation ou une autre décision sur une partie.
+Les règles visent le formulaire, le brouillon, le dépôt, le constat de réception et l’accusé de réception.
+Elles visent aussi les demandes de renseignements, les pièces jointes, la représentation et l’état que voit la personne requérante.
+Elles visent enfin les canaux de réception.
+Elles laissent aux profils juridictionnels chaque valeur et chaque règle qu’une loi fixe.
+
+La recherche a comparé la réception des demandes au Canada, au Québec et en France.
+La France oblige l’organisme à accuser réception de chaque demande.
+Le Canada et le Québec laissent ce point aux politiques.
+Le Québec présume qu’un document technologique est reçu quand il devient accessible à l’adresse de l’organisme.
+Chaque administration a ses jours fériés, ses règles sur la langue et ses règles sur les pièces manquantes.
+Les trois veulent pourtant savoir ce qui est arrivé, quand, de qui, sous quelle forme et ce qui a suivi.
+
+Les règles reposent donc sur quelques éléments qui fonctionnent sous toute loi.
+
+* Le formulaire : un schéma JSON versionné, cacheté avec chaque dépôt.
+* Le dossier de demande : un seul cycle de vie pour tous les canaux, avec des versions figées dès leur dépôt.
+* Le constat de réception : le moment où le dépôt est devenu accessible à l’organisme, à la seconde, cacheté.
+* La demande de renseignements : un message avec son motif, ses éléments, son échéance et son effet sur chaque décompte.
+* La pièce jointe : vérifiée d’après son contenu, hachée en SHA-256, analysée et jamais écrasée.
+* L’état : un court vocabulaire publié, qui ne révèle jamais un état interne ni un résultat.
+
+La décision elle-même relève de la spécification sur les décisions, et le traitement des dossiers d’une future spécification.
+Les frais relèvent de la spécification sur les frais, et les déclarations au registre de la spécification sur les registres.
+Les règles réutilisent les autres spécifications de la {abbr-fpsot-first} et n’en redéfinissent aucun élément.
+
+== Portée
+
+[[APP-001]]
+*APP-001.* Ces règles visent les logiciels qui reçoivent une demande adressée à un organisme public, par tout canal.
+Une demande sollicite une décision sur une partie, par exemple sur un permis, une prestation ou une subvention.
+Un système DOIT appliquer ces règles à chaque demande qu’il reçoit, du premier brouillon jusqu’à la fin.
+Les générateurs de formulaires, de règles et de flux sont hors de portée.
+Le traitement des dossiers, la décision, les frais et la preuve d’identité le sont aussi.
+Le calendrier de conservation d’un dossier fermé est également hors de portée.
+
+La spécification s’arrête à la décision.
+Elle fixe ce que garde la réception.
+Elle remet ensuite le dossier au service de décision, au moteur de frais ou à un registre.
+Les règles disent « dossier de demande » pour la donnée d’une demande.
+Elles disent « personne requérante » pour la partie qui présente la demande.
+
+== Rôles et classes de conformité
+
+[[APP-002]]
+*APP-002.* Chaque partie qui déclare sa conformité DOIT indiquer chaque {term-conformance-class} qu’elle déclare, parmi les quatre de ce tableau.
+Une partie peut en déclarer plus d’une.
+
+[cols="1,2,3",options="header"]
+|===
+|Classe |Qui la déclare |Règles
+|`service` |Un service de réception, qui garde les brouillons, les dossiers, les constats de réception, les demandes de renseignements et les pièces jointes |Les règles de chaque page, sauf celles qui ne visent qu’une interface utilisateur, un profil ou un exploitant
+|`front-end` |Un portail, une application ou un écran du personnel qui recueille les réponses et montre l’état |APP-022, APP-023, APP-024, APP-033, APP-034, APP-035, APP-036, APP-044, APP-046, APP-061, APP-066, APP-070, APP-071, APP-080, APP-081, APP-082, APP-090, APP-091, APP-094 et APP-096
+|`profile` |L’auteur d’un profil juridictionnel ou d’une définition de formulaire |APP-010 à APP-014, APP-020, APP-021, APP-023, APP-024, APP-025, APP-055 et APP-060
+|`operator` |Un {term-deploying-body} qui reçoit les demandes de ses programmes |APP-003, APP-034, APP-043, APP-044, APP-054, APP-056, APP-057, APP-073, APP-084 à APP-087, APP-091, APP-093 et APP-096
+|===
+
+Un acheteur peut alors demander à chaque fournisseur la classe qu’il livre.
+Une interface utilisateur qui ne garde aucun dossier montre tout de même les étiquettes d’état.
+Elle garde tout de même les états internes hors de vue.
+
+== Statut juridique
+
+[[APP-003]]
+*APP-003.* Une déclaration de conformité NE DOIT PAS affirmer ni laisser entendre qu’une réception ou une échéance respecte une loi.
+Cela vaut aussi pour un accusé de réception.
+La conformité montre que le logiciel garde les données que plusieurs lois exigent.
+Seul l’organisme, avec ses conseillers juridiques, peut dire ce que sa loi exige.
+
+Cette spécification énonce la pratique de la {abbr-fpsot}, et elle ne constitue pas un avis juridique.
+Les faits propres à chaque administration figurent dans les fichiers de profil et les données comparatives, jamais dans une règle.
+Les questions juridiques figurent à la page xref:questions-for-counsel.adoc[Questions pour les conseillers juridiques].
+Un texte juridique que la recherche n’a pas lu à sa source porte la mention _à vérifier_.
+La recherche a lu les textes fédéraux et québécois à leur source.
+Elle a lu le code français dans des copies archivées seulement.
+
+== Responsables des éléments
+
+[[APP-004]]
+*APP-004.* Une mise en œuvre DOIT prendre chaque élément de ce tableau dans la spécification qui en est responsable.
+Elle NE DOIT PAS définir le sien.
+
+[cols="2,3",options="header"]
+|===
+|Élément |Responsable et règles
+|Instants, heures locales, fuseaux horaires, dates, durées, identifiants, textes multilingues |Types de données : DAT-004 à DAT-006, DAT-010, DAT-014, DAT-015, DAT-020 à DAT-023, DAT-030 à DAT-033, DAT-060 à DAT-066
+|Résultats de décision, faits manquants, enregistrements de décision, étapes de révision et avis |Décisions : DEC-024 à DEC-027, DEC-040 à DEC-046, DEC-057, DEC-062 et DEC-063
+|La personne requérante et la partie représentée en tant que parties |Modèles de données : DMO-040
+|Comptes, représentation et vérification de chaque requête |Identité : IAM-050, IAM-060 à IAM-064, IAM-091
+|Une demande de paiement qu’une demande crée |Frais : FEE-040
+|Une déclaration qu’une demande amorce |Registres : REG-020 à REG-024
+|Cachets, horodatages et journal de transparence des constats de réception |Documents signés : LOG-002, LOG-010, LOG-019, LOG-022, LOG-082
+|Événements d’audit, événements d’affaires et renseignements personnels dans les journaux |Observabilité : OBS-024, OBS-027, OBS-070, OBS-079, OBS-090, OBS-091
+|Idempotence et événements |API RESTful : API-060 à API-063, API-100 à API-104
+|Niveau d’assurance du logiciel et traitement des fichiers |Sécurité : SEC-005
+|Accessibilité des formulaires et des documents |Accessibilité : ACC-001, ACC-023 à ACC-026, ACC-031
+|Langues, paramètres régionaux et messages |Internationalisation : LOC-003 à LOC-005, LOC-012, LOC-020, LOC-030
+|Scénarios, suites de conformité et données synthétiques |Essais : TST-020 à TST-036, TST-044, TST-045, TST-050
+|===
+
+Le modèle de `model/applications.yaml` importe des copies inchangées des modèles des types de données, des décisions et des parties.
+Il n’ajoute que ce qu’aucune autre spécification ne définit, comme le constat de réception et la demande de renseignements.
+
+== Versions et essais de conformité
+
+[[APP-005]]
+*APP-005.* Une mise en œuvre DOIT suivre les versions des normes externes que cette page énumère sous Normes.
+Elle PEUT suivre une version ultérieure de la même norme quand les parties qu’elle emploie gardent leur sens.
+Un constat de réception doit rester lisible aussi longtemps que l’organisme garde le dossier.
+Chaque lecteur doit alors savoir quel texte s’appliquait.
+
+[[APP-006]]
+*APP-006.* Une suite de conformité de cette spécification DOIT vérifier la production d’une mise en œuvre, selon TST-044.
+Cette production comprend les formulaires, les dossiers et leurs versions, les constats de réception et les accusés de réception.
+Elle comprend aussi les demandes de renseignements, les pièces jointes, les projections d’état, les notifications et les événements.
+La suite NE DOIT PAS exiger le code source de la mise en œuvre.
+Les dossiers `model/`, `profiles/`, `registry/` et `examples/` contiennent les premiers jeux d’essai.
+Le script `examples/check-examples.py` les vérifie.
+
+== Parties
+
+Les règles se répartissent en dix parties, suivies de deux pages informatives.
+
+* xref:profiles.adoc[Profils juridictionnels] fixe les fichiers de profil, avec leurs sources, leurs calendriers et les valeurs par défaut.
+* xref:forms.adoc[Formulaires] fixe la définition de formulaire, ses versions, ses questions, le préremplissage et les langues.
+* xref:lifecycle.adoc[Cycle de vie] fixe les états d’un dossier, les brouillons, le dépôt et les versions du dossier.
+* xref:receipts.adoc[Réception et accusés de réception] fixe le constat de réception, l’accusé de réception et le numéro de référence.
+* xref:requests.adoc[Demandes de renseignements et décomptes] fixe la demande de renseignements, les décomptes, les échéances et les interruptions.
+* xref:attachments.adoc[Pièces jointes] fixe les fichiers qu’une question accepte.
+Cette partie fixe aussi la façon dont le service les hache, les analyse et les garde.
+* xref:representation.adoc[Représentation] fixe la façon dont une personne agit pour une autre partie.
+* xref:status-and-notifications.adoc[État et notifications] fixe ce que la personne requérante voit et reçoit, ainsi que les événements.
+* xref:channels.adoc[Canaux] fixe la réception assistée, papier et numérique, les interruptions et les dépôts répétés.
+* xref:conformance.adoc[Interfaces, transmissions et conformité] fixe les interfaces, la transmission aux autres spécifications et les jeux d’essai.
+* xref:alignment.adoc[Alignement sur d’autres normes] est informative.
+Elle fait correspondre les états à ceux de GovStack Registration, de Démarche Numérique et de FHIR Questionnaire.
+Elle traite aussi de GOV.UK Forms, des API néerlandaises et de CloudEvents.
+* xref:questions-for-counsel.adoc[Questions pour les conseillers juridiques] est informative, et énumère les points qu’un juriste doit trancher.
+
+== Spécifications liées
+
+Cette spécification s’appuie sur d’autres spécifications de la {abbr-fpsot}, et cite leurs règles par numéro.
+
+* La spécification sur les décisions fixe les genres de résultat selon DEC-024.
+Selon DEC-025, un fait manquant ne mène jamais à un résultat défavorable.
+Elle fixe les enregistrements de décision selon DEC-040 à DEC-046, et les étapes de révision selon DEC-062 et DEC-063.
+* La spécification sur l’identité et l’accès fixe un compte par personne selon IAM-060, et la représentation selon IAM-061 à IAM-064.
+* La spécification sur les modèles de données fixe la partie selon DMO-040.
+* La spécification sur les documents signés fixe le cachet, son manifeste et le journal, selon LOG-002 à LOG-082.
+* La spécification sur les API RESTful fixe l’idempotence selon API-060 à API-063, et les événements selon API-100 à API-104.
+* La spécification sur les frais fixe la demande de paiement selon FEE-040.
+Celle sur les registres fixe les déclarations selon REG-020 à REG-024.
+* La spécification sur l’observabilité fixe les événements d’affaires selon OBS-070, et les renseignements personnels dans les journaux selon OBS-090.
+* La spécification sur la sécurité fixe le niveau d’assurance selon SEC-005.
+Le chapitre de l’ASVS sur les fichiers vise alors les pièces jointes.
+* La spécification sur l’accessibilité fixe le niveau de base selon ACC-001.
+Celle sur l’internationalisation fixe les paramètres régionaux selon LOC-003 à LOC-005.
+* La spécification sur le nommage fixe les noms des champs, des événements et des codes, selon NAM-010, NAM-050 et NAM-060.
+
+== Exemples
+
+Le dossier `examples/` contient des demandes synthétiques sous les profils `ca-federal` et `ca-qc`.
+Les personnes, les numéros, les organismes et les programmes y sont fictifs.
+Seuls les textes de loi que les profils citent sont réels.
+
+* `forms/` contient cinq définitions de formulaire, dont deux versions d’un même formulaire.
+* `services/` contient les déclarations des quatre services fictifs.
+* `pleasure-craft/` contient une demande de permis d’embarcation de plaisance qui crée la demande de paiement des exemples sur les frais.
+Elle amorce aussi la déclaration du projet pilote de registre.
+* `quebec-business-permit/` contient la demande de permis d’une entreprise, en français seulement, sous le profil québécois.
+* `information-request/` contient une demande de renseignements dont l’échéance tombe un jour férié, et qui suspend un décompte.
+* `on-behalf/` contient un dépôt fait par un représentant, et un dépôt fait pour autrui sur simple déclaration.
+* `paper-intake/` contient une demande papier que le personnel a saisie cinq jours après son arrivée.
+* `draft-migration/` contient un brouillon passé à une nouvelle version du formulaire avant son dépôt.
+* `features/` contient les scénarios en anglais et en français.
+
+Le script `examples/test-examples.sh` vérifie que `examples/check-examples.py` rejette des copies altérées de ces fichiers.
 
 == Conformité
 
@@ -11,35 +187,38 @@ ____
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 (link:https://www.rfc-editor.org/info/rfc2119[RFC 2119], link:https://www.rfc-editor.org/info/rfc8174[RFC 8174]) when, and only when, they appear in all capitals, as shown here.
 ____
 
-Les mots clés suivent l'exigence WRT-010 de la spécification de rédaction de la {abbr-fpsot-first}.
-La version française emploie les mots clés français de l'exigence WRT-011.
+Les mots clés suivent l’exigence WRT-010 de la spécification de rédaction de la {abbr-fpsot}.
+La version française emploie les mots clés français de l’exigence WRT-011.
 
-== Exigences
+== Normes
 
-Donnez à chaque exigence une ancre avec son identifiant, juste au-dessus de son paragraphe.
-L'ancre ressemble à `+[[XYZ-001]]+`.
-L'exemple ci-dessous montre la forme. Remplacez-le par la première exigence.
+Les règles résument les normes externes dans leurs propres mots et n’en reprennent aucun texte.
+Elles citent ces versions.
 
-[[TPL-001]]
-*TPL-001.* Un énoncé normatif DOIT employer un des mots clés du {abbr-bcp-first} 14, en majuscules.
-Le mot clé donne sa force à la règle.
+* Données des formulaires : link:https://json-schema.org/draft/2020-12[JSON Schema 2020-12], lu le 2026-11-23.
+* Forme canonique des réponses : link:https://www.rfc-editor.org/info/rfc8785[RFC 8785, JSON Canonicalization Scheme], 2020-06.
+* Condensés au téléversement : link:https://www.rfc-editor.org/info/rfc9530[RFC 9530, Digest Fields], 2024-02.
+* Accessibilité des formulaires : link:https://www.w3.org/TR/WCAG22/[WCAG 2.2], recommandation du W3C datée du 2024-12-12, par la spécification sur l’accessibilité.
+* Numéros de référence : le link:https://www.crockford.com/base32.html[codage Base32 de Douglas Crockford], lu le 2026-11-23.
+* Traitement des fichiers : le chapitre V5 de l’ASVS 5.0.0, que fixe SEC-005.
+* Événements, documents cachetés, scénarios et modèles : les versions que fixent les spécifications qui en sont responsables.
 
 == Références
-
-Donnez ici chaque source externe que cite cette page, avec la même adresse que son lien dans le texte.
-Chaque entrée donne le titre, l'éditeur, la version, la date et une copie archivée.
 
 === Références normatives
 
 * link:https://www.rfc-editor.org/info/rfc2119[RFC 2119, Key words for use in RFCs to Indicate Requirement Levels], IETF, BCP 14, 1997-03. link:https://web.archive.org/web/20261103005705/https://www.rfc-editor.org/info/rfc2119/[Copie archivée]
 * link:https://www.rfc-editor.org/info/rfc8174[RFC 8174, Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words], IETF, BCP 14, 2017-05. link:https://web.archive.org/web/20261103005743/https://www.rfc-editor.org/info/rfc8174/[Copie archivée]
+* link:https://json-schema.org/draft/2020-12[JSON Schema 2020-12], JSON Schema, lu le 2026-11-23. link:https://web.archive.org/web/20261126210241/https://json-schema.org/draft/2020-12[Copie archivée]
+* link:https://www.rfc-editor.org/info/rfc8785[RFC 8785, JSON Canonicalization Scheme (JCS)], IETF, 2020-06. link:https://web.archive.org/web/20261118021729/https://www.rfc-editor.org/info/rfc8785/[Copie archivée]
+* link:https://www.rfc-editor.org/info/rfc9530[RFC 9530, Digest Fields], IETF, 2024-02. link:https://web.archive.org/web/20261107090504/https://www.rfc-editor.org/info/rfc9530/[Copie archivée]
+* link:https://www.w3.org/TR/WCAG22/[Web Content Accessibility Guidelines (WCAG) 2.2], recommandation du W3C, 2024-12-12. link:https://web.archive.org/web/20261124112015/https://www.w3.org/TR/WCAG22/[Copie archivée]
+* link:https://www.crockford.com/base32.html[Base 32], Douglas Crockford, lu le 2026-11-23. link:https://web.archive.org/web/20261105160756/http://www.crockford.com/base32.html[Copie archivée]
 
 == Historique du document
-
-Ajoutez une ligne pour chaque version qui modifie cette page.
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Changement
-|0.1.0 |2026-11-03 |Première version.
+|0.1.0 |2026-11-26 |Première version.
 |===

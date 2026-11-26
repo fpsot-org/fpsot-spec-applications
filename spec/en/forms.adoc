@@ -1,0 +1,82 @@
+= Forms
+include::_fpsot-terms.adoc[]
+
+A form changes over the years, and an application must still show the form that the applicant answered.
+GOV.UK Forms keeps a full copy of the form with each submission.
+FHIR names each questionnaire by a canonical address and a business version, and each response points to both.
+This page takes those two ideas and leaves the look of a form to each front end.
+
+== Form definitions
+
+[[APP-020]]
+*APP-020.* Each form MUST be a file of the class `FormDefinition` of `model/applications.yaml`.
+It MUST hold a canonical address in `url`, a business version in `version` and a status in `status`.
+Its `schema` MUST be a JSON Schema 2020-12 document that the answers of the form meet.
+Each question MUST keep its `id` in each version of the form, as long as its meaning stays.
+A question whose meaning changes MUST take a new `id`.
+
+The pair of address and version, written `url|version`, names one version of a form everywhere.
+The stable `id` lets a draft carry an answer to a new version, under APP-035.
+
+[[APP-021]]
+*APP-021.* The status of a form version MUST be `draft`, `active` or `retired`.
+A form version MUST NOT change once it is `active`.
+A change MUST be a new version.
+A service MUST start new drafts only on an `active` version, and MUST NOT start one on a `retired` version.
+
+A `retired` version still serves every draft and file that started on it.
+The form that the applicant saw then stays the form that the file shows.
+
+[[APP-022]]
+*APP-022.* A front end MAY render a form with any layout, wizard or user interface schema.
+Such a layout MUST NOT change what the schema accepts or refuses.
+This specification requires no user interface schema.
+
+JSON Forms, react-jsonschema-form and others each have their own dialect.
+A body can then change its front end without a change to its forms or its files.
+
+== Questions
+
+[[APP-023]]
+*APP-023.* Each question MUST state whether an answer is required, and why the body asks it, in `required` and `purpose`.
+Each form MUST point to a collection notice in each of its languages.
+The profile sets what the notice holds.
+The label of each question MUST meet ACC-023.
+
+The purpose of each question lets a body show that it asks only for what the program needs.
+Québec asks a body to say at collection whether an answer is mandatory or optional.
+
+[[APP-024]]
+*APP-024.* A question MAY name in `prefill` a source that can fill it, and the basis for using that source.
+The basis MUST be a code of the profile, such as `consent` or `legal-basis`.
+The front end MUST show the applicant each answer that it filled, and where it came from.
+The applicant MUST be able to correct such an answer, unless the profile names an official source that binds.
+The front end MUST fill again or offer each answer that the applicant gave earlier in the same process.
+That meets criterion 3.3.7 of WCAG 2.2, under ACC-001.
+
+The federal Privacy Act favors collection from the person.
+A federal form then fills from another body only with consent or a legal basis.
+Québec names official sources of government data from which bodies must collect.
+The profile decides which basis applies, and the form only names it.
+
+== Languages
+
+[[APP-025]]
+*APP-025.* Each form MUST list its languages in `languages`, and each question MUST have a label in each of them.
+A form MUST offer each language that its profile requires for that kind of application.
+Each file MUST record its language of correspondence and the code of the basis that the profile gives for it.
+The text that a person sees MUST come from message catalogs, under LOC-020.
+
+The federal profile offers English and French, at the choice of the applicant.
+The Québec profile keeps French as the default.
+It allows English only on a basis that the Charter of the French language names.
+A business that applies there for a permit or a grant writes in French only.
+That form then has one language.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-26 |First version.
+|===

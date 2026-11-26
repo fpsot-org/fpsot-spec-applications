@@ -1,0 +1,791 @@
+{
+  "files": [
+    {
+      "id": "019c5a00-0001-7000-8000-000000000003",
+      "service": "example-home-adaptation-grant",
+      "reference": "4WD7-KT9N-E",
+      "formUrl": "https://formulaires.example.org/aide-adaptation-domicile",
+      "formVersion": "1.0.0",
+      "subjectPartyId": "019c5a00-0010-7000-8000-000000000301",
+      "state": "in-review",
+      "stateHistory": [
+        {
+          "state": "draft",
+          "at": "2026-05-18T20:00:00Z",
+          "actor": {
+            "actorId": "acct-2f60d4",
+            "role": "applicant",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000301",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000301",
+            "assurance": "verified"
+          },
+          "reason": "draft-started"
+        },
+        {
+          "state": "submitted",
+          "at": "2026-05-20T14:00:00Z",
+          "actor": {
+            "actorId": "acct-2f60d4",
+            "role": "applicant",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000301",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000301",
+            "assurance": "verified"
+          },
+          "reason": "applicant-submitted"
+        },
+        {
+          "state": "in-review",
+          "at": "2026-05-21T13:00:00Z",
+          "actor": {
+            "actorId": "staff-8b1c55",
+            "role": "staff",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000302",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000301",
+            "assurance": "verified"
+          },
+          "reason": "staff-review-started"
+        },
+        {
+          "state": "information-requested",
+          "at": "2026-05-25T15:00:00Z",
+          "actor": {
+            "actorId": "staff-8b1c55",
+            "role": "staff",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000302",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000301",
+            "assurance": "verified"
+          },
+          "reason": "request-opened",
+          "requestId": "019c5a00-0005-7000-8000-000000000001"
+        },
+        {
+          "state": "in-review",
+          "at": "2026-06-10T16:30:00Z",
+          "actor": {
+            "actorId": "acct-2f60d4",
+            "role": "applicant",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000301",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000301",
+            "assurance": "verified"
+          },
+          "reason": "request-resolved",
+          "requestId": "019c5a00-0005-7000-8000-000000000001"
+        }
+      ],
+      "assurance": "verified",
+      "correspondenceLanguage": "fr",
+      "languageBasis": "french-default",
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000100",
+      "draftStartedAt": "2026-05-18T20:00:00Z",
+      "clocks": [
+        {
+          "code": "service-standard",
+          "changes": [
+            {
+              "change": "started",
+              "at": "2026-05-20T14:00:00Z"
+            },
+            {
+              "change": "suspended",
+              "at": "2026-05-25T15:00:00Z",
+              "requestId": "019c5a00-0005-7000-8000-000000000001"
+            },
+            {
+              "change": "resumed",
+              "at": "2026-06-10T16:30:00Z",
+              "requestId": "019c5a00-0005-7000-8000-000000000001"
+            }
+          ]
+        },
+        {
+          "code": "review-time-limit",
+          "changes": [
+            {
+              "change": "started",
+              "at": "2026-06-10T16:30:00Z",
+              "requestId": "019c5a00-0005-7000-8000-000000000001"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-05-18T20:00:00Z",
+      "updatedAt": "2026-06-10T16:30:00Z"
+    },
+    {
+      "id": "019c5a00-0001-7000-8000-000000000004",
+      "service": "example-home-adaptation-grant",
+      "reference": "JN6V-3F8C-2",
+      "formUrl": "https://formulaires.example.org/aide-adaptation-domicile",
+      "formVersion": "1.0.0",
+      "subjectPartyId": "019c5a00-0010-7000-8000-000000000303",
+      "state": "closed",
+      "stateHistory": [
+        {
+          "state": "draft",
+          "at": "2026-08-01T19:00:00Z",
+          "actor": {
+            "actorId": "acct-c0a917",
+            "role": "applicant",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000303",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000303",
+            "assurance": "verified"
+          },
+          "reason": "draft-started"
+        },
+        {
+          "state": "submitted",
+          "at": "2026-08-03T15:10:00Z",
+          "actor": {
+            "actorId": "acct-c0a917",
+            "role": "applicant",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000303",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000303",
+            "assurance": "verified"
+          },
+          "reason": "applicant-submitted"
+        },
+        {
+          "state": "information-requested",
+          "at": "2026-08-10T14:00:00Z",
+          "actor": {
+            "actorId": "staff-8b1c55",
+            "role": "staff",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000302",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000303",
+            "assurance": "verified"
+          },
+          "reason": "request-opened",
+          "requestId": "019c5a00-0005-7000-8000-000000000002"
+        },
+        {
+          "state": "closed",
+          "at": "2026-09-16T13:00:00Z",
+          "actor": {
+            "actorId": "staff-8b1c55",
+            "role": "staff",
+            "actingPartyId": "019c5a00-0010-7000-8000-000000000302",
+            "subjectPartyId": "019c5a00-0010-7000-8000-000000000303",
+            "assurance": "verified"
+          },
+          "reason": "closed-for-no-response",
+          "requestId": "019c5a00-0005-7000-8000-000000000002",
+          "contactAttemptId": "019c5a00-0008-7000-8000-000000000001"
+        }
+      ],
+      "assurance": "verified",
+      "correspondenceLanguage": "fr",
+      "languageBasis": "french-default",
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000100",
+      "draftStartedAt": "2026-08-01T19:00:00Z",
+      "clocks": [
+        {
+          "code": "service-standard",
+          "changes": [
+            {
+              "change": "started",
+              "at": "2026-08-03T15:10:00Z"
+            },
+            {
+              "change": "suspended",
+              "at": "2026-08-10T14:00:00Z",
+              "requestId": "019c5a00-0005-7000-8000-000000000002"
+            },
+            {
+              "change": "stopped",
+              "at": "2026-09-16T13:00:00Z",
+              "requestId": "019c5a00-0005-7000-8000-000000000002"
+            }
+          ]
+        }
+      ],
+      "createdAt": "2026-08-01T19:00:00Z",
+      "updatedAt": "2026-09-16T13:00:00Z"
+    }
+  ],
+  "versions": [
+    {
+      "id": "019c5a00-0002-7000-8000-000000000003",
+      "fileId": "019c5a00-0001-7000-8000-000000000003",
+      "number": 1,
+      "formUrl": "https://formulaires.example.org/aide-adaptation-domicile",
+      "formVersion": "1.0.0",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "35607626551850c50fe197930e12f5b215176146806c2d3f385f61c8bab63ee4"
+      },
+      "answers": {
+        "applicantName": "Camille Exemple",
+        "homeAddress": "200, rue Fictive, Exempleville (Québec)",
+        "worksDescription": "Rampe d’accès à l’entrée",
+        "proofOfAddress": "019c5a00-0006-7000-8000-000000000003"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "618048194dc8de0d7524e1d1365d5891eac1126cedc7934405360053cece391e"
+      },
+      "attachmentIds": [
+        "019c5a00-0006-7000-8000-000000000003"
+      ],
+      "channel": "digital",
+      "submittedBy": {
+        "actorId": "acct-2f60d4",
+        "role": "applicant",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000301",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000301",
+        "assurance": "verified"
+      },
+      "submittedAt": "2026-05-20T14:00:00Z"
+    },
+    {
+      "id": "019c5a00-0002-7000-8000-000000000004",
+      "fileId": "019c5a00-0001-7000-8000-000000000003",
+      "number": 2,
+      "previousVersionId": "019c5a00-0002-7000-8000-000000000003",
+      "requestId": "019c5a00-0005-7000-8000-000000000001",
+      "formUrl": "https://formulaires.example.org/aide-adaptation-domicile",
+      "formVersion": "1.0.0",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "35607626551850c50fe197930e12f5b215176146806c2d3f385f61c8bab63ee4"
+      },
+      "answers": {
+        "applicantName": "Camille Exemple",
+        "homeAddress": "200, rue Fictive, Exempleville (Québec)",
+        "worksDescription": "Rampe d’accès à l’entrée",
+        "proofOfAddress": "019c5a00-0006-7000-8000-000000000004"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "3786eb48600c7d8060bd3903e825866e75249cd566c7ed6c370fdbf6c6be51d7"
+      },
+      "attachmentIds": [
+        "019c5a00-0006-7000-8000-000000000004"
+      ],
+      "channel": "digital",
+      "submittedBy": {
+        "actorId": "acct-2f60d4",
+        "role": "applicant",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000301",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000301",
+        "assurance": "verified"
+      },
+      "submittedAt": "2026-06-10T16:30:00Z"
+    },
+    {
+      "id": "019c5a00-0002-7000-8000-000000000005",
+      "fileId": "019c5a00-0001-7000-8000-000000000004",
+      "number": 1,
+      "formUrl": "https://formulaires.example.org/aide-adaptation-domicile",
+      "formVersion": "1.0.0",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "35607626551850c50fe197930e12f5b215176146806c2d3f385f61c8bab63ee4"
+      },
+      "answers": {
+        "applicantName": "Sam Exemple",
+        "homeAddress": "300, rue Imaginaire, Exempleville (Québec)",
+        "worksDescription": "Salle de bain adaptée",
+        "proofOfAddress": "019c5a00-0006-7000-8000-000000000005"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "a982ecf3d2174cdb0ebc20e35ae1d06b86d2b5c526d54382be98e53ae86cf8ef"
+      },
+      "attachmentIds": [
+        "019c5a00-0006-7000-8000-000000000005"
+      ],
+      "channel": "digital",
+      "submittedBy": {
+        "actorId": "acct-c0a917",
+        "role": "applicant",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000303",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000303",
+        "assurance": "verified"
+      },
+      "submittedAt": "2026-08-03T15:10:00Z"
+    }
+  ],
+  "receiptRecords": [
+    {
+      "id": "019c5a00-0003-7000-8000-000000000003",
+      "fileId": "019c5a00-0001-7000-8000-000000000003",
+      "fileVersionId": "019c5a00-0002-7000-8000-000000000003",
+      "reference": "4WD7-KT9N-E",
+      "receivedAt": "2026-05-20T14:00:00Z",
+      "receivedLocal": {
+        "localDateTime": "2026-05-20T10:00:00",
+        "timeZone": "America/Toronto"
+      },
+      "channel": "digital",
+      "submitter": {
+        "actorId": "acct-2f60d4",
+        "role": "applicant",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000301",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000301",
+        "assurance": "verified"
+      },
+      "destination": "https://aide.example.org/depot",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "35607626551850c50fe197930e12f5b215176146806c2d3f385f61c8bab63ee4"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "618048194dc8de0d7524e1d1365d5891eac1126cedc7934405360053cece391e"
+      },
+      "attachmentDigests": [
+        {
+          "attachmentId": "019c5a00-0006-7000-8000-000000000003",
+          "digest": {
+            "algorithm": "sha-256",
+            "value": "6674d256239696af7cf0004bb312a6759b68c66f3bd4393b71284d7aeecf9c5e"
+          }
+        }
+      ],
+      "renditionDigest": {
+        "algorithm": "sha-256",
+        "value": "d94001c6cfa75cd41d9ca97dfe39167b5c9ddaee44dd4452ebed8baa284dac45"
+      },
+      "assurance": "verified",
+      "sealProfile": "seal-log",
+      "createdAt": "2026-05-20T14:00:00Z"
+    },
+    {
+      "id": "019c5a00-0003-7000-8000-000000000004",
+      "fileId": "019c5a00-0001-7000-8000-000000000003",
+      "fileVersionId": "019c5a00-0002-7000-8000-000000000004",
+      "reference": "4WD7-KT9N-E",
+      "receivedAt": "2026-06-10T16:30:00Z",
+      "receivedLocal": {
+        "localDateTime": "2026-06-10T12:30:00",
+        "timeZone": "America/Toronto"
+      },
+      "channel": "digital",
+      "submitter": {
+        "actorId": "acct-2f60d4",
+        "role": "applicant",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000301",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000301",
+        "assurance": "verified"
+      },
+      "destination": "https://aide.example.org/depot",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "35607626551850c50fe197930e12f5b215176146806c2d3f385f61c8bab63ee4"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "3786eb48600c7d8060bd3903e825866e75249cd566c7ed6c370fdbf6c6be51d7"
+      },
+      "attachmentDigests": [
+        {
+          "attachmentId": "019c5a00-0006-7000-8000-000000000004",
+          "digest": {
+            "algorithm": "sha-256",
+            "value": "35e41626b0d9cb3b216a88a188b4e7db1edd1313e0ce51d5754624e29ff10e7e"
+          }
+        }
+      ],
+      "renditionDigest": {
+        "algorithm": "sha-256",
+        "value": "2457db336018d61784aac04bb636dd0817416f2e09fe845e79af379ef3d81b56"
+      },
+      "assurance": "verified",
+      "sealProfile": "seal-log",
+      "createdAt": "2026-06-10T16:30:00Z"
+    },
+    {
+      "id": "019c5a00-0003-7000-8000-000000000005",
+      "fileId": "019c5a00-0001-7000-8000-000000000004",
+      "fileVersionId": "019c5a00-0002-7000-8000-000000000005",
+      "reference": "JN6V-3F8C-2",
+      "receivedAt": "2026-08-03T15:10:00Z",
+      "receivedLocal": {
+        "localDateTime": "2026-08-03T11:10:00",
+        "timeZone": "America/Toronto"
+      },
+      "channel": "digital",
+      "submitter": {
+        "actorId": "acct-c0a917",
+        "role": "applicant",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000303",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000303",
+        "assurance": "verified"
+      },
+      "destination": "https://aide.example.org/depot",
+      "formDigest": {
+        "algorithm": "sha-256",
+        "value": "35607626551850c50fe197930e12f5b215176146806c2d3f385f61c8bab63ee4"
+      },
+      "answersDigest": {
+        "algorithm": "sha-256",
+        "value": "a982ecf3d2174cdb0ebc20e35ae1d06b86d2b5c526d54382be98e53ae86cf8ef"
+      },
+      "attachmentDigests": [
+        {
+          "attachmentId": "019c5a00-0006-7000-8000-000000000005",
+          "digest": {
+            "algorithm": "sha-256",
+            "value": "fd076784b16ff895510c3bd1c085f5eda58e21a626fcdd910b3b3ae6e35bcaa3"
+          }
+        }
+      ],
+      "renditionDigest": {
+        "algorithm": "sha-256",
+        "value": "9ea6adfd9707ce0cf48dfd131cffb4e5ef2c26c3e2310c4199ba75219cd67452"
+      },
+      "assurance": "verified",
+      "sealProfile": "seal-log",
+      "createdAt": "2026-08-03T15:10:00Z"
+    }
+  ],
+  "acknowledgments": [
+    {
+      "id": "019c5a00-0004-7000-8000-000000000003",
+      "kind": "acknowledgment",
+      "receiptRecordId": "019c5a00-0003-7000-8000-000000000003",
+      "fileId": "019c5a00-0001-7000-8000-000000000003",
+      "reference": "4WD7-KT9N-E",
+      "receivedLocal": {
+        "localDateTime": "2026-05-20T10:00:00",
+        "timeZone": "America/Toronto"
+      },
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000100",
+      "handlingContact": "https://aide.example.org/nous-joindre",
+      "serviceStandard": "P60D",
+      "statusUri": "https://aide.example.org/etat",
+      "language": "fr",
+      "sentAt": "2026-05-20T14:00:00Z"
+    },
+    {
+      "id": "019c5a00-0004-7000-8000-000000000004",
+      "kind": "acknowledgment",
+      "receiptRecordId": "019c5a00-0003-7000-8000-000000000004",
+      "fileId": "019c5a00-0001-7000-8000-000000000003",
+      "reference": "4WD7-KT9N-E",
+      "receivedLocal": {
+        "localDateTime": "2026-06-10T12:30:00",
+        "timeZone": "America/Toronto"
+      },
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000100",
+      "handlingContact": "https://aide.example.org/nous-joindre",
+      "serviceStandard": "P60D",
+      "statusUri": "https://aide.example.org/etat",
+      "language": "fr",
+      "sentAt": "2026-06-10T16:30:00Z"
+    },
+    {
+      "id": "019c5a00-0004-7000-8000-000000000005",
+      "kind": "acknowledgment",
+      "receiptRecordId": "019c5a00-0003-7000-8000-000000000005",
+      "fileId": "019c5a00-0001-7000-8000-000000000004",
+      "reference": "JN6V-3F8C-2",
+      "receivedLocal": {
+        "localDateTime": "2026-08-03T11:10:00",
+        "timeZone": "America/Toronto"
+      },
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000100",
+      "handlingContact": "https://aide.example.org/nous-joindre",
+      "serviceStandard": "P60D",
+      "statusUri": "https://aide.example.org/etat",
+      "language": "fr",
+      "sentAt": "2026-08-03T15:10:00Z"
+    }
+  ],
+  "requests": [
+    {
+      "id": "019c5a00-0005-7000-8000-000000000001",
+      "fileId": "019c5a00-0001-7000-8000-000000000003",
+      "fileVersionId": "019c5a00-0002-7000-8000-000000000003",
+      "reason": "outdated",
+      "items": [
+        {
+          "questionId": "proofOfAddress",
+          "attachmentId": "019c5a00-0006-7000-8000-000000000003"
+        }
+      ],
+      "openedAt": "2026-05-25T15:00:00Z",
+      "openedBy": {
+        "actorId": "staff-8b1c55",
+        "role": "staff",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000302",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000301",
+        "assurance": "verified"
+      },
+      "deadline": {
+        "calendar": "ca-qc",
+        "calendarVersion": "0.1.0",
+        "startDate": "2026-05-25",
+        "periodDays": 30,
+        "rawDate": "2026-06-24",
+        "date": "2026-06-25"
+      },
+      "clockEffects": [
+        {
+          "clock": "service-standard",
+          "effect": "suspend"
+        },
+        {
+          "clock": "review-time-limit",
+          "effect": "start-on-completion"
+        }
+      ],
+      "status": "resolved",
+      "resolvedAt": "2026-06-10T16:30:00Z",
+      "resolvedByVersionId": "019c5a00-0002-7000-8000-000000000004",
+      "messageId": "019c5a00-00f0-7000-8000-000000000001"
+    },
+    {
+      "id": "019c5a00-0005-7000-8000-000000000002",
+      "fileId": "019c5a00-0001-7000-8000-000000000004",
+      "fileVersionId": "019c5a00-0002-7000-8000-000000000005",
+      "reason": "incomplete",
+      "items": [
+        {
+          "questionId": "worksDescription"
+        }
+      ],
+      "openedAt": "2026-08-10T14:00:00Z",
+      "openedBy": {
+        "actorId": "staff-8b1c55",
+        "role": "staff",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000302",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000303",
+        "assurance": "verified"
+      },
+      "deadline": {
+        "calendar": "ca-qc",
+        "calendarVersion": "0.1.0",
+        "startDate": "2026-08-10",
+        "periodDays": 30,
+        "rawDate": "2026-09-09",
+        "date": "2026-09-15",
+        "extension": {
+          "outageId": "019c5a00-0009-7000-8000-000000000001",
+          "rule": "outage-plus-five-days"
+        }
+      },
+      "clockEffects": [
+        {
+          "clock": "service-standard",
+          "effect": "suspend"
+        },
+        {
+          "clock": "review-time-limit",
+          "effect": "start-on-completion"
+        }
+      ],
+      "status": "expired",
+      "expiredAt": "2026-09-16T04:00:00Z",
+      "messageId": "019c5a00-00f0-7000-8000-000000000002"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "019c5a00-0006-7000-8000-000000000003",
+      "fileId": "019c5a00-0001-7000-8000-000000000003",
+      "questionId": "proofOfAddress",
+      "version": 1,
+      "originalName": "facture-2025.pdf",
+      "storageName": "019c5a00-5701-7000-8000-000000000003",
+      "path": "attachments/facture-2025.pdf",
+      "detectedMediaType": "application/pdf",
+      "byteSize": 105,
+      "digest": {
+        "algorithm": "sha-256",
+        "value": "6674d256239696af7cf0004bb312a6759b68c66f3bd4393b71284d7aeecf9c5e"
+      },
+      "scanState": "clean",
+      "scannedAt": "2026-05-20T13:59:00Z",
+      "receivedAt": "2026-05-20T13:58:40Z",
+      "uploadedBy": {
+        "actorId": "acct-2f60d4",
+        "role": "applicant",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000301",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000301",
+        "assurance": "verified"
+      }
+    },
+    {
+      "id": "019c5a00-0006-7000-8000-000000000004",
+      "fileId": "019c5a00-0001-7000-8000-000000000003",
+      "questionId": "proofOfAddress",
+      "version": 2,
+      "previousAttachmentId": "019c5a00-0006-7000-8000-000000000003",
+      "originalName": "facture-2026.pdf",
+      "storageName": "019c5a00-5701-7000-8000-000000000004",
+      "path": "attachments/facture-2026.pdf",
+      "detectedMediaType": "application/pdf",
+      "byteSize": 105,
+      "digest": {
+        "algorithm": "sha-256",
+        "value": "35e41626b0d9cb3b216a88a188b4e7db1edd1313e0ce51d5754624e29ff10e7e"
+      },
+      "scanState": "clean",
+      "scannedAt": "2026-06-10T16:28:30Z",
+      "receivedAt": "2026-06-10T16:28:10Z",
+      "uploadedBy": {
+        "actorId": "acct-2f60d4",
+        "role": "applicant",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000301",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000301",
+        "assurance": "verified"
+      }
+    },
+    {
+      "id": "019c5a00-0006-7000-8000-000000000005",
+      "fileId": "019c5a00-0001-7000-8000-000000000004",
+      "questionId": "proofOfAddress",
+      "version": 1,
+      "originalName": "bail.pdf",
+      "storageName": "019c5a00-5701-7000-8000-000000000005",
+      "path": "attachments/bail.pdf",
+      "detectedMediaType": "application/pdf",
+      "byteSize": 93,
+      "digest": {
+        "algorithm": "sha-256",
+        "value": "fd076784b16ff895510c3bd1c085f5eda58e21a626fcdd910b3b3ae6e35bcaa3"
+      },
+      "scanState": "clean",
+      "scannedAt": "2026-08-03T15:08:20Z",
+      "receivedAt": "2026-08-03T15:08:00Z",
+      "uploadedBy": {
+        "actorId": "acct-c0a917",
+        "role": "applicant",
+        "actingPartyId": "019c5a00-0010-7000-8000-000000000303",
+        "subjectPartyId": "019c5a00-0010-7000-8000-000000000303",
+        "assurance": "verified"
+      }
+    }
+  ],
+  "projections": [
+    {
+      "fileId": "019c5a00-0001-7000-8000-000000000003",
+      "label": "in-progress",
+      "since": "2026-06-10T16:30:00Z",
+      "reference": "4WD7-KT9N-E",
+      "receivedAt": "2026-05-20T14:00:00Z",
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000100",
+      "serviceStandard": "P60D",
+      "updatedAt": "2026-06-10T16:30:00Z"
+    },
+    {
+      "fileId": "019c5a00-0001-7000-8000-000000000004",
+      "label": "closed",
+      "since": "2026-09-16T13:00:00Z",
+      "reference": "JN6V-3F8C-2",
+      "receivedAt": "2026-08-03T15:10:00Z",
+      "handlingBodyPartyId": "019c5a00-0010-7000-8000-000000000100",
+      "serviceStandard": "P60D",
+      "updatedAt": "2026-09-16T13:00:00Z"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "019c5a00-0007-7000-8000-000000000004",
+      "fileId": "019c5a00-0001-7000-8000-000000000003",
+      "kind": "receipt",
+      "channel": "email",
+      "recipientRole": "applicant",
+      "language": "fr",
+      "template": "confirmation-reception",
+      "links": [
+        "https://aide.example.org/etat"
+      ],
+      "sentAt": "2026-05-20T14:00:01Z",
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "019c5a00-0007-7000-8000-000000000005",
+      "fileId": "019c5a00-0001-7000-8000-000000000003",
+      "kind": "action-needed",
+      "channel": "email",
+      "recipientRole": "applicant",
+      "language": "fr",
+      "template": "action-requise",
+      "links": [
+        "https://aide.example.org/etat"
+      ],
+      "sentAt": "2026-05-25T15:00:05Z",
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "019c5a00-0007-7000-8000-000000000006",
+      "fileId": "019c5a00-0001-7000-8000-000000000003",
+      "kind": "receipt",
+      "channel": "email",
+      "recipientRole": "applicant",
+      "language": "fr",
+      "template": "confirmation-reception",
+      "links": [
+        "https://aide.example.org/etat"
+      ],
+      "sentAt": "2026-06-10T16:30:01Z",
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "019c5a00-0007-7000-8000-000000000007",
+      "fileId": "019c5a00-0001-7000-8000-000000000004",
+      "kind": "receipt",
+      "channel": "email",
+      "recipientRole": "applicant",
+      "language": "fr",
+      "template": "confirmation-reception",
+      "links": [
+        "https://aide.example.org/etat"
+      ],
+      "sentAt": "2026-08-03T15:10:01Z",
+      "deliveryStatus": "delivered"
+    },
+    {
+      "id": "019c5a00-0007-7000-8000-000000000008",
+      "fileId": "019c5a00-0001-7000-8000-000000000004",
+      "kind": "action-needed",
+      "channel": "sms",
+      "recipientRole": "applicant",
+      "language": "fr",
+      "template": "action-requise",
+      "links": [
+        "https://aide.example.org/etat"
+      ],
+      "sentAt": "2026-08-10T14:00:05Z",
+      "deliveryStatus": "failed",
+      "failedAt": "2026-08-10T14:02:00Z"
+    },
+    {
+      "id": "019c5a00-0007-7000-8000-000000000009",
+      "fileId": "019c5a00-0001-7000-8000-000000000004",
+      "kind": "reminder",
+      "channel": "email",
+      "recipientRole": "applicant",
+      "language": "fr",
+      "template": "rappel-action-requise",
+      "links": [
+        "https://aide.example.org/etat"
+      ],
+      "sentAt": "2026-08-11T13:00:00Z",
+      "deliveryStatus": "delivered"
+    }
+  ],
+  "contactAttempts": [
+    {
+      "id": "019c5a00-0008-7000-8000-000000000001",
+      "fileId": "019c5a00-0001-7000-8000-000000000004",
+      "requestId": "019c5a00-0005-7000-8000-000000000002",
+      "notificationId": "019c5a00-0007-7000-8000-000000000009",
+      "at": "2026-08-11T13:00:00Z"
+    }
+  ],
+  "outages": [
+    {
+      "id": "019c5a00-0009-7000-8000-000000000001",
+      "service": "example-home-adaptation-grant",
+      "start": "2026-09-08T04:00:00Z",
+      "end": "2026-09-10T16:00:00Z",
+      "channels": [
+        "digital"
+      ],
+      "publishedAt": "2026-09-08T04:10:00Z"
+    }
+  ]
+}

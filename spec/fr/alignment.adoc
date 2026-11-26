@@ -1,0 +1,102 @@
+= Alignement sur d’autres normes
+include::_fpsot-terms.adoc[]
+
+Cette page est informative, et elle ne fixe aucune règle.
+Aucune norme publiée ne fixe les données d’une demande, de son brouillon jusqu’à sa décision.
+Chaque source ci-dessous convient à une partie : cette spécification s’y rattache, sans se déclarer conforme à aucune.
+Les produits de cette page sont de simples exemples, et aucune règle n’en exige un.
+
+== GovStack Registration
+
+Le link:https://specs.govstack.global/registration[bloc Registration de GovStack], version 1.0.1, est la norme la plus proche de la réception.
+Il exige des brouillons, le téléversement de documents et une vue de l’état et de l’historique.
+Il exige aussi un moyen pour le personnel de renvoyer un dossier pour correction.
+Son dossier a quatre statuts par rôle, et son personnel marque le champ ou le document erroné.
+Il contient en outre un générateur d’écrans, un moteur de règles et un générateur de flux, que cette spécification écarte.
+
+La recherche a lu le texte dans son dépôt, à un commit qui correspond à la version 1.0.1.
+La page de la version 1.0.1 sur le site de GovStack ne s’est pas chargée.
+Son libellé exact est donc _à vérifier_.
+
+[cols="2,2,3",options="header"]
+|===
+|GovStack |Cette spécification |Note
+|Brouillon enregistré et listé |`draft` |GovStack ne fixe aucune expiration, et APP-034 demande à chaque service d’en déclarer une.
+|`PENDING` |`submitted`, `in-review` |GovStack a un seul statut pour les deux.
+|`SENDBACK` |`information-requested` |Une demande de renseignements d’APP-050, dont les éléments sont les champs et les documents marqués.
+|`APPROVED`, `REJECTED` |`decided` |Le résultat reste dans l’enregistrement de décision de DEC-040.
+|Aucun |`withdrawn`, `closed` |GovStack n’a ni retrait ni fermeture faute de réponse.
+|`eFormId` et `version` |`url` et `version` du formulaire |GovStack ne fixe pas la version au dépôt, alors qu’APP-033 le fait.
+|`documentUrls` |`Attachment` |GovStack ne garde ni condensé, ni taille, ni type, ni état d’analyse.
+|`applicantId` |`ActingParty` |GovStack n’a pas de partie représentée.
+|===
+
+== Démarche Numérique
+
+link:https://github.com/demarche-numerique/demarche.numerique.gouv.fr/tree/45f9ede2ada6cde5f03df822d7c83e3e3a3ab486/[Démarche Numérique] est la plateforme libre que les organismes publics français emploient pour leurs démarches.
+La recherche a lu sa version `2026-11-19-02`, commit 45f9ede, sous licence AGPL-3.0.
+Cette spécification n’en reprend que le modèle, et aucun code.
+
+[cols="2,2,3",options="header"]
+|===
+|Démarche Numérique |Cette spécification |Note
+|`brouillon` |`draft` |Un brouillon expire après trois mois sans activité, avec un avis deux semaines avant.
+|`en_construction` |`submitted` |La personne peut encore y modifier son dossier, alors qu’APP-037 fige chaque version déposée.
+|`en_instruction` |`in-review` |
+|`en_construction` avec une correction en attente |`information-requested` |Une correction est un message au motif `incorrect`, `incomplete`, `outdated` ou `complement`, comme dans APP-050.
+|`accepte`, `refuse`, `sans_suite` |`decided` |Le résultat reste dans l’enregistrement de décision.
+|Masqué par l’usager |`withdrawn` |Un retrait est ici un passage d’état, et ne supprime rien.
+|`submitted_revision_id` |`url\|version` sur chaque version du dossier |Démarche Numérique déplace les brouillons ouverts vers chaque révision, alors qu’APP-035 exige une étape explicite.
+|`for_tiers` avec le nom du mandataire |`self-declared` selon APP-072 |Une représentation selon IAM-061 est ici la règle par défaut.
+|Somme de contrôle MD5 de chaque fichier |Condensé SHA-256 selon APP-062 |La link:https://www.rfc-editor.org/info/rfc9530[RFC 9530] déclare MD5 déprécié.
+|===
+
+== FHIR Questionnaire
+
+Le link:https://hl7.org/fhir/R5/questionnaire.html[Questionnaire] de HL7 FHIR R5 nomme chaque formulaire par une adresse canonique et une version métier.
+Son statut est `draft`, `active` ou `retired`, et APP-021 reprend les mêmes trois valeurs.
+Une link:https://hl7.org/fhir/R5/questionnaireresponse.html[QuestionnaireResponse] renvoie au formulaire par `url|version`, et APP-020 écrit la paire de la même façon.
+La réponse distingue son sujet, sa source et son auteur, et `ActingParty` fait une distinction semblable.
+Cette spécification emprunte ces idées, et non les ressources FHIR.
+
+== GOV.UK Forms
+
+link:https://github.com/govuk-forms/forms-runner/tree/d6524d6c285e3a64231633918bf21ee01e46491d/[GOV.UK Forms] garde une copie complète du document de formulaire avec chaque dépôt.
+APP-036 en cachette une de la même façon.
+Il garde un brouillon sur sa version de départ, comme APP-035 le fait par défaut.
+Ses numéros de référence ont huit caractères aléatoires sans caractères semblables, et APP-045 ajoute un caractère de contrôle.
+Il limite les fichiers à 7 Mo, et une analyse ratée bloque le dépôt, comme l’exige APP-063.
+
+== API néerlandaises
+
+Les link:https://vng-realisatie.github.io/gemma-zaken/standaard/[API ZGW] des Pays-Bas contiennent les dossiers et les documents, dans Zaken 1.8.0 et Documenten 1.8.0.
+Elles ont retiré leur propre API de réception, et les outils de réception écrivent donc directement dans un dossier.
+Un dossier consigne les actes faits pour autrui comme deux rôles : la partie autorisée et le mandant.
+Un document consigne son condensé comme un algorithme et une valeur, et APP-062 fait de même avec SHA-256 seulement.
+Une future spécification sur les dossiers pourra contenir le dossier qu’ouvre un dépôt.
+
+== CloudEvents
+
+Les événements d’APP-088 sont des événements link:https://github.com/cloudevents/spec/blob/fc1f6f31f5f011a72183f1bcea20c987cb683ade/cloudevents/spec.md[CloudEvents 1.0.2], comme le fixe API-100.
+Leur `subject` est l’identifiant du dossier, et un consommateur peut alors filtrer les événements sans lire leurs données.
+
+== Références
+
+=== Références informatives
+
+* link:https://specs.govstack.global/registration[GovStack Registration Building Block], GovStack, version 1.0.1, lu le 2026-11-23. link:https://web.archive.org/web/20261123155717/https://specs.govstack.global/registration[Copie archivée]
+* link:https://github.com/demarche-numerique/demarche.numerique.gouv.fr/tree/45f9ede2ada6cde5f03df822d7c83e3e3a3ab486/[Démarche Numérique, code source], version 2026-11-19-02, commit 45f9ede.
+* link:https://hl7.org/fhir/R5/questionnaire.html[Questionnaire], HL7 FHIR R5, version 5.0.0. link:https://web.archive.org/web/20261123155906/https://hl7.org/fhir/R5/questionnaire.html[Copie archivée]
+* link:https://hl7.org/fhir/R5/questionnaireresponse.html[QuestionnaireResponse], HL7 FHIR R5, version 5.0.0. link:https://web.archive.org/web/20261123155929/https://hl7.org/fhir/R5/questionnaireresponse.html[Copie archivée]
+* link:https://github.com/govuk-forms/forms-runner/tree/d6524d6c285e3a64231633918bf21ee01e46491d/[GOV.UK Forms, forms-runner], commit d6524d6, 2026-11-23.
+* link:https://vng-realisatie.github.io/gemma-zaken/standaard/[ZGW API standards], VNG Realisatie, version de septembre 2026, lu le 2026-11-23. link:https://web.archive.org/web/20261126210311/https://vng-realisatie.github.io/gemma-zaken/standaard/[Copie archivée]
+* link:https://www.rfc-editor.org/info/rfc9530[RFC 9530, Digest Fields], IETF, 2024-02. link:https://web.archive.org/web/20261107090504/https://www.rfc-editor.org/info/rfc9530/[Copie archivée]
+* link:https://github.com/cloudevents/spec/blob/fc1f6f31f5f011a72183f1bcea20c987cb683ade/cloudevents/spec.md[CloudEvents, version 1.0.2], CNCF, 2022-02-06, tag ce@v1.0.2 at commit fc1f6f3.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-26 |Première version.
+|===

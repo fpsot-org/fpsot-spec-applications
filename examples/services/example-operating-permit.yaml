@@ -1,0 +1,37 @@
+# SPDX-License-Identifier: Community-Spec-1.0
+# Synthetic service declaration of the FPSOT applications examples (APP-012), in the form of the class
+# ServiceDeclaration of model/applications.yaml. Every body, program and address is fictional.
+code: example-operating-permit
+version: 1.0.0
+title:
+- language: en
+  text: Example operating permit
+- language: fr
+  text: Permis d’exploitation d’exemple
+deployingBodyPartyId: 019c5a00-0010-7000-8000-000000000100
+profiles:
+- core
+- ca-qc
+forms:
+- https://formulaires.example.org/permis-exploitation|1.0.0
+applicationKind: business-permit-or-grant
+draftStorage: server
+draftInactivityDays: 60
+purgeNoticeDays: 14
+clocks:
+- code: service-standard
+  kind: service-standard
+  startsOn: submission
+  duration: P30D
+closingForNoResponse: false
+selfDeclaredSubmissions: false
+favorableWhileOpenAllowed: false
+channels:
+- digital
+- assisted-digital
+- paper
+serviceStandard: P30D
+handlingContact: https://permis.example.org/nous-joindre
+statusUri: https://permis.example.org/etat
+domains:
+- permis.example.org

@@ -1,0 +1,124 @@
+= Réception et accusés de réception
+include::_fpsot-terms.adoc[]
+
+Une échéance dépend souvent du moment où une demande est arrivée.
+Le Québec présume qu’un document technologique est reçu quand il devient accessible à l’adresse que désigne l’organisme.
+Il admet comme preuve des données conservées qui fixent la date, l’heure, la minute et la seconde.
+Ces données indiquent aussi la provenance et la destination.
+La France exige que chaque organisme accuse réception de chaque demande, et fixe le contenu de l’accusé.
+Le Canada laisse ces deux points à chaque programme.
+
+Cette page consigne donc chaque arrivée de la même façon, et laisse le profil dire ce que prouve cette donnée.
+Le constat de réception diffère ici du reçu de frais : il prouve une arrivée, et non un paiement.
+
+== Constat de réception
+
+[[APP-040]]
+*APP-040.* Chaque dépôt DOIT créer une donnée de la classe `ReceiptRecord` de `model/applications.yaml`.
+Cela comprend le premier dépôt et chaque réponse à une demande de renseignements.
+La donnée NE DOIT PAS changer après sa création.
+Elle DOIT contenir ces éléments.
+
+* Le dossier, la version du dossier et le numéro de référence.
+* L’instant de réception en UTC, au moins à la seconde près, selon DAT-010.
+* La date et l’heure locales de réception avec le fuseau horaire légal du profil, selon DAT-015.
+* Le canal, la personne qui dépose et tout représentant, selon APP-071.
+* La destination, comme l’adresse ou le bureau.
+* Les condensés SHA-256 de la version de formulaire employée, des réponses et de chaque pièce jointe, selon APP-062.
+* Le condensé de la version d’archivage que demande APP-065.
+
+L’heure locale avec son fuseau compte là où une loi lit les échéances en heure locale.
+La Loi d’interprétation fédérale lit une heure du jour comme l’heure normale, et le profil dit comment l’afficher.
+
+[[APP-041]]
+*APP-041.* L’instant de réception DOIT être l’instant où le dépôt est devenu accessible dans le système de l’organisme.
+Il NE DOIT PAS être l’instant où une personne ou un traitement l’a ouvert, vérifié ou traité.
+Pour le papier, il DOIT être l’instant que l’organisme a estampillé sur le document à son arrivée, selon APP-092.
+L’instant de réception DOIT rester le même quand le dossier passe à un autre canal ou à un autre système.
+
+Une file d’attente, un retard ou une migration ne change alors jamais l’âge d’un dossier.
+Le profil indique ce que prouve l’instant de réception dans son droit.
+
+[[APP-042]]
+*APP-042.* L’{term-deploying-body} DOIT cacheter chaque constat de réception selon la spécification sur les documents signés.
+Il emploie un format de LOG-010.
+L’identifiant du constat DOIT être celui de son manifeste de cachet, selon LOG-019.
+Le cachet DOIT couvrir le constat et la copie de la version de formulaire d’APP-036.
+Le profil de cachet DOIT être `seal-log` ou supérieur, selon LOG-002.
+Une correction DOIT être un nouveau constat qui nomme celui qu’il corrige, selon LOG-082.
+
+L’horodatage du cachet montre quand la donnée existait, selon LOG-022.
+Le journal prouve alors que personne n’a déplacé l’instant de réception par la suite.
+
+== Accusé de réception
+
+[[APP-043]]
+*APP-043.* Le service DOIT envoyer un `Acknowledgment` pour chaque dépôt, dans la langue du dossier.
+Chaque accusé de réception DOIT contenir ces éléments.
+
+* Le numéro de référence et l’instant de réception, affiché dans le fuseau horaire légal.
+* L’organisme qui traite la demande, avec un moyen de le joindre.
+* La date prévue de la décision, ou la norme de service du programme.
+* Chaque pièce manquante avec son échéance, quand le service en connaît déjà une.
+* La façon de consulter l’état de la demande.
+
+Un profil PEUT ajouter des éléments, comme l’effet du silence ou les voies de recours qu’exige la France.
+
+Un courriel qui dit « reçue » réduit les appels de personnes qui se demandent si leur demande est arrivée.
+L’accusé ne contient aucune réponse ni aucune pièce jointe, selon APP-085.
+
+[[APP-044]]
+*APP-044.* Un canal numérique DEVRAIT afficher l’accusé de réception tout de suite, sur la page de confirmation.
+Quand le service ne peut pas accuser réception tout de suite, il DOIT envoyer sur-le-champ un avis d’enregistrement.
+Cet avis contient le numéro de référence et l’instant de réception.
+Il DOIT ensuite envoyer l’accusé de réception dans le délai que fixe le profil.
+La page de confirmation DOIT offrir une copie du dépôt à conserver, comme sa version d’archivage.
+Un retour à la page de confirmation NE DOIT PAS déposer de nouveau.
+
+La France exige un accusé d’enregistrement dans un jour ouvré quand l’accusé complet ne peut venir tout de suite.
+Cette règle suit ce modèle, et le délai vient de chaque profil.
+
+== Numéros de référence
+
+[[APP-045]]
+*APP-045.* Chaque dossier DOIT avoir un numéro de référence de huit caractères aléatoires et d’un caractère de contrôle.
+Une source aléatoire propre à la cryptographie DOIT tirer les huit caractères de l’alphabet Base32 de Crockford.
+Le caractère de contrôle DOIT être le reste modulo 37 de la valeur des huit caractères.
+Il DOIT s’écrire avec les symboles de contrôle de ce codage.
+Le numéro DOIT s’afficher sous la forme `XXXX-XXXX-C`, en majuscules.
+Il NE DOIT PAS suivre une séquence, ni coder une personne, un lieu, un programme ou un sujet.
+
+Cet alphabet contient les chiffres et les lettres, sauf I, L, O et U.
+DAT-062 interdit déjà un identifiant qui révèle quelque chose sur une personne, un lieu ou une entreprise.
+
+Le numéro agit comme un jeton au porteur : une séquence permettrait de deviner les dossiers d’autrui.
+Huit caractères donnent environ mille milliards de valeurs.
+Le caractère de contrôle détecte un caractère erroné ou deux caractères inversés.
+Les symboles de contrôle comprennent `*`, `~`, `$`, `=` et `U`.
+Une interface utilisateur affiche donc le numéro dans une police à chasse fixe.
+
+[[APP-046]]
+*APP-046.* Un service DOIT lire un numéro sans tenir compte de la casse, des espaces et des traits d’union.
+Il DOIT lire I et L comme 1, et O comme 0.
+Il DOIT refuser un numéro dont le caractère de contrôle ne concorde pas, et signaler une faute de frappe possible.
+Une consultation de l’état par numéro DOIT aussi exiger un second facteur, comme une connexion.
+Sa réponse DOIT être la même, que le numéro existe ou non.
+
+Une faute de frappe ne montre alors jamais le dossier d’une autre personne.
+La même réponse pour un numéro inexistant empêche de tester les numéros un à un.
+
+== Références
+
+=== Références informatives
+
+* link:https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-1.1[Loi concernant le cadre juridique des technologies de l’information], RLRQ, c. C-1.1, article 31, LégisQuébec, à jour au 2026-10-15. link:https://web.archive.org/web/20260209145552/https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-1.1[Copie archivée]
+* link:https://www.crockford.com/base32.html[Base 32], Douglas Crockford, lu le 2026-11-23. link:https://web.archive.org/web/20261105160756/http://www.crockford.com/base32.html[Copie archivée]
+* link:https://design-system.service.gov.uk/patterns/confirmation-pages/[Confirmation pages], GOV.UK Design System, lu le 2026-11-23. link:https://web.archive.org/web/20261029121649/https://design-system.service.gov.uk/patterns/confirmation-pages/[Copie archivée]
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-26 |Première version.
+|===
