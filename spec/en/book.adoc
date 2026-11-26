@@ -1,4 +1,4 @@
-= Specification title
+= FPSOT applications specification
 :doctype: book
 :toc:
 
