@@ -11,14 +11,17 @@ This page checks the authority on every act, and records the two parties apart.
 == Authority
 
 [[APP-070]]
-*APP-070.* An act for another party MUST rest on a representation under IAM-061, chosen in the session under IAM-064.
-The service MUST ask the {term-authorization-engine} on each act, under IAM-050, and not only at submission.
+*APP-070.* An act of a representative MUST rest on a representation under IAM-061, chosen in the session under IAM-064.
+The service MUST ask the {term-authorization-engine} on each act of an applicant, a representative or staff, under IAM-050.
 That covers each save of a draft, each submission, each reply, each withdrawal and each lookup.
-The service MUST refuse the act when no valid representation covers it.
+The service MUST record when it checked each act, and MUST refuse an act that fails the check.
+It MUST refuse an act of a representative when no valid representation covers it.
 A representative MUST act from their own account, under IAM-060, never from the account of the represented party.
 
 A representation can end between the draft and the reply.
 A check on each act then stops a person whose mandate ended.
+Staff act on the authority of their role under IAM-050, not on a representation.
+The same check applies to them.
 
 [[APP-071]]
 *APP-071.* Each act on a file MUST record an `ActingParty` that keeps the acting party and the subject apart.
@@ -32,12 +35,17 @@ FHIR keeps the same split between the subject of a response, its source and its 
 
 [[APP-072]]
 *APP-072.* A service MAY accept a submission that a person declares for another party, without a representation under IAM-061.
-It MUST do so only when its declaration allows it.
-It MUST then mark the file and each act with the assurance `self-declared`.
-Staff MUST see that mark, and the receipt record MUST hold it.
-A self-declared submission MUST NOT give the declarant any later access to the file without a representation.
+It MUST do so only when its declaration allows it, and then these hold.
+
+* The service MUST mark the file, each act and the receipt record `self-declared`.
+* Staff MUST see that mark.
+* Only the draft and its submission MAY be self-declared.
+* A later act, such as a reply, a withdrawal or a lookup, MUST come from the subject or a representative.
+* The submission MUST NOT give the declarant any later access to the file.
+* A notice to the declarant MUST only confirm the submission, with no link to the file.
 
 A person who helps a neighbor once can then still submit, and the body knows how much to trust it.
+The subject learns of the submission under APP-073, and decides what happens next.
 
 == Notice and revocation
 

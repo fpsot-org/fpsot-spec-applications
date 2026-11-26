@@ -72,8 +72,8 @@ Le texte qu’une personne voit DOIT venir de catalogues de messages, selon LOC-
 Le profil fédéral offre le français et l’anglais, au choix de la personne.
 Le profil québécois garde le français par défaut.
 Il ne permet l’anglais que sur une base que nomme la Charte de la langue française.
-Une entreprise qui y demande un permis ou une subvention écrit en français seulement.
-Ce formulaire n’a alors qu’une langue.
+Une personne morale ou une entreprise qui y demande un permis ou une subvention écrit en français seulement.
+Ce formulaire n’a alors qu’une langue, sauf si une exception de la Charte s’applique au dossier.
 
 == Historique du document
 

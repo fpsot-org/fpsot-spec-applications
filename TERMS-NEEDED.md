@@ -19,6 +19,8 @@ French forms that come from a French text of law that the research read say so i
 6. **Spelling of our codes and class names.** English is US spelling, so the class is `Acknowledgment`, not `Acknowledgement` as the plan wrote it. The plan's `Receipt` class is `ReceiptRecord`, to keep it apart from the `Receipt` class of the fees model.
 7. **submission → « dépôt »**, after the French *dépôt* of the federal law on electronic documents and of Démarche Numérique. To confirm.
 8. **service declaration → « déclaration de service »** (provisional). The term base already renders *filing* (REG) as « déclaration », and Québec law has the *déclaration de services aux citoyens*. The French pages write « déclaration de service » in full for the file of a program, « déclaration » alone only for a filing of a register, and « dépôt sur simple déclaration » for a self-declared submission. Alternatives for the file of a program: « fiche de service », « paramétrage du service ».
+9. **case → « affaire »** (provisional). The French pages write « dossier » for the application file, so the case that a later case specification holds, and a case of the Dutch APIs, is « affaire », and a case system is « système de traitement des affaires ».
+10. **date stamp → « tampon dateur »**, and **received precision → « précision de la réception »**. To confirm.
 
 ```yaml
   - id: application
@@ -84,11 +86,26 @@ French forms that come from a French text of law that the research read say so i
   - id: acting-party
     kind: term
     en: {full: "acting party", definition: "The party who does an act on an application file, recorded apart from the party whose file it is."}
-    fr: {full: "partie agissante", definition: "Partie qui fait un acte sur un dossier de demande, consignée à part de la partie à qui appartient le dossier."}
+    fr: {full: "partie agissante", definition: "Partie qui fait un acte sur un dossier de demande, consignée séparément de la partie à qui appartient le dossier."}
     source: {name: "FPSOT applications specification, APP-071; French form to confirm", url: "https://github.com/fpsot-org/fpsot-spec-applications", checked: "2026-11-26"}
   - id: service-declaration
     kind: term
     en: {full: "service declaration", definition: "The file in which a program states its forms, its clocks, its channels, its drafts and its rules on closing and self-declared submissions."}
     fr: {full: "déclaration de service", definition: "Fichier dans lequel un programme indique ses formulaires, ses décomptes, ses canaux, ses brouillons et ses règles sur la fermeture et le dépôt sur simple déclaration."}
     source: {name: "FPSOT applications specification, APP-012; French form to confirm; not to be confused with the déclaration de services aux citoyens of article 6 of the Loi sur l'administration publique", url: "https://github.com/fpsot-org/fpsot-spec-applications", checked: "2026-11-26"}
+  - id: full-grant
+    kind: term
+    en: {full: "full grant", definition: "A decision outcome that gives the applicant all that the application asks; every other result of a decision is adverse to the applicant."}
+    fr: {full: "octroi complet", definition: "Issue d’une décision qui accorde à la personne tout ce que sa demande sollicite; tout autre résultat d’une décision lui est défavorable."}
+    source: {name: "FPSOT applications specification, APP-032 and APP-052, after the result kinds of DEC-024; French form to confirm", url: "https://github.com/fpsot-org/fpsot-spec-applications", checked: "2026-11-26"}
+  - id: date-stamp
+    kind: term
+    en: {full: "date stamp", definition: "The mark that a body puts on a paper document when it arrives, which may hold a date only, or a time to the minute."}
+    fr: {full: "tampon dateur", definition: "Marque qu’un organisme appose sur un document papier à son arrivée, qui peut ne porter qu’une date, ou une heure à la minute."}
+    source: {name: "FPSOT applications specification, APP-041 and APP-092; French form to confirm, see decision 10", url: "https://github.com/fpsot-org/fpsot-spec-applications", checked: "2026-11-26"}
+  - id: case
+    kind: term
+    en: {full: "case", definition: "The matter that a body works on after an application, which a later case specification will hold."}
+    fr: {full: "affaire", definition: "Ce que traite un organisme à la suite d’une demande, que contiendra une future spécification sur le traitement des affaires."}
+    source: {name: "FPSOT applications specification, APP-032; French form provisional, see decision 9", url: "https://github.com/fpsot-org/fpsot-spec-applications", checked: "2026-11-26"}
 ```

@@ -17,7 +17,7 @@ Feature: Take in an application and prove what arrived
 
   @APP-025 @APP-070
   Scenario: A business applies for a permit in French only
-    Given the service "example-operating-permit" whose kind of application is "business-permit-or-grant"
+    Given the service "example-operating-permit" whose kind of application is "legal-person-permit-or-grant"
     And the profile "ca-qc" whose language rule "charter-21-9" asks for "fr" only
     When a representative of the business submits on "2026-06-15T13:42:07Z" on the representation "rel-qc-7f3a21"
     Then the file has the reference "Q2X8-PR5D-X", the language "fr" and the basis "charter-21-9"
@@ -51,10 +51,11 @@ Feature: Take in an application and prove what arrived
 
   @APP-041 @APP-091 @APP-092
   Scenario: Staff key in a paper application five days after it arrived
-    Given a paper application stamped on arrival on "2026-04-02T17:20:00Z"
+    Given a paper application with a date stamp of "2026-04-02" on arrival
     When the staff member "staff-2c71d0" keys it in on "2026-04-07T14:05:00Z"
     Then the file has the reference "2KF9-XA3P-X" and the channel "paper"
-    And its received instant is "2026-04-02T17:20:00Z", not the instant of keying
+    And its received instant is "2026-04-02T04:00:00Z", the start of that local day, with the precision "day"
+    And the instant of keying is recorded apart in "keyedAt"
 
   @APP-035
   Scenario: A draft moves to a new form version before its submission

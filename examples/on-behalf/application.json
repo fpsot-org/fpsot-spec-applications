@@ -74,6 +74,7 @@
             "role": "representative",
             "actingPartyId": "019c5a00-0010-7000-8000-000000000404",
             "subjectPartyId": "019c5a00-0010-7000-8000-000000000403",
+            "authorityCheckedAt": "2026-07-09T14:40:00Z",
             "assurance": "self-declared"
           },
           "reason": "draft-started"
@@ -86,6 +87,7 @@
             "role": "representative",
             "actingPartyId": "019c5a00-0010-7000-8000-000000000404",
             "subjectPartyId": "019c5a00-0010-7000-8000-000000000403",
+            "authorityCheckedAt": "2026-07-09T15:02:11Z",
             "assurance": "self-declared"
           },
           "reason": "self-declared-submitted"
@@ -168,6 +170,7 @@
         "role": "representative",
         "actingPartyId": "019c5a00-0010-7000-8000-000000000404",
         "subjectPartyId": "019c5a00-0010-7000-8000-000000000403",
+        "authorityCheckedAt": "2026-07-09T15:02:11Z",
         "assurance": "self-declared"
       },
       "submittedAt": "2026-07-09T15:02:11Z"
@@ -184,6 +187,7 @@
         "localDateTime": "2026-07-08T14:25:44",
         "timeZone": "America/Toronto"
       },
+      "receivedPrecision": "second",
       "channel": "digital",
       "submitter": {
         "actorId": "acct-5e19a0",
@@ -221,12 +225,14 @@
         "localDateTime": "2026-07-09T11:02:11",
         "timeZone": "America/Toronto"
       },
+      "receivedPrecision": "second",
       "channel": "digital",
       "submitter": {
         "actorId": "acct-b70e33",
         "role": "representative",
         "actingPartyId": "019c5a00-0010-7000-8000-000000000404",
         "subjectPartyId": "019c5a00-0010-7000-8000-000000000403",
+        "authorityCheckedAt": "2026-07-09T15:02:11Z",
         "assurance": "self-declared"
       },
       "destination": "https://benefit.example.org/apply",
@@ -342,9 +348,6 @@
       "recipientRole": "representative",
       "language": "fr",
       "template": "confirmation-reception",
-      "links": [
-        "https://benefit.example.org/status"
-      ],
       "sentAt": "2026-07-09T15:02:12Z",
       "deliveryStatus": "delivered"
     },

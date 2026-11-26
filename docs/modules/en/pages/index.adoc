@@ -39,6 +39,7 @@ Make submit idempotent, under APP-094.
 
 Create a sealed receipt record for each submission, with the instant when it became accessible, under APP-040 to APP-042.
 For paper, use the stamp on arrival, not the instant of keying, under APP-092.
+A date stamp counts from the start of its local day, under APP-041.
 Send an acknowledgment with the reference, the received time, the handling body and the expected date, under APP-043.
 Draw each reference at random, with a Crockford check character, under APP-045.
 
@@ -47,8 +48,11 @@ Draw each reference at random, with a Crockford check character, under APP-045.
 Open one request for information at a time, under APP-051.
 Give it a reason, its items, a deadline and its effect on each clock, under APP-050.
 Compute the deadline from the calendar of the profile, under APP-055.
+
+Notify the applicant when it opens, under APP-084.
 Decide nothing adverse while the request is open and in time, under APP-052.
-Close a file for no response only after an expired deadline and a logged contact attempt, under APP-057.
+After it ends, decide nothing adverse until the applicant has heard of it, under APP-052 and APP-053.
+Close a file for no response only after an expired deadline and a separate, logged contact attempt, under APP-057.
 
 == Handle files
 

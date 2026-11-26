@@ -19,9 +19,9 @@ Each requirement has an ID from `APP-001` to `APP-105`.
 * Publish each form as a JSON Schema 2020-12 document with a canonical address, a version and stable question ids (APP-020 to APP-025).
 * Keep one lifecycle of seven states, drafts that survive the session, explicit form migrations and versions that never change once submitted (APP-030 to APP-038).
 * Seal a receipt record for each submission, acknowledge it, and draw random reference numbers with a check character (APP-040 to APP-046).
-* Open one request for information at a time, compute its deadline from the calendar, block adverse decisions while it is open, and close a file only after a logged contact attempt (APP-050 to APP-057).
+* Open one request for information at a time and notify it, compute its deadline from the calendar, block adverse decisions while it is open and after it ends unheard, and close a file only after a separate logged contact attempt (APP-050 to APP-057).
 * Check attachments by content, hash them with SHA-256 only, fail closed on scans and keep each original (APP-060 to APP-066).
-* Check the authority of each act for another party, and record the acting party apart from the subject (APP-070 to APP-074).
+* Check the authority of each act, and record the acting party apart from the subject (APP-070 to APP-074).
 * Show a closed list of status labels, send notifications without decisions or answers, and send the events of `registry/events/` (APP-080 to APP-088).
 * Feed every channel into the same file, keep the received instant of paper, and make submit idempotent (APP-090 to APP-096).
 * Offer interfaces that never edit a submission, hand off to fees, registries and decisions, and test on synthetic fixtures (APP-100 to APP-105).

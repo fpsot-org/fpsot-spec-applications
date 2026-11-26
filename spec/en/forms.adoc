@@ -70,8 +70,8 @@ The text that a person sees MUST come from message catalogs, under LOC-020.
 The federal profile offers English and French, at the choice of the applicant.
 The Québec profile keeps French as the default.
 It allows English only on a basis that the Charter of the French language names.
-A business that applies there for a permit or a grant writes in French only.
-That form then has one language.
+A legal person or an enterprise that applies there for a permit or a grant writes in French only.
+That form then has one language, unless an exception of the Charter applies to the file.
 
 == Document history
 

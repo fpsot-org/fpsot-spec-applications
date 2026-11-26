@@ -20,7 +20,7 @@ La donnée NE DOIT PAS changer après sa création.
 Elle DOIT contenir ces éléments.
 
 * Le dossier, la version du dossier et le numéro de référence.
-* L’instant de réception en UTC, au moins à la seconde près, selon DAT-010.
+* L’instant de réception en UTC, à la seconde près, selon DAT-010, et sa précision selon APP-041.
 * La date et l’heure locales de réception avec le fuseau horaire légal du profil, selon DAT-015.
 * Le canal, la personne qui dépose et tout représentant, selon APP-071.
 * La destination, comme l’adresse ou le bureau.
@@ -35,13 +35,19 @@ La Loi d’interprétation fédérale lit une heure du jour comme l’heure norm
 Il NE DOIT PAS être l’instant où une personne ou un traitement l’a ouvert, vérifié ou traité.
 Pour le papier, il DOIT être l’instant que l’organisme a estampillé sur le document à son arrivée, selon APP-092.
 L’instant de réception DOIT rester le même quand le dossier passe à un autre canal ou à un autre système.
+Le constat DOIT indiquer sa précision dans `receivedPrecision`, selon cette liste.
+
+* `day` pour un tampon dateur sans heure, avec le début de ce jour local dans le fuseau horaire légal.
+* `minute` pour un tampon à la minute, avec le début de cette minute.
+* `second` pour toute autre réception.
 
 Une file d’attente, un retard ou une migration ne change alors jamais l’âge d’un dossier.
+Un tampon dateur compte à partir de sa propre date, et aucun organisme ne lui invente une heure.
 Le profil indique ce que prouve l’instant de réception dans son droit.
 
 [[APP-042]]
 *APP-042.* L’{term-deploying-body} DOIT cacheter chaque constat de réception selon la spécification sur les documents signés.
-Il emploie un format de LOG-010.
+Il DOIT employer un format de LOG-010.
 L’identifiant du constat DOIT être celui de son manifeste de cachet, selon LOG-019.
 Le cachet DOIT couvrir le constat et la copie de la version de formulaire d’APP-036.
 Le profil de cachet DOIT être `seal-log` ou supérieur, selon LOG-002.
@@ -59,7 +65,7 @@ Chaque accusé de réception DOIT contenir ces éléments.
 * Le numéro de référence et l’instant de réception, affiché dans le fuseau horaire légal.
 * L’organisme qui traite la demande, avec un moyen de le joindre.
 * La date prévue de la décision, ou la norme de service du programme.
-* Chaque pièce manquante avec son échéance, quand le service en connaît déjà une.
+* Chaque élément manquant avec son échéance, quand le service en connaît déjà un.
 * La façon de consulter l’état de la demande.
 
 Un profil PEUT ajouter des éléments, comme l’effet du silence ou les voies de recours qu’exige la France.
@@ -96,6 +102,7 @@ Huit caractères donnent environ mille milliards de valeurs.
 Le caractère de contrôle détecte un caractère erroné ou deux caractères inversés.
 Les symboles de contrôle comprennent `*`, `~`, `$`, `=` et `U`.
 Une interface utilisateur affiche donc le numéro dans une police à chasse fixe.
+Une adresse Web encode ces symboles en pourcentage, et le personnel les épelle au téléphone.
 
 [[APP-046]]
 *APP-046.* Un service DOIT lire un numéro sans tenir compte de la casse, des espaces et des traits d’union.

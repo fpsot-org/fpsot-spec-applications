@@ -8,14 +8,15 @@ The products on this page are examples only, and no rule requires one of them.
 
 == GovStack Registration
 
-The link:https://specs.govstack.global/registration[Registration building block of GovStack], version 1.0.1, is the closest standard for intake.
+The link:https://specs.govstack.global/registration/registration-1.0.1/[Registration building block of GovStack], version 1.0.1, is the closest standard for intake.
 It asks for drafts, document uploads and a view of status and history.
 It also asks for a way for staff to send a file back for correction.
 Its file has four statuses for each role, and its staff mark which field or document is wrong.
 It also holds a screen builder, a rule engine and a flow builder, which this specification leaves out.
 
-The research read the text in its repository, at a commit that matches version 1.0.1.
-The page of version 1.0.1 on the GovStack site did not load, so its exact wording is _to be verified_.
+The research read the text in its repository, at commit f439f80.
+That this commit holds the text of version 1.0.1 is _to be verified_, since the repository has no tags.
+The page of version 1.0.1 on the GovStack site did not confirm its wording, which is _to be verified_ too.
 
 [cols="2,2,3",options="header"]
 |===
@@ -43,8 +44,9 @@ This specification takes its model only, and no code.
 |`en_construction` |`submitted` |The applicant may still edit there, while APP-037 freezes each submitted version.
 |`en_instruction` |`in-review` |
 |`en_construction` with a pending correction |`information-requested` |A correction is a message with the reason `incorrect`, `incomplete`, `outdated` or `complement`, as in APP-050.
-|`accepte`, `refuse`, `sans_suite` |`decided` |The result stays in the decision record.
-|Hidden by the user |`withdrawn` |A withdrawal here is a move, and deletes nothing.
+|`accepte`, `refuse` |`decided` |The result stays in the decision record.
+|`sans_suite` |`closed` or `withdrawn`, approximately |A file closed with no follow-up has no decision, so this mapping is approximate.
+|Hidden by the user |`withdrawn`, approximately |Hiding is an action of the interface, and a withdrawal here is a move that deletes nothing.
 |`submitted_revision_id` |`url\|version` on each file version |Démarche Numérique moves open drafts to each new revision, and APP-035 asks for an explicit step.
 |`for_tiers` with the name of the mandatary |`self-declared` under APP-072 |A representation of IAM-061 is the default here.
 |MD5 checksum of each file |SHA-256 digest under APP-062 |link:https://www.rfc-editor.org/info/rfc9530[RFC 9530] deprecates MD5.
@@ -53,7 +55,7 @@ This specification takes its model only, and no code.
 == FHIR Questionnaire
 
 The link:https://hl7.org/fhir/R5/questionnaire.html[Questionnaire] of HL7 FHIR R5 names each form by a canonical address and a business version.
-Its status is `draft`, `active` or `retired`, and APP-021 takes the same three values.
+Its status is `draft`, `active`, `retired` or `unknown`, and APP-021 takes the first three of these four values.
 A link:https://hl7.org/fhir/R5/questionnaireresponse.html[QuestionnaireResponse] points to the form as `url|version`, and APP-020 writes the pair the same way.
 The response separates its subject, its source and its author, and `ActingParty` keeps a similar split.
 This specification borrows these ideas, not the FHIR resources.
@@ -83,7 +85,7 @@ Their `subject` is the id of the file, so a consumer can filter events without r
 
 === Informative
 
-* link:https://specs.govstack.global/registration[GovStack Registration Building Block], GovStack, version 1.0.1, read 2026-11-23. link:https://web.archive.org/web/20261123155717/https://specs.govstack.global/registration[Archived copy]
+* link:https://specs.govstack.global/registration/registration-1.0.1/[GovStack Registration Building Block], GovStack, version 1.0.1, read 2026-11-23. link:https://web.archive.org/web/20260128021409/https://specs.govstack.global/registration/registration-1.0.1/[Archived copy]
 * link:https://github.com/demarche-numerique/demarche.numerique.gouv.fr/tree/45f9ede2ada6cde5f03df822d7c83e3e3a3ab486/[Démarche Numérique, source], release 2026-11-19-02, commit 45f9ede.
 * link:https://hl7.org/fhir/R5/questionnaire.html[Questionnaire], HL7 FHIR R5, version 5.0.0. link:https://web.archive.org/web/20261123155906/https://hl7.org/fhir/R5/questionnaire.html[Archived copy]
 * link:https://hl7.org/fhir/R5/questionnaireresponse.html[QuestionnaireResponse], HL7 FHIR R5, version 5.0.0. link:https://web.archive.org/web/20261123155929/https://hl7.org/fhir/R5/questionnaireresponse.html[Archived copy]

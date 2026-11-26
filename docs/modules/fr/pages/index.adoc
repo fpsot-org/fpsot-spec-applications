@@ -41,6 +41,7 @@ Rendez le dépôt idempotent, selon APP-094.
 
 Créez un constat de réception cacheté pour chaque dépôt, avec l’instant où il est devenu accessible, selon APP-040 à APP-042.
 Pour le papier, employez l’estampille de l’arrivée, et non l’instant de la saisie, selon APP-092.
+Un tampon dateur compte à partir du début de son jour local, selon APP-041.
 Envoyez un accusé de réception avec le numéro, l’heure de réception, l’organisme responsable et la date prévue, selon APP-043.
 Tirez chaque numéro au hasard, avec un caractère de contrôle de Crockford, selon APP-045.
 
@@ -49,8 +50,11 @@ Tirez chaque numéro au hasard, avec un caractère de contrôle de Crockford, se
 Ouvrez une seule demande de renseignements à la fois, selon APP-051.
 Donnez-lui un motif, ses éléments, une échéance et son effet sur chaque décompte, selon APP-050.
 Calculez l’échéance à partir du calendrier du profil, selon APP-055.
-Ne rendez aucune décision défavorable tant que la demande est ouverte et dans les délais, selon APP-052.
-Ne fermez un dossier faute de réponse qu’après une échéance passée et une tentative de contact consignée, selon APP-057.
+
+Avisez la personne requérante à son ouverture, selon APP-084.
+Ne rendez aucune décision défavorable tant que la demande de renseignements est ouverte et dans les délais, selon APP-052.
+Après sa fin, n’en rendez aucune avant que la personne en ait eu connaissance, selon APP-052 et APP-053.
+Ne fermez un dossier faute de réponse qu’après l’échéance et une tentative de contact distincte et consignée, selon APP-057.
 
 == Traiter les fichiers
 

@@ -29,33 +29,50 @@ Elle DOIT contenir ces éléments.
 Les éléments indiquent à la personne quoi corriger, et l’interface utilisateur les montre à leur place.
 
 [[APP-051]]
-*APP-051.* Un dossier PEUT avoir au plus une demande de renseignements ouverte à la fois.
+*APP-051.* Un dossier NE DOIT PAS avoir plus d’une demande de renseignements ouverte à la fois.
 L’ouverture d’une demande de renseignements DOIT faire passer le dossier à `information-requested`, selon APP-031.
 Une demande de renseignements DOIT viser seulement des éléments qu’exigent le formulaire ou les règles du programme.
 Elle DOIT avoir un statut : `open`, `resolved`, `cancelled` ou `expired`.
 
-Une seule demande ouverte donne à la personne une seule liste et une seule échéance.
-La France interdit de réclamer des pièces qu’aucun texte n’exige, et la comparaison française le mentionne.
+Une seule demande de renseignements ouverte donne à la personne une seule liste et une seule échéance.
+La France demande à l’administration d’énumérer les pièces et informations manquantes qu’exigent les textes, et la comparaison française le mentionne.
 
 [[APP-052]]
 *APP-052.* Tant qu’une demande de renseignements est ouverte et dans les délais, la règle suivante s’applique.
 Un dossier NE DOIT PAS alors passer à `decided` sur un résultat défavorable.
-Le service DOIT informer le service de décision que la demande est ouverte.
+Le service DOIT informer le service de décision que la demande de renseignements est ouverte.
+Après l’échéance ou l’annulation d’une demande de renseignements, un passage défavorable NE DOIT PAS suivre tant que la personne l’ignore.
+Le dossier montre qu’elle le sait par un avis livré, selon APP-084, ou par une tentative de contact selon APP-057.
+Un octroi complet PEUT tout de même aller de l’avant pendant la demande de renseignements, quand le programme le permet.
+
 Un fait manquant mène alors à `insufficient-information` ou à `referred`, selon DEC-025.
-Une décision favorable PEUT tout de même aller de l’avant quand le programme le permet.
 
 Le Québec demande de retarder une décision défavorable sur une prestation pendant que la personne complète son dossier.
 La France laisse l’octroi d’un droit aller de l’avant malgré une pièce manquante, avec effet à son arrivée.
 Cette règle impose la première approche partout, et laisse le programme permettre la seconde.
+Une demande de renseignements qui n’a jamais joint la personne ne lui a laissé aucune occasion de répondre.
+Sa fin n’ouvre donc jamais la voie à un refus.
 
 [[APP-053]]
-*APP-053.* Une réponse DOIT ajouter une nouvelle `FileVersion` et un nouveau constat de réception, selon APP-037 et APP-040.
+*APP-053.* Une réponse est un dépôt : APP-036, APP-063 et APP-065 s’y appliquent comme au premier.
+Une réponse DOIT ajouter une nouvelle `FileVersion` et un nouveau constat de réception, selon APP-037 et APP-040.
+Son constat DOIT cacheter de nouveau la copie de la version de formulaire à laquelle elle répond, selon APP-042.
 Un nouveau fichier pour un élément DOIT être une nouvelle version de pièce jointe, selon APP-064.
 La réponse DOIT clore la demande de renseignements, qui consigne l’instant et la nouvelle version.
-Un organisme PEUT annuler une demande de renseignements, avec l’instant et un code de motif.
 L’interface utilisateur DOIT préremplir la réponse avec les réponses déjà données, selon APP-024.
 
+Un organisme PEUT annuler une demande de renseignements pour un motif de cette liste seulement.
+Il DOIT en consigner l’instant.
+
+* `issued-in-error` : l’organisme a fait la demande de renseignements par erreur.
+* `no-longer-needed` : l’organisme n’a plus besoin de ses éléments.
+* `superseded` : une demande de renseignements ultérieure la remplace.
+
+Jusqu’à l’échéance d’une demande de renseignements annulée, un dossier NE DOIT PAS passer à `decided` sur un résultat défavorable.
+Un résultat défavorable NE DOIT PAS reposer sur un élément d’une demande de renseignements annulée.
+
 La réponse a alors son propre instant de réception, et le premier dépôt garde le sien.
+Une annulation n’écourte jamais le délai que la demande de renseignements laissait à la personne.
 
 == Décomptes
 
@@ -64,10 +81,10 @@ La réponse a alors son propre instant de réception, et le premier dépôt gard
 Chaque décompte DOIT indiquer son code, son genre et son point de départ : le dépôt ou le dossier complet.
 Chaque changement d’un décompte DOIT être une entrée du dossier, avec l’instant.
 Le changement est `started`, `suspended`, `resumed` ou `stopped`.
-Le service DOIT appliquer à partir des données l’effet de chaque demande sur chaque décompte.
+Le service DOIT appliquer à partir des données l’effet de chaque demande de renseignements sur chaque décompte.
 Il NE DOIT PAS coder cet effet.
 
-Une norme de service et un délai légal peuvent réagir de deux façons à la même demande.
+Une norme de service et un délai légal peuvent réagir de deux façons à la même demande de renseignements.
 En France, le délai du silence qui vaut acceptation ne court qu’une fois le dossier complet.
 Le délai du silence qui vaut rejet est seulement suspendu.
 
@@ -81,14 +98,17 @@ Un service NE DOIT PAS coder en dur un calendrier ni un jour férié.
 
 Les listes fédérale et québécoise des jours fériés diffèrent.
 Le Québec compte le 24 juin, et la liste fédérale compte le 30 septembre et le 11 novembre.
-Une échéance qui tombe le 24 juin est alors reportée au Québec, mais pas dans un programme fédéral.
+La loi fédérale compte aussi les jours fériés de chaque province et les congés civiques de chaque lieu.
+Le 24 juin est donc aussi un jour férié fédéral au Québec.
+Une échéance qui tombe ce jour-là est reportée dans les deux cas.
+Le calendrier national du profil `ca-federal` est donc marqué incomplet, selon APP-013.
 
 [[APP-056]]
 *APP-056.* Un service DOIT consigner chaque interruption dans une `OutageWindow`, avec son début, sa fin et ses canaux.
 Il DOIT publier chaque interruption aux personnes requérantes du programme.
-Une déclaration de service PEUT nommer une règle de prolongation pour une échéance qui tombe pendant une interruption.
+Une déclaration de service PEUT nommer la règle de prolongation de son programme pour une échéance pendant une interruption.
 Le service DOIT appliquer cette règle à partir des données.
-Il consigne sur l’échéance l’interruption et la règle appliquées.
+Il DOIT consigner sur l’échéance l’interruption et la règle appliquées.
 
 Cette spécification fixe la donnée d’une interruption, et non la politique de prolongation.
 Un programme qui prolonge une échéance après une interruption peut alors montrer pourquoi la date a changé.
@@ -99,11 +119,13 @@ Un programme qui prolonge une échéance après une interruption peut alors mont
 *APP-057.* Un service PEUT faire passer un dossier à `closed` seulement quand toutes ces conditions sont remplies.
 
 * La déclaration de service permet la fermeture faute de réponse.
-* L’échéance de la demande de renseignements ouverte est passée, et la demande est `expired`.
-* Le dossier contient une tentative de contact consignée après l’ouverture de la demande.
-Cette tentative a emprunté un canal qui n’a pas échoué, selon APP-087.
+* L’échéance de la demande de renseignements ouverte est passée, et elle est `expired`.
+* Le dossier contient une tentative de contact consignée après l’ouverture de la demande de renseignements.
+* Cette tentative est distincte de l’avis de la demande de renseignements, selon APP-084.
+* Cette tentative n’a pas échoué, selon APP-087, et son canal a confirmé la livraison ou diffère du canal de l’avis.
 
-Un dossier ne se ferme jamais pour cause de silence tant que la personne pourrait ignorer la demande de l’organisme.
+Une tentative de contact DEVRAIT venir une fois écoulée une part du délai, comme la moitié.
+Un dossier ne se ferme jamais pour cause de silence tant que la personne pourrait ignorer la demande de renseignements.
 L’interface utilisateur prévient la personne avant la fermeture d’un dossier, selon APP-081.
 
 == Références

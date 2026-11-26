@@ -42,11 +42,15 @@ sources:
     date: "2026-10-15"
     verification: read
   - id: charter-french-language
-    title: "Charte de la langue française, RLRQ, chapitre C-11, articles 1, 13.1, 13.2, 21.9, 22.2 et 22.3, à jour au 2026-10-15"
+    title: "Charte de la langue française, RLRQ, chapitre C-11, articles 1, 13.1, 13.2, 21.4, 21.6, 21.9, 22.2 et 22.3, à jour au 2026-10-15"
     url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-11"
     archive: "https://web.archive.org/web/20261104193630/https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-11"
     date: "2026-10-15"
     verification: read
+  - id: charter-21-9-exceptions
+    title: "Charte de la langue française, articles 21.4 et 21.6, appliqués aux écrits de l'article 21.9 avec les adaptations requises"
+    url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-11"
+    verification: to-be-verified
   - id: access-act
     title: "Loi sur l'accès aux documents des organismes publics et sur la protection des renseignements personnels, RLRQ, chapitre A-2.1, articles 63.5, 63.7, 64, 65 et 73, à jour au 2026-10-15"
     url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/A-2.1"
@@ -75,6 +79,7 @@ calendars:
   - code: ca-qc
     timeZone: America/Toronto
     validity: {start: "2026-01-01", end: "2027-01-01"}
+    complete: true
     weeklyHolidays: [sunday]
     nonWorkingWeekdays: [saturday, sunday]
     roll: next-working-day
@@ -90,13 +95,22 @@ calendars:
       - {date: "2026-10-12", name: {en: Second Monday of October, fr: deuxième lundi d’octobre}, sourceId: interpretation-act-qc}
       - {date: "2026-12-25", name: {en: Christmas Day, fr: 25 décembre}, sourceId: interpretation-act-qc}
 languageRules:
-  # French is the language of the Administration (articles 1 and 13.2). A business writes in French
-  # only to obtain a permit, a similar authorization, a subsidy or other financial aid (article
-  # 21.9). English is allowed for a person declared eligible for English instruction (article 22.2)
-  # and where health, public safety or natural justice requires it (article 22.3). How far article
-  # 21.9 reaches attachments is a question for counsel.
+  # French is the language of the Administration (articles 1 and 13.2). A legal person or an
+  # enterprise writes in French only to obtain a permit, a similar authorization, a subsidy or other
+  # financial aid, and in the writings that such aid or authorization later requires (article 21.9).
+  # Article 21.9 applies the exceptions of articles 21.4 and 21.6 with the necessary adaptations,
+  # and lets the government allow another language by regulation. Article 21.4 lets a version in
+  # another language be joined for some parties, such as a legal person whose seat is in a State
+  # where French is not an official language and that need not register in Québec; article 21.6
+  # lets such a party write only in another language when it starts the steps. How those
+  # adaptations read for an application is to be verified, so the two exceptions below cite a
+  # source to be verified. English is also allowed for a person declared eligible for English
+  # instruction (article 22.2) and where health, public safety or natural justice requires it
+  # (article 22.3). How far article 21.9 reaches attachments is a question for counsel.
   - {code: french-default, language: fr, appliesTo: any, exclusive: false, sourceId: charter-french-language}
-  - {code: charter-21-9, language: fr, appliesTo: business-permit-or-grant, exclusive: true, sourceId: charter-french-language}
+  - {code: charter-21-9, language: fr, appliesTo: legal-person-permit-or-grant, exclusive: true, sourceId: charter-french-language}
+  - {code: charter-21-4-joined-version, language: en, appliesTo: legal-person-permit-or-grant, exclusive: false, exceptionTo: charter-21-9, sourceId: charter-21-9-exceptions}
+  - {code: charter-21-6-foreign-party, language: en, appliesTo: legal-person-permit-or-grant, exclusive: false, exceptionTo: charter-21-9, sourceId: charter-21-9-exceptions}
   - {code: english-instruction-eligible, language: en, appliesTo: any, exclusive: false, sourceId: charter-french-language}
   - {code: natural-justice, language: en, appliesTo: any, exclusive: false, sourceId: charter-french-language}
 prefillBases:
@@ -116,7 +130,7 @@ rules:
     summary: {en: "The person has the chance to give the useful information and to complete the file.", fr: "La personne a l’occasion de fournir les renseignements utiles et de compléter son dossier."}
     sourceIds: [administrative-justice-act]
   - code: delay-unfavorable-benefit-decision
-    summary: {en: "Before an unfavorable decision on an indemnity or a benefit, the body delays the decision for the time needed to let the person complete the file.", fr: "Avant une décision défavorable sur une indemnité ou une prestation, l’organisme retarde la décision le temps nécessaire pour que la personne complète son dossier."}
+    summary: {en: "When the body finds the file incomplete or lacking information, it delays an unfavorable decision on an indemnity or a benefit for the time needed to let the person complete the file.", fr: "Quand l’organisme constate que le dossier est incomplet ou qu’il y manque des renseignements, il retarde une décision défavorable sur une indemnité ou une prestation le temps nécessaire pour que la personne complète son dossier."}
     sourceIds: [administrative-justice-act]
   - code: notice-before-unfavorable-permit-decision
     summary: {en: "Before an unfavorable decision on a permit, the body tells the person of its intention and reasons, and lets them complete the file.", fr: "Avant une décision défavorable sur un permis, l’organisme informe la personne de son intention et de ses motifs, et lui permet de compléter son dossier."}
@@ -137,5 +151,5 @@ rules:
     summary: {en: "A body that serves citizens publishes a statement of services with its objectives on the diligence of its services.", fr: "Un organisme qui sert les citoyens publie une déclaration de services avec ses objectifs sur la diligence de ses services."}
     sourceIds: [public-administration-act]
   - code: web-accessibility-standard
-    summary: {en: "Websites meet SGQRI 008 3.0: WCAG 2.1 AA with some changes, and some criteria of WCAG 2.2 such as 3.3.7 and 3.3.8.", fr: "Les sites Web respectent le SGQRI 008 3.0 : les WCAG 2.1 AA avec quelques changements, et certains critères des WCAG 2.2 comme 3.3.7 et 3.3.8."}
+    summary: {en: "New web content, and each significant change to existing content, meets SGQRI 008 3.0: WCAG 2.1 AA with some changes, and some criteria of WCAG 2.2 such as 3.3.7 and 3.3.8.", fr: "Tout nouveau contenu Web, et toute modification importante d’un contenu existant, respecte le SGQRI 008 3.0 : les WCAG 2.1 AA avec quelques changements, et certains critères des WCAG 2.2 comme 3.3.7 et 3.3.8."}
     sourceIds: [sgqri-008]

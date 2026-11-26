@@ -124,8 +124,10 @@ case_fails no-receipt-notification 'has no notification of receipt \(APP-084\)' 
 # Lifecycle (APP-021, APP-030 to APP-032).
 case_fails reopen-after-decision 'moves after the final state decided \(APP-030\)' \
   'd = rj(PC); f = d["files"][0]; f["stateHistory"].append(dict(f["stateHistory"][2], at="2026-03-11T13:00:00Z")); f["state"] = "in-review"; d["projections"][0]["label"] = "in-progress"; wj(PC, d)'
-case_fails decided-without-decision-record 'without its decision record and whether it is adverse \(APP-032\)' \
+case_fails decided-without-decision-record 'without its decision record and its result kind \(APP-032\)' \
   'd = rj(PC); del d["files"][0]["stateHistory"][3]["decisionRecordId"]; wj(PC, d)'
+case_fails referred-moves-to-decided 'on a referred result, which is not a decision \(APP-032, DEC-024\)' \
+  'd = rj(PC); h = d["files"][0]["stateHistory"][3]; h["resultKind"] = "referred"; del h["outcome"]; wj(PC, d)'
 case_fails draft-on-retired-form 'starts a draft on .* after it was retired \(APP-021\)' \
   'd = rj(OB); d["files"][0]["draftStartedAt"] = "2026-09-02T13:00:00Z"; wj(OB, d)'
 case_fails submitted-without-draft "moves from None to submitted, which APP-031 does not allow" \
@@ -133,12 +135,12 @@ case_fails submitted-without-draft "moves from None to submitted, which APP-031 
 
 # Requests, clocks and deadlines (APP-050 to APP-057).
 case_fails adverse-decision-while-request-open 'decided on an adverse outcome while request .* is open and in time \(APP-052\)' \
-  'd = rj(IR); f = d["files"][0]; h = f["stateHistory"]; h[-1] = {"state": "decided", "at": "2026-06-01T13:00:00Z", "actor": h[-2]["actor"], "reason": "decision-recorded", "decisionRecordId": "019c5a00-000b-7000-8000-0000000000aa", "adverseOutcome": True}
+  'd = rj(IR); f = d["files"][0]; h = f["stateHistory"]; h[-1] = {"state": "decided", "at": "2026-06-01T13:00:00Z", "actor": h[-2]["actor"], "reason": "decision-recorded", "decisionRecordId": "019c5a00-000b-7000-8000-0000000000aa", "resultKind": "decided", "outcome": "refused"}
 f["state"] = "decided"; q = d["requests"][0]; q["status"] = "open"; del q["resolvedAt"]; del q["resolvedByVersionId"]; wj(IR, d)'
 case_fails deadline-not-rolled-past-holiday 'the deadline after the roll must be 2026-06-25 \(APP-055\)' \
   'd = rj(IR); d["requests"][0]["deadline"]["date"] = "2026-06-24"; wj(IR, d)'
-case_fails deadline-on-federal-calendar "uses calendar ca-federal-ncr, which no profile of its service holds \(APP-055\)" \
-  'd = rj(IR); d["requests"][0]["deadline"]["calendar"] = "ca-federal-ncr"; wj(IR, d)'
+case_fails deadline-on-federal-calendar "uses calendar ca-federal-national, which no profile of its service holds \(APP-055\)" \
+  'd = rj(IR); d["requests"][0]["deadline"]["calendar"] = "ca-federal-national"; wj(IR, d)'
 case_fails deadline-outside-calendar 'does not cover 2027-03-21, a missing value \(APP-013\)' \
   'd = rj(IR); dl = d["requests"][0]["deadline"]; dl["periodDays"] = 300; dl["rawDate"] = "2027-03-21"; dl["date"] = "2027-03-22"; wj(IR, d)'
 case_fails holiday-removed-from-profile 'the deadline after the roll must be 2026-06-24 \(APP-055\)' \
@@ -165,8 +167,10 @@ case_fails closing-not-allowed 'closed for no response, which its program does n
   'd = ry(SQG); d["closingForNoResponse"] = False; wy(SQG, d)'
 
 # Representation (APP-070 to APP-073).
-case_fails representative-authority-not-checked 'a representative acts on a representation that the service checked \(APP-070\)' \
+case_fails representative-authority-not-checked 'an act of the role representative without a check of its authority \(APP-070\)' \
   'd = rj(OB); del d["versions"][0]["submittedBy"]["authorityCheckedAt"]; wj(OB, d)'
+case_fails representative-without-representation 'a representative acts on a representation that the service checked \(APP-070\)' \
+  'd = rj(OB); del d["files"][0]["stateHistory"][1]["actor"]["representationId"]; wj(OB, d)'
 case_fails acting-party-merged-with-subject 'the subject of the act is not the party of the file \(APP-071\)' \
   'd = rj(OB); a = d["files"][0]["stateHistory"][1]["actor"]; a["subjectPartyId"] = a["actingPartyId"]; wj(OB, d)'
 case_fails self-declared-not-allowed 'is self-declared, which its service does not allow \(APP-072\)' \
@@ -220,6 +224,54 @@ case_fails event-holds-reference 'holds a party id, an account or a reference nu
 case_fails feature-french-differs 'same tags and steps, with the same quoted values \(TST-032\)' \
   's = open(FFR, encoding="utf-8").read().replace("\"2026-06-25\"", "\"2026-06-26\""); open(FFR, "w", encoding="utf-8").write(s)'
 
+# Review cases: each one was accepted by the check before the fix pass.
+# An adverse decision after a cancel, or after an expiry that the applicant never heard of (APP-052).
+case_fails cancel-then-adverse 'decided on an adverse outcome before the deadline of cancelled request .* \(APP-052, APP-053\)' \
+  'd = rj(IR); f = d["files"][0]; h = f["stateHistory"]; st = h[-2]["actor"]
+h[-1] = {"state": "in-review", "at": "2026-05-26T13:00:00Z", "actor": st, "reason": "request-cancelled", "requestId": "019c5a00-0005-7000-8000-000000000001"}
+h.append({"state": "decided", "at": "2026-05-27T13:00:00Z", "actor": st, "reason": "decision-recorded", "decisionRecordId": "019c5a00-000b-7000-8000-0000000000aa", "resultKind": "decided", "outcome": "refused"})
+f["state"] = "decided"; d["projections"][0]["label"] = "decision-made"
+q = d["requests"][0]; q["status"] = "cancelled"; q["cancelledAt"] = "2026-05-26T13:00:00Z"; q["cancelReason"] = "no-longer-needed"; del q["resolvedAt"]; del q["resolvedByVersionId"]; wj(IR, d)'
+case_fails expired-unheard-then-adverse 'decided on an adverse outcome after request .*, with no delivered notice of it and no logged contact attempt \(APP-052\)' \
+  'd = rj(IR); f = d["files"][1]; h = f["stateHistory"]; st = h[-1]["actor"]
+h[-1] = {"state": "in-review", "at": "2026-09-16T13:00:00Z", "actor": st, "reason": "request-expired", "requestId": "019c5a00-0005-7000-8000-000000000002"}
+h.append({"state": "decided", "at": "2026-09-17T13:00:00Z", "actor": st, "reason": "decision-recorded", "decisionRecordId": "019c5a00-000b-7000-8000-0000000000ab", "resultKind": "decided", "outcome": "refused"})
+f["state"] = "decided"; d["projections"][1]["label"] = "decision-made"
+del d["contactAttempts"]; d["notifications"] = [n for n in d["notifications"] if n["id"] != "019c5a00-0007-7000-8000-000000000009"]; wj(IR, d)'
+case_fails request-never-notified 'no notice of request .* \(APP-084\)' \
+  'd = rj(IR); d["notifications"] = [n for n in d["notifications"] if n["id"] != "019c5a00-0007-7000-8000-000000000005"]; wj(IR, d)'
+# A decision result that is not a full grant, while a request is open (APP-032, APP-052).
+case_fails insufficient-information-while-open 'while request .* is open .* \(APP-052\)' \
+  'd = rj(IR); f = d["files"][0]; h = f["stateHistory"]; h[-1] = {"state": "decided", "at": "2026-06-01T13:00:00Z", "actor": h[-2]["actor"], "reason": "decision-recorded", "decisionRecordId": "019c5a00-000b-7000-8000-0000000000aa", "resultKind": "insufficient-information"}
+f["state"] = "decided"; d["projections"][0]["label"] = "decision-made"; q = d["requests"][0]; q["status"] = "open"; del q["resolvedAt"]; del q["resolvedByVersionId"]; wj(IR, d)
+s = ry(SQG); s["favorableWhileOpenAllowed"] = True; wy(SQG, s)'
+# A federal deadline on the national days only (APP-013, APP-055).
+case_fails federal-deadline-on-national-days 'missing value \(APP-013\)' \
+  's = ry(SQG); s["profiles"].append("ca-federal"); wy(SQG, s)
+d = rj(IR); dl = d["requests"][0]["deadline"]; dl["calendar"] = "ca-federal-national"; dl["date"] = "2026-06-24"; wj(IR, d)'
+case_fails roll-leaves-calendar 'missing value \(APP-013\)' \
+  'p = ry(QC); p["calendars"][0]["holidays"].append({"date": "2026-12-31", "name": {"en": "Test day", "fr": "Jour d’essai"}, "sourceId": "interpretation-act-qc"}); wy(QC, p)
+d = rj(IR); dl = d["requests"][0]["deadline"]; dl["periodDays"] = 220; dl["rawDate"] = "2026-12-31"; dl["date"] = "2027-01-01"; wj(IR, d)'
+# Later acts of a self-declared declarant (APP-072).
+case_fails self-declared-declarant-withdraws 'a self-declared act after the submission, .* \(APP-072\)' \
+  'd = rj(OB); f = d["files"][1]; h = f["stateHistory"]; h.append(dict(h[-1], state="withdrawn", at="2026-07-23T15:00:00Z", reason="applicant-withdrew")); f["state"] = "withdrawn"; d["projections"][1]["label"] = "withdrawn"; wj(OB, d)'
+case_fails self-declared-declarant-gets-status-link 'links .* to the declarant .* \(APP-072\)' \
+  'd = rj(OB); n = [n for n in d["notifications"] if n["id"] == "019c5a00-0007-7000-8000-00000000000c"][0]; n["links"] = ["https://benefit.example.org/status"]; wj(OB, d)'
+# A paper stamp with a date only (APP-040, APP-041, APP-092).
+case_fails stamp-with-date-only-and-invented-time 'start of its local day \(APP-041, APP-092\)' \
+  'd = rj(PI); r = d["receiptRecords"][0]; r["receivedPrecision"] = "day"; r["receivedAt"] = "2026-04-02T17:20:00Z"; r["receivedLocal"]["localDateTime"] = "2026-04-02T13:20:00"; d["versions"][0]["submittedAt"] = r["receivedAt"]; d["projections"][0]["receivedAt"] = r["receivedAt"]; d["acknowledgments"][0]["receivedLocal"] = r["receivedLocal"]; wj(PI, d)'
+case_fails digital-receipt-to-the-day 'to the second \(APP-040\)' \
+  'd = rj(PC); d["receiptRecords"][0]["receivedPrecision"] = "day"; wj(PC, d)'
+# The contact attempt before closing (APP-057).
+case_fails closed-on-the-request-notice 'distinct from the notice of the request \(APP-057\)' \
+  'd = rj(IR); n = [n for n in d["notifications"] if n["id"] == "019c5a00-0007-7000-8000-000000000008"][0]; n["deliveryStatus"] = "pending"; del n["failedAt"]
+d["contactAttempts"][0]["notificationId"] = n["id"]; d["contactAttempts"][0]["at"] = n["sentAt"]; wj(IR, d)'
+case_fails closed-on-unconfirmed-same-channel 'neither delivered nor on another channel .* \(APP-057, APP-087\)' \
+  'd = rj(IR); n = [n for n in d["notifications"] if n["id"] == "019c5a00-0007-7000-8000-000000000009"][0]; n["channel"] = "sms"; n["deliveryStatus"] = "pending"; wj(IR, d)'
+# Staff act on the authority of their role, and the service checks it on every act (APP-070).
+case_fails staff-act-without-authority-check 'without a check of its authority \(APP-070\)' \
+  'd = rj(IR); d["files"][0]["stateHistory"][2]["actor"].pop("authorityCheckedAt", None); wj(IR, d)'
+
 # Accepted changes: the check does not refuse what the rules allow.
 case_passes extra-delivered-notification \
   'd = rj(PC); n = dict(d["notifications"][0], id="019c5a00-0007-7000-8000-0000000000aa", kind="reminder", sentAt="2026-03-10T15:00:00Z"); d["notifications"].append(n); wj(PC, d)'
@@ -227,6 +279,14 @@ case_passes registration-notice-before-acknowledgment \
   'd = rj(PC); k = dict(d["acknowledgments"][0], id="019c5a00-0004-7000-8000-0000000000aa", kind="registration-notice")
 for x in ("handlingBodyPartyId", "handlingContact", "serviceStandard", "statusUri"): k.pop(x, None)
 d["acknowledgments"].insert(0, k); wj(PC, d)'
+
+case_passes foreign-legal-person-writes-in-english \
+  'import hashlib; FQ = "examples/forms/quebec-operating-permit-1.0.0.json"; f = rj(FQ); f["languages"] = ["fr", "en"]
+f["title"].append({"language": "en", "text": "Operating permit application"}); f["collectionNotice"].append({"language": "en", "uri": "https://formulaires.example.org/collection-notice"})
+for q in f["questions"]: q["labels"].append({"language": "en", "text": q["id"]})
+wj(FQ, f); dg = hashlib.sha256(open(FQ, "rb").read()).hexdigest()
+d = rj(QB); d["versions"][0]["formDigest"]["value"] = dg; d["receiptRecords"][0]["formDigest"]["value"] = dg
+d["files"][0]["correspondenceLanguage"] = "en"; d["files"][0]["languageBasis"] = "charter-21-6-foreign-party"; d["acknowledgments"][0]["language"] = "en"; wj(QB, d)'
 
 [ $fail -eq 0 ] && echo "PASS: every case"
 exit $fail

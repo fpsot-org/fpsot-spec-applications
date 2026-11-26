@@ -8,15 +8,15 @@ Les produits de cette page sont de simples exemples, et aucune règle n’en exi
 
 == GovStack Registration
 
-Le link:https://specs.govstack.global/registration[bloc Registration de GovStack], version 1.0.1, est la norme la plus proche de la réception.
+Le link:https://specs.govstack.global/registration/registration-1.0.1/[bloc Registration de GovStack], version 1.0.1, est la norme la plus proche de la réception.
 Il exige des brouillons, le téléversement de documents et une vue de l’état et de l’historique.
 Il exige aussi un moyen pour le personnel de renvoyer un dossier pour correction.
 Son dossier a quatre statuts par rôle, et son personnel marque le champ ou le document erroné.
 Il contient en outre un générateur d’écrans, un moteur de règles et un générateur de flux, que cette spécification écarte.
 
-La recherche a lu le texte dans son dépôt, à un commit qui correspond à la version 1.0.1.
-La page de la version 1.0.1 sur le site de GovStack ne s’est pas chargée.
-Son libellé exact est donc _à vérifier_.
+La recherche a lu le texte dans son dépôt, au commit f439f80.
+Que ce commit contienne la version 1.0.1 est _à vérifier_, puisque le dépôt n’a aucune étiquette.
+Le site de GovStack n’a pas confirmé le libellé de la version 1.0.1, qui est aussi _à vérifier_.
 
 [cols="2,2,3",options="header"]
 |===
@@ -44,17 +44,18 @@ Cette spécification n’en reprend que le modèle, et aucun code.
 |`en_construction` |`submitted` |La personne peut encore y modifier son dossier, alors qu’APP-037 fige chaque version déposée.
 |`en_instruction` |`in-review` |
 |`en_construction` avec une correction en attente |`information-requested` |Une correction est un message au motif `incorrect`, `incomplete`, `outdated` ou `complement`, comme dans APP-050.
-|`accepte`, `refuse`, `sans_suite` |`decided` |Le résultat reste dans l’enregistrement de décision.
-|Masqué par l’usager |`withdrawn` |Un retrait est ici un passage d’état, et ne supprime rien.
+|`accepte`, `refuse` |`decided` |Le résultat reste dans l’enregistrement de décision.
+|`sans_suite` |`closed` ou `withdrawn`, approximativement |Un dossier classé sans suite n’a aucune décision, et cette correspondance est donc approximative.
+|Masqué par l’usager |`withdrawn`, approximativement |Masquer est une action de l’interface, et un retrait est ici un passage d’état qui ne supprime rien.
 |`submitted_revision_id` |`url\|version` sur chaque version du dossier |Démarche Numérique déplace les brouillons ouverts vers chaque révision, alors qu’APP-035 exige une étape explicite.
 |`for_tiers` avec le nom du mandataire |`self-declared` selon APP-072 |Une représentation selon IAM-061 est ici la règle par défaut.
-|Somme de contrôle MD5 de chaque fichier |Condensé SHA-256 selon APP-062 |La link:https://www.rfc-editor.org/info/rfc9530[RFC 9530] déclare MD5 déprécié.
+|Somme de contrôle MD5 de chaque fichier |Condensé SHA-256 selon APP-062 |La link:https://www.rfc-editor.org/info/rfc9530[RFC 9530] déclare MD5 déconseillé.
 |===
 
 == FHIR Questionnaire
 
 Le link:https://hl7.org/fhir/R5/questionnaire.html[Questionnaire] de HL7 FHIR R5 nomme chaque formulaire par une adresse canonique et une version métier.
-Son statut est `draft`, `active` ou `retired`, et APP-021 reprend les mêmes trois valeurs.
+Son statut est `draft`, `active`, `retired` ou `unknown`, et APP-021 reprend les trois premières de ces quatre valeurs.
 Une link:https://hl7.org/fhir/R5/questionnaireresponse.html[QuestionnaireResponse] renvoie au formulaire par `url|version`, et APP-020 écrit la paire de la même façon.
 La réponse distingue son sujet, sa source et son auteur, et `ActingParty` fait une distinction semblable.
 Cette spécification emprunte ces idées, et non les ressources FHIR.
@@ -69,11 +70,11 @@ Il limite les fichiers à 7 Mo, et une analyse ratée bloque le dépôt, comme l
 
 == API néerlandaises
 
-Les link:https://vng-realisatie.github.io/gemma-zaken/standaard/[API ZGW] des Pays-Bas contiennent les dossiers et les documents, dans Zaken 1.8.0 et Documenten 1.8.0.
-Elles ont retiré leur propre API de réception, et les outils de réception écrivent donc directement dans un dossier.
-Un dossier consigne les actes faits pour autrui comme deux rôles : la partie autorisée et le mandant.
+Les link:https://vng-realisatie.github.io/gemma-zaken/standaard/[API ZGW] des Pays-Bas contiennent les affaires et les documents, dans Zaken 1.8.0 et Documenten 1.8.0.
+Elles ont retiré leur propre API de réception, et les outils de réception écrivent donc directement dans une affaire.
+Une affaire consigne les actes faits pour autrui comme deux rôles : la partie autorisée et le mandant.
 Un document consigne son condensé comme un algorithme et une valeur, et APP-062 fait de même avec SHA-256 seulement.
-Une future spécification sur les dossiers pourra contenir le dossier qu’ouvre un dépôt.
+Une future spécification sur le traitement des affaires pourra contenir l’affaire qu’ouvre un dépôt.
 
 == CloudEvents
 
@@ -84,7 +85,7 @@ Leur `subject` est l’identifiant du dossier, et un consommateur peut alors fil
 
 === Références informatives
 
-* link:https://specs.govstack.global/registration[GovStack Registration Building Block], GovStack, version 1.0.1, lu le 2026-11-23. link:https://web.archive.org/web/20261123155717/https://specs.govstack.global/registration[Copie archivée]
+* link:https://specs.govstack.global/registration/registration-1.0.1/[GovStack Registration Building Block], GovStack, version 1.0.1, lu le 2026-11-23. link:https://web.archive.org/web/20260128021409/https://specs.govstack.global/registration/registration-1.0.1/[Copie archivée]
 * link:https://github.com/demarche-numerique/demarche.numerique.gouv.fr/tree/45f9ede2ada6cde5f03df822d7c83e3e3a3ab486/[Démarche Numérique, code source], version 2026-11-19-02, commit 45f9ede.
 * link:https://hl7.org/fhir/R5/questionnaire.html[Questionnaire], HL7 FHIR R5, version 5.0.0. link:https://web.archive.org/web/20261123155906/https://hl7.org/fhir/R5/questionnaire.html[Copie archivée]
 * link:https://hl7.org/fhir/R5/questionnaireresponse.html[QuestionnaireResponse], HL7 FHIR R5, version 5.0.0. link:https://web.archive.org/web/20261123155929/https://hl7.org/fhir/R5/questionnaireresponse.html[Copie archivée]

@@ -17,6 +17,7 @@
             "role": "applicant",
             "actingPartyId": "019c5a00-0010-7000-8000-000000000601",
             "subjectPartyId": "019c5a00-0010-7000-8000-000000000601",
+            "authorityCheckedAt": "2026-08-20T22:15:00Z",
             "assurance": "verified"
           },
           "reason": "draft-started"
@@ -29,6 +30,7 @@
             "role": "applicant",
             "actingPartyId": "019c5a00-0010-7000-8000-000000000601",
             "subjectPartyId": "019c5a00-0010-7000-8000-000000000601",
+            "authorityCheckedAt": "2026-09-03T14:31:09Z",
             "assurance": "verified"
           },
           "reason": "applicant-submitted"
@@ -81,6 +83,7 @@
         "role": "applicant",
         "actingPartyId": "019c5a00-0010-7000-8000-000000000601",
         "subjectPartyId": "019c5a00-0010-7000-8000-000000000601",
+        "authorityCheckedAt": "2026-09-03T14:31:09Z",
         "assurance": "verified"
       },
       "submittedAt": "2026-09-03T14:31:09Z"
@@ -97,12 +100,14 @@
         "localDateTime": "2026-09-03T10:31:09",
         "timeZone": "America/Toronto"
       },
+      "receivedPrecision": "second",
       "channel": "digital",
       "submitter": {
         "actorId": "acct-0d93f1",
         "role": "applicant",
         "actingPartyId": "019c5a00-0010-7000-8000-000000000601",
         "subjectPartyId": "019c5a00-0010-7000-8000-000000000601",
+        "authorityCheckedAt": "2026-09-03T14:31:09Z",
         "assurance": "verified"
       },
       "destination": "https://benefit.example.org/apply",
@@ -181,6 +186,7 @@
         "role": "applicant",
         "actingPartyId": "019c5a00-0010-7000-8000-000000000601",
         "subjectPartyId": "019c5a00-0010-7000-8000-000000000601",
+        "authorityCheckedAt": "2026-09-03T14:12:00Z",
         "assurance": "verified"
       },
       "fromFormVersion": "1.0.0",

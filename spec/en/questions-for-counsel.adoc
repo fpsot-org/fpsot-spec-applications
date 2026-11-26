@@ -14,8 +14,8 @@ A point marked _to be verified_ rests on a secondary source, a search result or 
 == Time of receipt
 
 . *Federal receipt time.* The federal law on electronic documents sets no default time of receipt.
-Its section 50 lets each program set one by regulation.
-When the regulations of a program are silent, when does an online application count as filed?
+Its section 50 lets the authority responsible for a provision listed in Schedule 2 or 3 set one by regulation.
+For other provisions, and when such regulations are silent, when does an online application count as filed?
 May a department fix that time in the published terms of use of its portal?
 
 . *Standard time.* Section 29 of the federal Interpretation Act reads a time of day as standard time.
@@ -44,10 +44,11 @@ Must the body keep a withdrawn file as long as a submitted one?
 == Language
 
 [start=7]
-. *Attachments under article 21.9.* Under the Charter, a business applies for a permit or a grant in French only.
-Article 22.5 excludes the documents joined to some applications from another rule.
-Does article 21.9 reach the foreign certificates and technical reports that a business attaches?
-Must a service refuse an application of a business in another language, or accept it and ask for French?
+. *Exceptions under article 21.9.* A legal person or an enterprise seeks a permit or a grant in French only.
+Article 21.9 applies the exceptions of articles 21.4 and 21.6, adapted, and allows others by regulation.
+Which applicants may then join a version in another language, or write in another language only?
+Does article 21.9 reach the foreign certificates and technical reports that an applicant attaches?
+Must a service refuse such an application in another language, or accept it and ask for French?
 
 . *English under articles 22.2 and 22.3.* How should a body check that a person is eligible for English instruction?
 How should it record that fact, and may it rely on the statement of the applicant?
@@ -84,6 +85,11 @@ The live text at Légifrance is _to be verified_.
 It names Saturday only for the land register.
 Is a Saturday a working day for other time limits?
 The `ca-qc` profile skips Saturdays until counsel answers.
+
+. *Holidays of a place.* Section 35 of the federal Interpretation Act also counts provincial and civic holidays.
+For a federal time limit, whose place counts: the body, the office that handles the file, or the applicant?
+Which acts of a province make a day non-juridical there, and do they include Saturdays?
+The `ca-federal` profile marks its national calendar incomplete until counsel answers.
 
 == Document history
 

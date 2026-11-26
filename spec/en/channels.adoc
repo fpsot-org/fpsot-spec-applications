@@ -24,6 +24,7 @@ That staff member also appears as the actor under APP-071.
 
 [[APP-092]]
 *APP-092.* For paper and for documents brought to a counter, the received instant MUST be the stamp on arrival.
+The record gives that stamp to the second, the minute or the day, under APP-041.
 The service MUST record the instant of keying apart, in `keyedAt`.
 The first version of a paper application MUST hold its original or a scan with its digest as an attachment.
 
@@ -35,7 +36,9 @@ A service MAY offer only a digital route when its profile cites a law that allow
 The service declaration then names that source.
 
 Québec leaves the choice of medium to the person when a service exists on several media.
-France allows a body to accept only its online service for some procedures, and the comparison data says so.
+In France, a body may reserve an online service for a procedure.
+That service is then the only electronic route for that procedure.
+That rule says nothing of paper, and the comparison data says so.
 
 == Repeated submits
 
@@ -61,6 +64,8 @@ Only a person can tell a duplicate from a second real need.
 
 [[APP-096]]
 *APP-096.* During an outage of a digital channel, the operator MUST accept the same applications through another channel.
+That holds unless the service is digital only under APP-093.
+Such a service applies the extension rule of its program instead, under APP-056.
 The received instant then follows APP-041.
 A page of error or outage MUST say whether the service kept the answers in progress, and until when.
 It MUST also say when the service expects to return, and what happens to deadlines.

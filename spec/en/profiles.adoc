@@ -4,8 +4,10 @@ include::_fpsot-terms.adoc[]
 The intake rules that the research compared share their mechanics and split on every legal value.
 Federal law extends a time limit that falls on a holiday to the next day that is not a holiday.
 Québec extends it to the next working day, and its list of holidays differs from the federal list.
-Québec presumes when an electronic document arrives, and federal law leaves that to each program.
-Québec asks a business to apply for a permit in French only.
+Québec presumes when an electronic document arrives, and federal law leaves that to the regulations of some programs.
+
+Québec asks a legal person or an enterprise to apply for a permit or a grant in French.
+It allows a few exceptions.
 Federal law gives a choice of two languages.
 
 No single rule could serve all of them.
@@ -25,8 +27,8 @@ A source read in an archived copy counts as read only when that copy holds the t
 |===
 |Profile |Applies to |Content of this release
 |`core` |Every application |The defaults of APP-014.
-|`ca-federal` |Applications to federal bodies of Canada |The holidays and the roll to the next day that is not a holiday, standard time, real-time status and service standards, both official languages, direct collection and the retention floor of two years, and receipt time set by each program.
-|`ca-qc` |Applications to Québec public bodies |The holidays and the roll to the next working day, the presumption of receipt of electronic documents, the chance to complete a file, French by default with French only for the permits and grants of a business, the notice at collection, official data sources for prefill, and the accessibility standard.
+|`ca-federal` |Applications to federal bodies of Canada |The holidays and the roll to the next day that is not a holiday, standard time, real-time status and service standards, both official languages, direct collection and the retention floor of two years, and no default time of receipt.
+|`ca-qc` |Applications to Québec public bodies |The holidays and the roll to the next working day, the presumption of receipt of electronic documents, the chance to complete a file, French by default with French only for the permits and grants of a legal person or an enterprise, and its exceptions, the notice at collection, official data sources for prefill, and the accessibility standard.
 |===
 
 A French profile does not exist in this release.
@@ -36,9 +38,15 @@ The file `jurisdictions/fr.yaml` therefore describes France without a normative 
 The `ca-federal` profile follows the Interpretation Act and the Directive on Service and Digital.
 It also follows the Official Languages Act and the Privacy Act.
 Its section 26 moves a time limit that falls on a holiday to the next day that is not one.
-Section 35 lists the holidays, and Sunday is among them, while Saturday is not.
-The federal law on electronic documents lets each program set by regulation when a document counts as received.
-The profile therefore holds no default time of receipt.
+Section 35 lists the national holidays, and Sunday is among them, while Saturday is not.
+It also counts the holidays of each province and of each place, which no single list holds.
+
+The national calendar of the profile is therefore incomplete, and a deadline on it is a missing value under APP-013.
+A federal service builds the calendar of its place in its own release of the profile, under APP-011.
+
+Part 2 of the federal law on electronic documents covers only the provisions in its schedules.
+For such a provision, its responsible authority may set by regulation when a document counts as sent or received.
+For other provisions, federal law sets no rule, so the profile holds no default time of receipt.
 
 The `ca-qc` profile follows the Québec Interpretation Act and the Québec law on information technology.
 It follows the Act respecting administrative justice and the Charter of the French language.
@@ -77,7 +85,8 @@ The same service then takes in a federal license and a Québec permit, each with
 
 [[APP-013]]
 *APP-013.* A rule may need a value that neither the profile, the service declaration nor `core` gives for a date.
-An example is a calendar that holds no holidays for the year of a deadline.
+Examples are a calendar with no holidays for the year of a deadline, or a roll that leaves it.
+Another is a calendar that its profile marks incomplete, since it lacks days that its law counts.
 The service MUST NOT then compute the date or apply the rule.
 It MUST refer the file to a person, with a code that names the missing value.
 It MUST NOT assume a value.

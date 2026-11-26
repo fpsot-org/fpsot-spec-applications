@@ -8,10 +8,11 @@ It also sets the fixtures that prove both.
 == Interfaces
 
 [[APP-100]]
-*APP-100.* An interface MUST create drafts, submissions, replies and withdrawals with `POST` and an `Idempotency-Key`, under API-060.
-It MUST NOT offer an operation that edits or deletes a submitted file version, a receipt record or a request.
-The same holds for an acknowledgment.
-A withdrawal or a cancellation MUST be a new resource, never a `DELETE`.
+*APP-100.* An interface MUST create drafts, submissions, replies and withdrawals with `POST`.
+It MUST accept an `Idempotency-Key` on each, under API-060.
+It MUST NOT offer an operation that edits or deletes a submitted file version or a receipt record.
+The same holds for the content of a request and for an acknowledgment.
+A withdrawal or a change of status of a request MUST be a new resource, never a `DELETE`.
 The interface MUST ask the authorization engine on every request, under IAM-050.
 
 A withdrawal as a resource keeps its own id, its instant and its actor.

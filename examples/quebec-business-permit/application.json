@@ -45,6 +45,7 @@
             "role": "staff",
             "actingPartyId": "019c5a00-0010-7000-8000-000000000203",
             "subjectPartyId": "019c5a00-0010-7000-8000-000000000201",
+            "authorityCheckedAt": "2026-06-16T13:00:00Z",
             "assurance": "verified"
           },
           "reason": "staff-review-started"
@@ -118,6 +119,7 @@
         "localDateTime": "2026-06-15T09:42:07",
         "timeZone": "America/Toronto"
       },
+      "receivedPrecision": "second",
       "channel": "digital",
       "submitter": {
         "actorId": "acct-91b3e7",

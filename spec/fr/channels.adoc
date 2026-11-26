@@ -25,7 +25,8 @@ Ce membre du personnel figure aussi comme la personne qui agit, selon APP-071.
 
 [[APP-092]]
 *APP-092.* Pour le papier et les documents apportés au comptoir, l’instant de réception DOIT être l’estampille apposée à l’arrivée.
-Le service DOIT consigner à part l’instant de la saisie, dans `keyedAt`.
+Le constat donne cette estampille à la seconde, à la minute ou au jour, selon APP-041.
+Le service DOIT consigner séparément l’instant de la saisie, dans `keyedAt`.
 La première version d’une demande papier DOIT contenir son original ou une numérisation avec son condensé, comme pièce jointe.
 
 Un retard au courrier n’écourte alors jamais le délai de la personne.
@@ -36,7 +37,9 @@ Un service PEUT n’offrir qu’une voie numérique quand son profil cite une lo
 La déclaration de service nomme alors cette source.
 
 Au Québec, le choix du support appartient à la personne quand un service existe sur plusieurs supports.
-La France permet à un organisme de n’accepter que son téléservice pour certaines démarches, et les données comparatives le mentionnent.
+En France, un organisme peut réserver un téléservice à une démarche.
+Ce téléservice est alors la seule voie électronique pour cette démarche.
+Cette règle ne dit rien du papier, et les données comparatives le mentionnent.
 
 == Dépôts répétés
 
@@ -62,6 +65,8 @@ Seule une personne peut distinguer un doublon d’un second besoin réel.
 
 [[APP-096]]
 *APP-096.* Pendant l’interruption d’un canal numérique, l’exploitant DOIT accepter les mêmes demandes par un autre canal.
+Cela vaut sauf si le service est uniquement numérique selon APP-093.
+Un tel service applique plutôt la règle de prolongation de son programme, selon APP-056.
 L’instant de réception suit alors APP-041.
 Une page d’erreur ou d’interruption DOIT dire si le service a gardé les réponses en cours, et jusqu’à quand.
 Elle DOIT aussi dire quand le service prévoit de revenir, et ce qu’il advient des échéances.

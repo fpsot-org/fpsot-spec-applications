@@ -34,7 +34,7 @@ Chaque étape interne d’un examen s’affiche comme `in-progress`, et l’éti
 *APP-081.* `action-needed` DOIT être la seule étiquette qui demande à la personne d’agir.
 Avec elle, la projection DOIT montrer ce qu’il faut, pour quand, et comment répondre.
 Les éléments DOIVENT être ceux de la demande de renseignements ouverte.
-L’échéance DOIT être celle de cette demande, dans le fuseau horaire légal.
+L’échéance DOIT être celle de cette demande de renseignements, dans le fuseau horaire légal.
 
 [[APP-082]]
 *APP-082.* Une projection NE DOIT PAS montrer de file d’attente, de sous-état, d’indicateur de risque, de cote ni d’employé.
@@ -46,8 +46,8 @@ Elle DOIT aussi montrer la date prévue ou la norme de service.
 Une étiquette sur un écran partagé ne dit alors à personne si la réponse est oui ou non.
 
 [[APP-083]]
-*APP-083.* Le service DOIT mettre à jour la projection à partir du dossier de référence à chaque changement.
-Cela comprend un changement fait par le personnel.
+*APP-083.* Le service DOIT dériver la projection du dossier de référence à chaque lecture.
+Il PEUT plutôt reconstruire la projection dans la même transaction que chaque changement, y compris un changement du personnel.
 Une projection NE DOIT PAS garder une copie de données qui peuvent s’écarter du dossier.
 
 Les gens appellent quand une page de suivi montre une ancienne date de naissance ou une ancienne adresse de courriel.
@@ -56,7 +56,8 @@ Les gens appellent quand une page de suivi montre une ancienne date de naissance
 
 [[APP-084]]
 *APP-084.* Le service DOIT aviser la personne de chaque dépôt, par un canal qu’elle a choisi.
-Il DEVRAIT l’aviser quand une demande de renseignements s’ouvre, et avant son échéance.
+Il DOIT l’aviser quand une demande de renseignements s’ouvre, et consigner cet avis avec la demande de renseignements, selon APP-087.
+Il DEVRAIT l’aviser de nouveau avant l’échéance de la demande de renseignements.
 Il DEVRAIT aussi le faire quand une décision est disponible, et avant de purger un brouillon.
 Il NE DEVRAIT PAS envoyer d’avis pour un changement qui garde la même étiquette.
 
@@ -67,16 +68,19 @@ Un changement d’étape interne est du bruit, et provoque des appels.
 *APP-085.* Une notification NE DOIT PAS contenir le contenu d’une décision, ses motifs, une réponse ni aucune donnée sensible.
 Elle NE DOIT PAS demander de renseignements personnels, et NE DOIT PAS porter de pièce jointe.
 Elle DOIT dire où la personne peut lire le contenu, comme une page après connexion ou un avis officiel.
-Elle DEVRAIT nommer la personne dans le corps du message, ce qui complique l’hameçonnage.
 
 Les textos circulent sans chiffrement, et certains courriels aussi.
 Une notification dit donc que quelque chose a changé et où regarder, rien de plus.
+Un nom à côté d’un programme, sur un téléphone verrouillé, apprend à d’autres qu’une personne a fait une demande.
+Une notification ne nomme donc ni l’un ni l’autre.
 
 [[APP-086]]
 *APP-086.* Chaque lien d’une notification DOIT pointer vers un domaine de l’organisme, écrit au long.
 Il NE DOIT PAS passer par une redirection ni porter un paramètre de traçage.
+Chaque notification DEVRAIT venir d’une adresse ou d’un numéro d’expéditeur que l’organisme publie.
 
 Une personne peut alors vérifier où mène un lien avant de le suivre.
+Un expéditeur connu et un domaine écrit au long compliquent l’hameçonnage, sans aucune donnée personnelle dans le message.
 
 [[APP-087]]
 *APP-087.* Le service DOIT consigner au dossier le genre, le canal, l’instant et l’état de livraison de chaque notification.
@@ -105,7 +109,8 @@ Chaque événement DOIT aussi être un événement d’affaires selon OBS-070, d
 |`org.fpsot.applications.draft.purged` |Le service a purgé un brouillon.
 |===
 
-Un système de dossiers, un moteur de frais ou un registre lit ensuite le dossier par son identifiant.
+Un système de traitement des affaires, un moteur de frais ou un registre lit le dossier par son identifiant.
+Il le fait avec sa propre autorisation.
 
 == Références
 

@@ -17,6 +17,7 @@
             "role": "applicant",
             "actingPartyId": "019c4e00-0010-7000-8000-000000000001",
             "subjectPartyId": "019c4e00-0010-7000-8000-000000000001",
+            "authorityCheckedAt": "2026-03-09T23:10:00Z",
             "assurance": "verified"
           },
           "reason": "draft-started"
@@ -29,6 +30,7 @@
             "role": "applicant",
             "actingPartyId": "019c4e00-0010-7000-8000-000000000001",
             "subjectPartyId": "019c4e00-0010-7000-8000-000000000001",
+            "authorityCheckedAt": "2026-03-10T14:58:30Z",
             "assurance": "verified"
           },
           "reason": "applicant-submitted"
@@ -55,7 +57,8 @@
           },
           "reason": "decision-recorded",
           "decisionRecordId": "019c5a00-000b-7000-8000-000000000001",
-          "adverseOutcome": false
+          "resultKind": "decided",
+          "outcome": "granted"
         }
       ],
       "assurance": "verified",
@@ -128,6 +131,7 @@
         "role": "applicant",
         "actingPartyId": "019c4e00-0010-7000-8000-000000000001",
         "subjectPartyId": "019c4e00-0010-7000-8000-000000000001",
+        "authorityCheckedAt": "2026-03-10T14:58:30Z",
         "assurance": "verified"
       },
       "submittedAt": "2026-03-10T14:58:30Z",
@@ -145,12 +149,14 @@
         "localDateTime": "2026-03-10T10:58:30",
         "timeZone": "America/Toronto"
       },
+      "receivedPrecision": "second",
       "channel": "digital",
       "submitter": {
         "actorId": "acct-7d41c2",
         "role": "applicant",
         "actingPartyId": "019c4e00-0010-7000-8000-000000000001",
         "subjectPartyId": "019c4e00-0010-7000-8000-000000000001",
+        "authorityCheckedAt": "2026-03-10T14:58:30Z",
         "assurance": "verified"
       },
       "destination": "https://licensing.example.org/apply",
@@ -222,6 +228,7 @@
         "role": "applicant",
         "actingPartyId": "019c4e00-0010-7000-8000-000000000001",
         "subjectPartyId": "019c4e00-0010-7000-8000-000000000001",
+        "authorityCheckedAt": "2026-03-10T14:55:12Z",
         "assurance": "verified"
       }
     }

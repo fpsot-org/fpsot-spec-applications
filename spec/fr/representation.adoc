@@ -11,14 +11,17 @@ Cette page vérifie l’autorisation à chaque acte, et consigne les deux partie
 == Autorisation
 
 [[APP-070]]
-*APP-070.* Un acte pour une autre partie DOIT reposer sur une représentation selon IAM-061, choisie dans la session selon IAM-064.
-Le service DOIT interroger le {term-authorization-engine} à chaque acte, selon IAM-050, et non seulement au dépôt.
+*APP-070.* L’acte d’un représentant DOIT reposer sur une représentation selon IAM-061, choisie dans la session selon IAM-064.
+Le service DOIT interroger le {term-authorization-engine} à chaque acte de la personne requérante, d’un représentant ou du personnel, selon IAM-050.
 Cela couvre chaque enregistrement d’un brouillon, chaque dépôt, chaque réponse, chaque retrait et chaque consultation.
-Le service DOIT refuser l’acte quand aucune représentation valide ne le couvre.
+Le service DOIT consigner quand il a vérifié chaque acte, et DOIT refuser un acte qui échoue à la vérification.
+Il DOIT refuser l’acte d’un représentant quand aucune représentation valide ne le couvre.
 Un représentant DOIT agir depuis son propre compte, selon IAM-060, jamais depuis celui de la partie représentée.
 
 Une représentation peut prendre fin entre le brouillon et la réponse.
 Une vérification à chaque acte arrête alors une personne dont le mandat a pris fin.
+Le personnel agit selon l’autorisation de son rôle, selon IAM-050, et non selon une représentation.
+La même vérification s’applique à lui.
 
 [[APP-071]]
 *APP-071.* Chaque acte sur un dossier DOIT consigner une `ActingParty` qui sépare la partie agissante de la partie visée.
@@ -32,19 +35,24 @@ FHIR fait la même distinction entre le sujet d’une réponse, sa source et son
 
 [[APP-072]]
 *APP-072.* Un service PEUT accepter un dépôt qu’une personne déclare faire pour une autre partie, sans représentation selon IAM-061.
-Il NE DOIT le faire que si sa déclaration le permet.
-Il DOIT alors marquer le dossier et chaque acte avec l’assurance `self-declared`.
-Le personnel DOIT voir cette marque, et le constat de réception DOIT la contenir.
-Un dépôt sur simple déclaration NE DOIT PAS donner à son auteur un accès ultérieur au dossier sans représentation.
+Il NE DOIT le faire que si sa déclaration de service le permet, et ces règles s’appliquent alors.
+
+* Le service DOIT marquer `self-declared` le dossier, chaque acte et le constat de réception.
+* Le personnel DOIT voir cette marque.
+* Seuls le brouillon et son dépôt PEUVENT reposer sur une simple déclaration.
+* Un acte ultérieur, comme une réponse, un retrait ou une consultation, DOIT venir de la partie visée ou d’un représentant.
+* Le dépôt NE DOIT PAS donner à son auteur un accès ultérieur au dossier.
+* Un avis à l’auteur de la déclaration DOIT seulement confirmer le dépôt, sans lien vers le dossier.
 
 Une personne qui aide une voisine une fois peut alors déposer, et l’organisme sait quelle confiance y accorder.
+La partie visée apprend le dépôt selon APP-073, et décide de la suite.
 
 == Avis et révocation
 
 [[APP-073]]
 *APP-073.* Quand une personne dépose pour une autre partie, le service DOIT aviser la partie représentée du dépôt.
 Il PEUT omettre l’avis quand aucune coordonnée n’est connue.
-Il PEUT aussi l’omettre quand le profil ou une ordonnance dit que l’avis met une personne en danger.
+Il PEUT aussi l’omettre quand le profil ou une ordonnance d’un tribunal dit que l’avis met une personne en danger.
 Il DOIT alors consigner le motif.
 
 Un avis apprend à une personne qu’on a fait une demande en son nom, et lui permet de s’y opposer.

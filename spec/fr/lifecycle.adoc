@@ -36,6 +36,10 @@ Son `state` DOIT prendre une de ces sept valeurs.
 `decided`, `withdrawn` et `closed` sont définitifs.
 Un dossier dans un état définitif ne prend plus jamais d’autre état.
 
+Pour le papier et les autres canaux assistés, l’organisme reçoit la demande avant que le brouillon existe.
+L’historique consigne alors le moment de la saisie par le personnel.
+Le constat de réception contient le moment où l’organisme a reçu la demande, selon APP-041 et APP-092.
+
 [[APP-031]]
 *APP-031.* Un dossier NE DOIT passer d’un état à l’autre que selon les passages de ce tableau.
 Chaque passage DOIT ajouter une entrée à `stateHistory`.
@@ -55,13 +59,17 @@ Un dossier passé d’un système numérique au papier garde alors son âge rée
 
 [[APP-032]]
 *APP-032.* Seul un enregistrement de décision selon DEC-040 PEUT faire passer un dossier à `decided`.
-L’entrée DOIT nommer cet enregistrement, et indiquer si son résultat est défavorable à la personne.
+L’entrée DOIT nommer cet enregistrement, et en reprendre le type de résultat et l’issue, selon DEC-024.
+Un résultat `referred` NE DOIT PAS faire passer un dossier à `decided`, puisqu’une personne doit encore décider, selon DEC-061.
+Un passage à `decided` est défavorable, sauf avec le type de résultat `decided` et une issue de `fullGrantOutcomes`.
 Une révision, un appel ou un réexamen après la décision DOIT suivre les étapes de révision de DEC-062 et DEC-063.
 Il NE DOIT PAS rouvrir ni modifier le dossier.
-Une future spécification sur les dossiers pourra contenir le dossier qu’ouvre une telle révision.
 
-Le résultat lui-même, comme `granted` ou `refused`, reste dans l’enregistrement de décision.
-Le dossier consigne seulement qu’une décision existe.
+Une future spécification sur le traitement des affaires pourra contenir l’affaire qu’ouvre une telle révision.
+Le service d’accueil reprend le résultat, et ne le choisit jamais, selon APP-101.
+Un refus, un octroi partiel, `insufficient-information` et `not-applicable` sont donc défavorables à la personne requérante.
+Il en est de même de chaque issue que le programme ne désigne pas comme un octroi complet.
+Les motifs restent dans l’enregistrement de décision, et l’état que voit la personne ne montre aucune issue, selon APP-082.
 
 == Brouillons
 
@@ -95,7 +103,7 @@ La connexion ou le lien à usage unique évite les deux, et les gestionnaires de
 Un service PEUT faire passer un brouillon à une version `active` plus récente par une étape explicite seulement.
 Il consigne cette étape comme un `DraftEvent` du genre `migrated`.
 Cette étape DOIT reporter chaque réponse à une question inchangée selon son `id`, et n’effacer aucune réponse en silence.
-L’interface DOIT montrer chaque question nouvelle ou modifiée avant la vérification des réponses.
+L’interface DOIT montrer à la personne requérante chaque question nouvelle ou modifiée avant la vérification des réponses.
 
 GOV.UK Forms garde un brouillon sur sa version de départ.
 Démarche Numérique déplace les brouillons vers chaque nouvelle révision.
@@ -124,7 +132,7 @@ L’organisme peut alors montrer ce que la personne a transmis à chaque date.
 Un formulaire modifié, ou une réponse, ne réécrit jamais un dépôt.
 
 [[APP-038]]
-*APP-038.* Une personne PEUT retirer une demande déposée dans tout état qui n’est pas définitif.
+*APP-038.* La personne requérante PEUT retirer sa demande déposée dans tout état qui n’est pas définitif.
 Une personne qui la représente PEUT la retirer quand la portée de la représentation couvre cet acte, selon APP-070.
 Le retrait DOIT être un passage à `withdrawn` selon APP-031, et NE DOIT PAS supprimer le dossier ni ses versions.
 

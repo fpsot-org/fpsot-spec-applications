@@ -29,32 +29,48 @@ It MUST hold these parts.
 The items tell the applicant what to fix, and the front end shows them in place.
 
 [[APP-051]]
-*APP-051.* At most one request for information MAY be open on a file at a time.
+*APP-051.* A file MUST NOT have more than one open request for information at a time.
 Opening a request MUST move the file to `information-requested`, under APP-031.
 A request MUST ask only for items that the form or the rules of the program need.
 A request MUST have one status: `open`, `resolved`, `cancelled` or `expired`.
 
 One open request gives the applicant one list and one deadline.
-France forbids a body to ask for items that no law requires, and the French comparison says so.
+France asks the body to list the missing items that the texts require, and the French comparison says so.
 
 [[APP-052]]
 *APP-052.* While a request is open and in time, a file MUST NOT move to `decided` on an adverse outcome.
 The service MUST tell the decision service that the request is open.
+After a request ends unanswered, an adverse move MUST NOT follow until the applicant has heard of it.
+The file shows that by a delivered notice of the request, under APP-084, or by a contact attempt under APP-057.
+A full grant MAY still go ahead while a request is open, when the program allows it.
+
 A missing fact then leads to `insufficient-information` or `referred`, under DEC-025.
-A favorable decision MAY still go ahead when the program allows it.
 
 Québec asks the body to delay an unfavorable decision on a benefit while the applicant completes the file.
 France lets the grant of a right go ahead while a document is missing, with effect once it arrives.
 This rule holds the first everywhere, and lets the program allow the second.
+A request that never reached the applicant gave no chance to reply.
+Its end then never opens the way to a refusal.
 
 [[APP-053]]
-*APP-053.* A reply MUST add a new `FileVersion` and a new receipt record, under APP-037 and APP-040.
+*APP-053.* A reply is a submission, so APP-036, APP-063 and APP-065 apply to it as to the first one.
+A reply MUST add a new `FileVersion` and a new receipt record, under APP-037 and APP-040.
+Its receipt record MUST seal again the copy of the form version that it answers, under APP-042.
 A new file for an item MUST be a new attachment version, under APP-064.
 The reply MUST resolve the request, which records the instant and the new version.
-A body MAY cancel a request, with the instant and a reason code.
 The front end MUST fill the reply with the answers already given, under APP-024.
 
+A body MAY cancel a request only for a reason of this list, and it MUST record the instant.
+
+* `issued-in-error`: the body issued it by mistake.
+* `no-longer-needed`: the body no longer needs its items.
+* `superseded`: a later request replaces it.
+
+Until the deadline of a canceled request ends, a file MUST NOT move to `decided` on an adverse outcome.
+An adverse outcome MUST NOT rest on an item of a canceled request.
+
 The reply then has its own received instant, and the first submission keeps its own.
+A cancel never shortens the time that the request gave the applicant.
 
 == Clocks
 
@@ -79,7 +95,9 @@ A service MUST NOT hard-code a calendar or a holiday.
 
 The federal and Québec lists of holidays differ.
 Québec has 24 June, and the federal list has 30 September and 11 November.
-A deadline that falls on 24 June then rolls in Québec, and not in a federal program.
+Federal law also counts the holidays of each province and the civic holidays of each place.
+So 24 June is a federal holiday in Québec too, and a deadline that falls on it rolls in both.
+The national calendar of the `ca-federal` profile is therefore marked incomplete, under APP-013.
 
 [[APP-056]]
 *APP-056.* A service MUST record each outage as an `OutageWindow`, with its start, its end and its channels.
@@ -97,8 +115,11 @@ A program that extends a deadline after an outage can then show why the date mov
 
 * The service declaration allows closing for no response.
 * The deadline of the open request has passed, and the request is `expired`.
-* The file holds a logged contact attempt after the request opened, through a channel that did not fail, under APP-087.
+* The file holds a logged contact attempt about the request, made after it opened.
+* That attempt is distinct from the notice of the request, under APP-084.
+* That attempt did not fail, under APP-087, and its channel confirmed delivery or differs from the channel of the notice.
 
+A contact attempt SHOULD come once part of the period has passed, such as half of it.
 A file never closes for silence while the applicant might not know that the body asked.
 The front end tells the applicant before a file closes, under APP-081.
 

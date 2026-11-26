@@ -154,7 +154,7 @@ classes:
       deployingBodyPartyId: {range: Organization, required: true, description: "The body that runs the service. DMO-040."}
       profiles: {range: CodeValue, multivalued: true, required: true, description: "The profiles whose law applies, core included. APP-010."}
       forms: {multivalued: true, required: true, description: "The url|version of each form of the service. APP-020."}
-      applicationKind: {range: CodeValue, required: true, description: "The kind of application, which selects the language rules of the profile, such as any or business-permit-or-grant. APP-025."}
+      applicationKind: {range: CodeValue, required: true, description: "The kind of application, which selects the language rules of the profile, such as any or legal-person-permit-or-grant. APP-025."}
       draftStorage: {range: DraftStorage, required: true, description: "server or client. APP-033."}
       draftInactivityDays: {range: integer, minimum_value: 1, required: true, description: "How long a draft lasts without activity. APP-034."}
       purgeNoticeDays: {range: integer, minimum_value: 1, description: "How many days before a purge the notice goes out, at least the default of the profile. APP-034, APP-014."}
@@ -162,7 +162,8 @@ classes:
       extensionRule: {range: ExtensionRule, inlined: true, description: "The rule of the program for a deadline that falls in an outage. APP-056."}
       closingForNoResponse: {range: boolean, required: true, description: "Whether the program allows closing for no response. APP-057."}
       selfDeclaredSubmissions: {range: boolean, required: true, description: "Whether the service accepts a self-declared submission for another party. APP-072."}
-      favorableWhileOpenAllowed: {range: boolean, description: "Whether the program allows a favorable decision while a request is open. APP-052."}
+      favorableWhileOpenAllowed: {range: boolean, description: "Whether the program allows a decision that grants in full while a request is open. APP-052."}
+      fullGrantOutcomes: {range: CodeValue, multivalued: true, description: "The outcome codes of the program that grant the application in full, such as granted. Every other result is adverse. APP-032, APP-052."}
       channels: {range: Channel, multivalued: true, required: true, description: "The channels that the service offers. APP-090, APP-093."}
       digitalOnlySourceId: {description: "When the service offers only digital channels, the id of the source of its profile that allows it. APP-093."}
       serviceStandard: {range: Duration, description: "The service standard, such as P20D. APP-043."}
@@ -218,7 +219,8 @@ classes:
       actor: {range: ActingParty, inlined: true, required: true, description: "Who moved it, and for whom. APP-071."}
       reason: {range: CodeValue, required: true, description: "Why it moved. APP-031."}
       decisionRecordId: {range: DecisionRecord, description: "The decision record, required for a move to decided. APP-032, DEC-040."}
-      adverseOutcome: {range: boolean, description: "Whether the decision is adverse to the applicant, required for a move to decided. APP-032, APP-052."}
+      resultKind: {range: ResultKind, description: "The result kind of the decision record, copied from it, required for a move to decided; never referred. APP-032, DEC-024."}
+      outcome: {range: CodeValue, description: "The outcome of the decision record, copied from it, required when the result kind is decided. The move is adverse unless the outcome is a full grant of the service declaration. APP-032, APP-052, DEC-024."}
       requestId: {range: InformationRequest, description: "The request, for a move to or from information-requested and to closed. APP-051, APP-057."}
       contactAttemptId: {range: ContactAttempt, description: "The logged contact attempt, required for a move to closed. APP-057."}
 
@@ -230,7 +232,7 @@ classes:
       actingPartyId: {range: Party, description: "The party who acts, a person, required unless the role is service. DMO-040."}
       subjectPartyId: {range: Party, required: true, description: "The party whose file it is. DMO-040."}
       representationId: {range: OpaqueId, description: "The representation of IAM-061 that the act rests on, required for the role representative. APP-070."}
-      authorityCheckedAt: {range: Instant, description: "When the service asked the authorization engine for this act, required when the actor acts for another party. APP-070, IAM-050."}
+      authorityCheckedAt: {range: Instant, description: "When the service asked the authorization engine for this act, required for each act of an applicant, a representative or a staff member. APP-070, IAM-050."}
       assurance: {range: Assurance, required: true, description: "verified, or self-declared under APP-072."}
 
   ClockState:
@@ -284,6 +286,7 @@ classes:
       reference: {range: ReferenceNumber, required: true, description: "APP-040, APP-045."}
       receivedAt: {range: Instant, required: true, description: "When the submission became accessible in the system of the body, to the second at least. APP-041, DAT-010."}
       receivedLocal: {range: ZonedLocalDateTime, inlined: true, required: true, description: "The local date and time of receipt in the legal time zone of the profile. APP-040, DAT-015."}
+      receivedPrecision: {range: ReceivedPrecision, required: true, description: "What the received instant holds: second, or for a stamp on arrival minute or day; a day is recorded as the start of that local day. APP-040, APP-041, APP-092."}
       channel: {range: Channel, required: true, description: "APP-040, APP-091."}
       submitter: {range: ActingParty, inlined: true, required: true, description: "The submitter and any representative. APP-040, APP-071."}
       destination: {required: true, pattern: "\\S", description: "The address or office that received it. APP-040."}
@@ -350,7 +353,7 @@ classes:
       resolvedAt: {range: Instant, description: "Required when resolved. APP-053."}
       resolvedByVersionId: {range: FileVersion, description: "Required when resolved. APP-053."}
       cancelledAt: {range: Instant, description: "Required when cancelled. APP-053."}
-      cancelReason: {range: CodeValue, description: "Required when cancelled. APP-053."}
+      cancelReason: {range: CancelReason, description: "Required when cancelled. APP-053."}
       expiredAt: {range: Instant, description: "Required when expired. APP-057."}
       messageId: {range: Uuid, description: "The message of the secure messaging of the body that carries the request. APP-050."}
 
@@ -452,6 +455,7 @@ classes:
       sentAt: {range: Instant, required: true, description: "APP-087."}
       deliveryStatus: {range: DeliveryStatus, required: true, description: "APP-087."}
       failedAt: {range: Instant, description: "Required when failed. APP-087."}
+      requestId: {range: InformationRequest, description: "The request that the notification concerns, required for the notice of a request. APP-084, APP-057."}
 
   ContactAttempt:
     description: "A logged attempt to reach the applicant about an open request. APP-057."
@@ -459,7 +463,7 @@ classes:
       id: {identifier: true, range: Uuid, description: "DMO-021."}
       fileId: {range: ApplicationFile, required: true, description: "APP-057."}
       requestId: {range: InformationRequest, required: true, description: "APP-057."}
-      notificationId: {range: Notification, required: true, description: "The notification that carried it. APP-087."}
+      notificationId: {range: Notification, required: true, description: "The notification that carried it, never the notice of the request itself. APP-057, APP-087."}
       at: {range: Instant, required: true, description: "APP-057."}
 
   DraftEvent:
@@ -518,7 +522,8 @@ classes:
     attributes:
       code: {range: CodeValue, required: true, description: "APP-055."}
       timeZone: {range: TimeZoneName, required: true, description: "The legal time zone. DAT-030."}
-      validity: {range: DateInterval, inlined: true, required: true, description: "The dates that the calendar covers. A deadline outside them is a missing value under APP-013."}
+      validity: {range: DateInterval, inlined: true, required: true, description: "The dates that the calendar covers. A deadline, or a day of its roll, outside them is a missing value under APP-013."}
+      complete: {range: boolean, required: true, description: "False when the calendar lacks days that its law counts for some places, such as the holidays of a province or the civic holidays of a place. A deadline on an incomplete calendar is a missing value under APP-013."}
       weeklyHolidays: {range: Weekday, multivalued: true, description: "Weekdays that are holidays every week, such as sunday. APP-055."}
       nonWorkingWeekdays: {range: Weekday, multivalued: true, description: "Weekdays that are not working days, for the roll next-working-day. APP-055."}
       holidays: {range: Holiday, multivalued: true, inlined_as_list: true, required: true, description: "APP-055."}
@@ -537,8 +542,9 @@ classes:
     attributes:
       code: {range: CodeValue, required: true, description: "The code of the basis that a file records. APP-025."}
       language: {range: LanguageTag, required: true, description: "APP-025."}
-      appliesTo: {range: CodeValue, required: true, description: "The kind of application, such as any or business-permit-or-grant. APP-025."}
-      exclusive: {range: boolean, required: true, description: "True when that kind of application uses this language only. APP-025."}
+      appliesTo: {range: CodeValue, required: true, description: "The kind of application, such as any or legal-person-permit-or-grant. APP-025."}
+      exclusive: {range: boolean, required: true, description: "True when that kind of application uses this language only, unless a file rests on an exception to the rule. APP-025."}
+      exceptionTo: {range: CodeValue, description: "The code of an exclusive rule of the same profile to which this rule is an exception. APP-025."}
       sourceId: {range: CodeValue, required: true, description: "APP-011."}
 
   ProfileCode:
@@ -600,6 +606,12 @@ enums:
   RequestReason:
     description: "APP-050."
     permissible_values: {incorrect: {}, incomplete: {}, outdated: {}, complement: {}}
+  CancelReason:
+    description: "Why a body cancels a request: issued in error, no longer needed, or replaced by a later request. APP-053."
+    permissible_values: {issued-in-error: {}, no-longer-needed: {}, superseded: {}}
+  ReceivedPrecision:
+    description: "What a received instant holds. APP-040, APP-041."
+    permissible_values: {second: {}, minute: {}, day: {}}
   RequestStatus:
     description: "APP-051."
     permissible_values: {open: {}, resolved: {}, cancelled: {}, expired: {}}

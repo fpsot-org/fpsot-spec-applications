@@ -14,7 +14,7 @@ profiles:
 - ca-qc
 forms:
 - https://formulaires.example.org/permis-exploitation|1.0.0
-applicationKind: business-permit-or-grant
+applicationKind: legal-person-permit-or-grant
 draftStorage: server
 draftInactivityDays: 60
 purgeNoticeDays: 14
@@ -26,6 +26,8 @@ clocks:
 closingForNoResponse: false
 selfDeclaredSubmissions: false
 favorableWhileOpenAllowed: false
+fullGrantOutcomes:
+- granted
 channels:
 - digital
 - assisted-digital

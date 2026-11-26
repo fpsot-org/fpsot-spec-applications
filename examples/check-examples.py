@@ -21,13 +21,17 @@ It runs three kinds of checks, and reports every failure with the rule it breaks
 - Structural checks of the rules: profiles cite their sources and date their holidays; forms keep a
   label per language and a schema whose properties are the question ids; services name forms and
   profiles that exist and offer a route that is not digital; reference numbers carry the right
-  Crockford check character; files move only along the table of APP-031, start drafts on active
-  versions, record the acting party apart from the subject, check authority for representatives and
-  follow the language rules of their profile; versions chain, answer a request from number 2 and
-  record staff and keying for assisted channels; each version has one receipt record whose instant,
-  local time and digests match, and one acknowledgment; requests compute their deadline from the
-  calendar of the profile, are one at a time, block adverse decisions while open, move the clocks as
-  their effects say, and close a file only after an expired deadline and a logged contact attempt;
+  Crockford check character; files move only along the table of APP-031, copy the result kind and
+  outcome of each decision, start drafts on active versions, record the acting party apart from the
+  subject, check the authority of every act of a person, allow a self-declared act only up to the
+  submission, and follow the language rules of their profile and its exceptions; versions chain,
+  answer a request from number 2 and record staff and keying for assisted channels; each version has
+  one receipt record whose instant, precision, local time and digests match, and one
+  acknowledgment; requests are notified, compute their deadline from a complete calendar of the
+  profile that covers each day of the roll, are one at a time, block adverse decisions while open,
+  before the deadline of a cancel and after an end that never reached the applicant, move the clocks
+  as their effects say, and close a file only after an expired deadline and a logged contact attempt
+  that is distinct from the notice and delivered or on another channel;
   attachments chain their versions and are clean when submitted; projections show the label that the
   state maps to, and action-needed only with an open request; notifications link only to the domains
   of the body and record failures; draft migrations carry answers by question id; events hold no
@@ -93,6 +97,10 @@ def instant(s):
 
 def day(s):
     return date.fromisoformat(s)
+
+
+def utc(dt):
+    return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 class Model:
@@ -402,18 +410,31 @@ def is_holiday(c, d):
 
 
 def roll(c, d):
+    """The date after the roll, and every day that the roll visits, the first included."""
+    visited = []
     while True:
+        visited.append(d)
         off = is_holiday(c, d)
         if c.get("roll") == "next-working-day" and WEEKDAYS[d.weekday()] in (c.get("nonWorkingWeekdays") or []):
             off = True
         if not off:
-            return d
+            return d, visited
         d += timedelta(days=1)
 
 
 def covered(c, d):
     v = c.get("validity") or {}
     return v.get("start", "") <= d.isoformat() < v.get("end", "9999")
+
+
+def end_of_day(d, tz):
+    """The instant, in UTC, at which local day d ends in the time zone tz."""
+    return datetime.combine(d + timedelta(days=1), datetime.min.time(), tzinfo=ZoneInfo(tz)).astimezone(timezone.utc)
+
+
+def adverse(h, svc):
+    """A move to decided is adverse unless its result kind is decided with a full grant (APP-032)."""
+    return not (h.get("resultKind") == "decided" and h.get("outcome") in (svc.get("fullGrantOutcomes") or []))
 
 
 # ---------------------------------------------------------------------------------------------
@@ -495,7 +516,7 @@ def check_examples(model, root, profiles, forms, services):
         if f.get("reference") and not reference_ok(f["reference"]):
             fail(where, f"file {fid} has reference {f['reference']}, whose check character does not match", "APP-045, APP-046")
         hist = f.get("stateHistory") or []
-        prev_state, prev_at = None, None
+        prev_state, prev_at, seen_submitted = None, None, False
         for i, h in enumerate(hist):
             if prev_state in FINAL:
                 fail(where, f"file {fid} moves after the final state {prev_state}", "APP-030")
@@ -504,10 +525,16 @@ def check_examples(model, root, profiles, forms, services):
             if prev_at and h.get("at", "") < prev_at:
                 fail(where, f"file {fid}: entry {i} of the history comes before the entry before it", "APP-031")
             prev_state, prev_at = h.get("state"), h.get("at")
-            check_actor(where, f"file {fid} entry {i}", h.get("actor") or {}, f, svc)
+            check_actor(where, f"file {fid} entry {i}", h.get("actor") or {}, f, svc, later=seen_submitted)
+            if h.get("state") == "submitted":
+                seen_submitted = True
             if h.get("state") == "decided":
-                if not h.get("decisionRecordId") or "adverseOutcome" not in h:
-                    fail(where, f"file {fid} moves to decided without its decision record and whether it is adverse", "APP-032")
+                if not h.get("decisionRecordId") or not h.get("resultKind"):
+                    fail(where, f"file {fid} moves to decided without its decision record and its result kind", "APP-032")
+                elif h["resultKind"] == "referred":
+                    fail(where, f"file {fid} moves to decided on a referred result, which is not a decision", "APP-032, DEC-024")
+                elif h["resultKind"] == "decided" and not h.get("outcome"):
+                    fail(where, f"file {fid} moves to decided without the outcome of its decision record", "APP-032, DEC-024")
             if h.get("state") == "information-requested" and get("requests", h.get("requestId")) is None:
                 fail(where, f"file {fid} moves to information-requested without a request of the examples", "APP-051")
         if hist and hist[-1].get("state") != f.get("state"):
@@ -523,6 +550,8 @@ def check_examples(model, root, profiles, forms, services):
         if not basis or basis[0].get("language") != f.get("correspondenceLanguage"):
             fail(where, f"file {fid} records a language basis that no profile gives for its language", "APP-025")
         for r in rules:
+            if basis and basis[0].get("exceptionTo") == r.get("code"):
+                continue
             if r.get("exclusive") and r.get("appliesTo") == svc.get("applicationKind"):
                 if form.get("languages") != [r["language"]] or f.get("correspondenceLanguage") != r["language"] or f.get("languageBasis") != r["code"]:
                     fail(where, f"file {fid}: rule {r['code']} of the profile asks for {r['language']} only in this kind of application", "APP-025")
@@ -562,7 +591,7 @@ def check_examples(model, root, profiles, forms, services):
         check_digest(where, f"version {vid} formDigest", v.get("formDigest") or {}, raw, "APP-036")
         check_digest(where, f"version {vid} answersDigest", v.get("answersDigest") or {}, jcs(v.get("answers")), "APP-040")
         json_schema_check(v.get("answers"), form.get("schema") or {}, where, f"version {vid} answers", "APP-036, APP-037")
-        check_actor(where, f"version {vid}", v.get("submittedBy") or {}, f, svc)
+        check_actor(where, f"version {vid}", v.get("submittedBy") or {}, f, svc, later=(v.get("number") or 1) > 1)
         n = v.get("number")
         if n and n > 1:
             pv = get("versions", v.get("previousVersionId"))
@@ -671,25 +700,43 @@ def check_examples(model, root, profiles, forms, services):
         if any(a.get("role") == "representative" for a in acts if a.get("subjectPartyId") == f.get("subjectPartyId")):
             if not any(n.get("fileId") == fid and n.get("recipientRole") == "represented-party" for n, _, _ in D["notifications"].values()):
                 fail(where, f"file {fid} was submitted for another party, who received no notice", "APP-073")
+    for nid, (n, where, _) in D["notifications"].items():
+        f = get("files", n.get("fileId")) or {}
+        if f.get("assurance") == "self-declared" and n.get("recipientRole") == "representative" and n.get("links"):
+            fail(where, f"notification {nid} links the file to the declarant of a self-declared submission", "APP-072")
+    # The other acts: uploads, requests and draft events (APP-070 to APP-072).
+    for kind, key, when in (("attachments", "uploadedBy", "receivedAt"), ("requests", "openedBy", "openedAt"), ("draftEvents", "actor", "at")):
+        for xid, (x, where, _) in D[kind].items():
+            f = get("files", x.get("fileId"))
+            if f is None:
+                continue
+            first = min((h.get("at", "") for h in f.get("stateHistory") or [] if h.get("state") == "submitted"), default=None)
+            check_actor(where, f"{kind} {xid}", x.get(key) or {}, f, services.get(f.get("service"), {}),
+                        later=bool(first) and x.get(when, "") > first)
     check_draft_events(D, get, forms)
     return D
 
 
-def check_actor(where, label, a, f, svc):
+def check_actor(where, label, a, f, svc, later=False):
+    """later: the act comes after the submission, so it cannot be self-declared (APP-072)."""
     if a.get("subjectPartyId") != f.get("subjectPartyId"):
         fail(where, f"{label}: the subject of the act is not the party of the file", "APP-071")
     role = a.get("role")
     if role != "service" and not a.get("actingPartyId"):
         fail(where, f"{label}: the act names no acting party", "APP-071")
-    if role == "representative" and a.get("assurance") != "self-declared":
-        if not a.get("representationId") or not a.get("authorityCheckedAt"):
-            fail(where, f"{label}: a representative acts on a representation that the service checked", "APP-070")
+    if role in {"applicant", "representative", "staff"} and not a.get("authorityCheckedAt"):
+        fail(where, f"{label}: an act of the role {role} without a check of its authority", "APP-070")
+    if role == "representative" and a.get("assurance") != "self-declared" and not a.get("representationId"):
+        fail(where, f"{label}: a representative acts on a representation that the service checked", "APP-070")
     if role == "representative" and a.get("assurance") == "self-declared" and not svc.get("selfDeclaredSubmissions"):
         fail(where, f"{label}: a self-declared act, which the service does not allow", "APP-072")
     if role == "applicant" and a.get("actingPartyId") != f.get("subjectPartyId"):
         fail(where, f"{label}: an applicant acts for their own file only", "APP-071")
-    if a.get("assurance") != f.get("assurance") and role in {"applicant", "representative"}:
-        fail(where, f"{label}: the assurance of the act differs from that of the file", "APP-072")
+    if later:
+        if a.get("assurance") == "self-declared":
+            fail(where, f"{label}: a self-declared act after the submission, which needs the subject or a representation", "APP-072")
+    elif a.get("assurance") != f.get("assurance") and role in {"applicant", "representative"}:
+        fail(where, f"{label}: the assurance of the submission differs from that of the file", "APP-072")
 
 
 def check_receipt(where, r, v, f, svc, profiles, D, get):
@@ -712,6 +759,13 @@ def check_receipt(where, r, v, f, svc, profiles, D, get):
         fail(where, f"receipt record {rid} is sealed under {r.get('sealProfile')}, below seal-log", "APP-042")
     tzs = {c["timeZone"] for c in svc.get("profiles") or [] for c in profiles.get(c, {}).get("calendars") or []}
     loc = r.get("receivedLocal") or {}
+    prec = r.get("receivedPrecision")
+    if prec != "second" and r.get("channel") not in {"paper", "counter"}:
+        fail(where, f"receipt record {rid} came by {r.get('channel')}, so it holds its instant to the second", "APP-040")
+    elif prec == "day" and not (loc.get("localDateTime") or "").endswith("T00:00:00"):
+        fail(where, f"receipt record {rid} holds a date only, so it records the start of its local day", "APP-041, APP-092")
+    elif prec == "minute" and not (loc.get("localDateTime") or "").endswith(":00"):
+        fail(where, f"receipt record {rid} holds a minute, so it records the start of that minute", "APP-041, APP-092")
     if loc.get("timeZone") not in tzs:
         fail(where, f"receipt record {rid} uses a time zone that is not the legal time zone of its profile", "APP-040, APP-012")
     else:
@@ -779,6 +833,7 @@ def check_requests(where, f, svc, profiles, forms, D, get):
             if rv is None or rv.get("requestId") != qid or rv.get("submittedAt") != q.get("resolvedAt"):
                 fail(where, f"request {qid} is resolved by a version that does not answer it at that instant", "APP-053")
         # Deadline (APP-055, APP-056, APP-013)
+        deadline_end = None
         dl = q.get("deadline") or {}
         prof, cal = calendar_of(profiles, dl.get("calendar"))
         if cal is None or prof.get("code") not in (svc.get("profiles") or []):
@@ -792,8 +847,8 @@ def check_requests(where, f, svc, profiles, forms, D, get):
             raw = start + timedelta(days=dl.get("periodDays", 0))
             if dl.get("rawDate") != raw.isoformat():
                 fail(where, f"request {qid}: the raw date must be {raw}", "APP-055")
-            if not covered(cal, raw):
-                fail(where, f"request {qid}: calendar {cal['code']} does not cover {raw}, a missing value", "APP-013")
+            if not cal.get("complete"):
+                fail(where, f"request {qid}: calendar {cal['code']} lacks days that its law counts for some places, so the deadline is a missing value", "APP-013")
             target = raw
             ext = dl.get("extension")
             if ext:
@@ -810,23 +865,44 @@ def check_requests(where, f, svc, profiles, forms, D, get):
                     if o.get("publishedAt", "") > o.get("end", ""):
                         fail(where, f"outage {o['id']} was published after it ended", "APP-056")
                     target = o_end + timedelta(days=rule.get("extendByDaysAfterOutageEnd", 0))
-            expected = roll(cal, target)
+            expected, visited = roll(cal, target)
+            for vd in [raw] + visited:
+                if not covered(cal, vd):
+                    fail(where, f"request {qid}: calendar {cal['code']} does not cover {vd}, a missing value", "APP-013")
+                    break
             if dl.get("date") != expected.isoformat():
                 fail(where, f"request {qid}: the deadline after the roll must be {expected}", "APP-055")
-            if status == "expired":
-                end_local = datetime.combine(day(dl["date"]) + timedelta(days=1), datetime.min.time(), tzinfo=ZoneInfo(cal["timeZone"]))
-                if instant(q["expiredAt"]) < end_local.astimezone(timezone.utc):
-                    fail(where, f"request {qid} expired before the end of its deadline", "APP-057")
-        # No adverse decision while open and in time (APP-052)
+            if status == "expired" and instant(q["expiredAt"]) < end_of_day(day(dl["date"]), cal["timeZone"]):
+                fail(where, f"request {qid} expired before the end of its deadline", "APP-057")
+            deadline_end = end_of_day(day(dl["date"]), cal["timeZone"])
+        # The notice of the request (APP-084), and no adverse decision that the applicant could not
+        # answer (APP-052): not while the request is open and in time, not before the deadline of a
+        # cancelled request ends, and after an expiry or a cancel only once the applicant was reached.
+        notices = [n for n, _, _ in D["notifications"].values() if n.get("requestId") == qid and n.get("kind") == "action-needed"]
+        if not any(n.get("fileId") == fid and n.get("sentAt", "") >= q.get("openedAt", "") for n in notices):
+            fail(where, f"request {qid} has no notice of request sent to the applicant", "APP-084")
+        attempts = [c for c, _, _ in D["contactAttempts"].values() if c.get("requestId") == qid]
+        if status == "cancelled":
+            end = max(q.get("cancelledAt", ""), utc(deadline_end)) if deadline_end else q.get("cancelledAt")
+        else:
+            end = q.get("resolvedAt") or q.get("expiredAt")
         for h in f.get("stateHistory") or []:
-            if h.get("state") == "decided" and h.get("adverseOutcome"):
-                end = q.get("resolvedAt") or q.get("cancelledAt") or q.get("expiredAt")
-                if h.get("at", "") >= q.get("openedAt", "") and (not end or h.get("at", "") < end):
+            at = h.get("at", "")
+            if h.get("state") != "decided" or at < q.get("openedAt", ""):
+                continue
+            in_window = not end or at < end
+            after_cancel = status == "cancelled" and at >= q.get("cancelledAt", "")
+            heard = any(n.get("deliveryStatus") == "delivered" for n in notices) or any(
+                not contact_problems(c, q, D, get, until=at) for c in attempts)
+            if adverse(h, svc):
+                if in_window and after_cancel:
+                    fail(where, f"file {fid} is decided on an adverse outcome before the deadline of cancelled request {qid} ended", "APP-052, APP-053")
+                elif in_window:
                     fail(where, f"file {fid} is decided on an adverse outcome while request {qid} is open and in time", "APP-052")
-            if h.get("state") == "decided" and not h.get("adverseOutcome") and not svc.get("favorableWhileOpenAllowed"):
-                end = q.get("resolvedAt") or q.get("cancelledAt") or q.get("expiredAt")
-                if h.get("at", "") >= q.get("openedAt", "") and (not end or h.get("at", "") < end):
-                    fail(where, f"file {fid} is decided while request {qid} is open, which its program does not allow", "APP-052")
+                elif status in {"expired", "cancelled"} and not heard:
+                    fail(where, f"file {fid} is decided on an adverse outcome after request {qid}, with no delivered notice of it and no logged contact attempt", "APP-052")
+            elif in_window and not after_cancel and not svc.get("favorableWhileOpenAllowed"):
+                fail(where, f"file {fid} is decided while request {qid} is open, which its program does not allow", "APP-052")
         # Clock effects (APP-054)
         for e in q.get("clockEffects") or []:
             changes = clocks.get(e.get("clock"), [])
@@ -842,6 +918,24 @@ def check_requests(where, f, svc, profiles, forms, D, get):
                     fail(where, f"clock {e.get('clock')} starts on completion, but it started before request {qid}", "APP-054")
 
 
+def contact_problems(ca, q, D, get, until=None):
+    """Why a contact attempt does not count under APP-057: none, if the list is empty."""
+    if ca is None or ca.get("requestId") != q.get("id") or ca.get("at", "") < q.get("openedAt", "") or (until and ca.get("at", "") > until):
+        return [("without a logged contact attempt after the request opened", "APP-057")]
+    n = get("notifications", ca.get("notificationId"))
+    if n is None:
+        return [("on a contact attempt without its notification", "APP-057, APP-087")]
+    notices = [x for x, _, _ in D["notifications"].values() if x.get("requestId") == q.get("id") and x.get("kind") == "action-needed"]
+    problems = []
+    if any(n is x for x in notices):
+        problems.append(("on a contact attempt that is not distinct from the notice of the request", "APP-057"))
+    if n.get("deliveryStatus") == "failed":
+        problems.append(("on a contact attempt through a channel that failed", "APP-057, APP-087"))
+    elif n.get("deliveryStatus") != "delivered" and n.get("channel") in {x.get("channel") for x in notices if x is not n}:
+        problems.append(("on a contact attempt that is neither delivered nor on another channel than the notice of the request", "APP-057, APP-087"))
+    return problems
+
+
 def check_closing(where, f, svc, D, get):
     fid = f.get("id")
     for h in f.get("stateHistory") or []:
@@ -853,12 +947,8 @@ def check_closing(where, f, svc, D, get):
         if q is None or q.get("status") != "expired" or q.get("expiredAt", "") > h.get("at", ""):
             fail(where, f"file {fid} is closed without a request that expired before", "APP-057")
             continue
-        ca = get("contactAttempts", h.get("contactAttemptId"))
-        n = get("notifications", (ca or {}).get("notificationId"))
-        if ca is None or ca.get("requestId") != q.get("id") or ca.get("at", "") < q.get("openedAt", "") or ca.get("at", "") > h.get("at", ""):
-            fail(where, f"file {fid} is closed without a logged contact attempt after the request opened", "APP-057")
-        elif n is None or n.get("deliveryStatus") == "failed":
-            fail(where, f"file {fid} is closed on a contact attempt through a channel that failed", "APP-057, APP-087")
+        for message, rule in contact_problems(get("contactAttempts", h.get("contactAttemptId")), q, D, get, until=h.get("at", "")):
+            fail(where, f"file {fid} is closed {message}", rule)
 
 
 def check_draft_events(D, get, forms):

@@ -40,7 +40,7 @@ Un canal de téléversement qui transmet une somme de contrôle DOIT transmettre
 Il le place dans le champ `Content-Digest` de la link:https://www.rfc-editor.org/info/rfc9530[RFC 9530].
 Le service DOIT comparer ce condensé au fichier, et refuser le fichier quand ils diffèrent.
 
-La link:https://www.rfc-editor.org/info/rfc9530[RFC 9530] déclare MD5 et SHA-1 dépréciés, et ne les admet que contre la corruption accidentelle.
+La link:https://www.rfc-editor.org/info/rfc9530[RFC 9530] déclare MD5 et SHA-1 déconseillés, et ne les admet que contre la corruption accidentelle.
 Un seul algorithme partout fait qu’aucune donnée ne se fie par erreur à un condensé plus faible.
 
 == Analyses

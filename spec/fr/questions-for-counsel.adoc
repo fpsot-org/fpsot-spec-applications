@@ -14,8 +14,8 @@ Un point marqué _à vérifier_ repose sur une source secondaire, un résultat d
 == Moment de réception
 
 . *Moment de réception fédéral.* La loi fédérale sur les documents électroniques ne fixe aucun moment de réception par défaut.
-Son article 50 permet à chaque programme d’en fixer un par règlement.
-Quand les règlements d’un programme sont muets, quand une demande en ligne est-elle déposée?
+Son article 50 permet à l’autorité responsable d’une disposition inscrite à l’annexe 2 ou 3 d’en fixer un par règlement.
+Pour les autres dispositions, et quand ces règlements sont muets, quand une demande en ligne est-elle déposée?
 Un ministère peut-il fixer ce moment dans les conditions d’utilisation publiées de son portail?
 
 . *Heure normale.* L’article 29 de la Loi d’interprétation fédérale lit une heure du jour comme l’heure normale.
@@ -44,10 +44,11 @@ Doit-il garder un dossier retiré aussi longtemps qu’un dossier déposé?
 == Langue
 
 [start=7]
-. *Pièces jointes selon l’article 21.9.* Selon la Charte, une entreprise demande un permis ou une subvention en français seulement.
-L’article 22.5 exclut d’une autre règle les documents joints à certaines demandes.
-L’article 21.9 vise-t-il les certificats étrangers et les rapports techniques qu’une entreprise joint?
-Un service doit-il refuser la demande d’une entreprise dans une autre langue, ou l’accepter et demander le français?
+. *Exceptions selon l’article 21.9.* Une personne morale ou une entreprise demande un permis ou une subvention en français seulement.
+L’article 21.9 applique les exceptions adaptées des articles 21.4 et 21.6, et permet d’en prévoir d’autres par règlement.
+Quelles personnes requérantes peuvent alors joindre une version dans une autre langue, ou écrire seulement dans une autre langue?
+L’article 21.9 vise-t-il les certificats étrangers et les rapports techniques qu’une personne requérante joint?
+Un service doit-il refuser une telle demande dans une autre langue, ou l’accepter et demander le français?
 
 . *L’anglais selon les articles 22.2 et 22.3.* Comment un organisme doit-il vérifier qu’une personne est admissible à l’enseignement en anglais?
 Comment doit-il le consigner, et peut-il se fier à la déclaration de la personne?
@@ -67,7 +68,7 @@ A-t-il besoin d’une entente distincte pour chaque programme selon l’article 
 == Représentation et demandes de renseignements
 
 [start=11]
-. *Mandat apparent.* L’article 2163 du Code civil lie la personne qui a laissé croire qu’une autre était son mandataire.
+. *Mandat apparent.* L’article 2163 du Code civil du Québec lie qui a laissé une autre personne passer pour son mandataire.
 Le mandat peut se révéler inexistant.
 Quelle vérification de la personne qui dépose protège alors l’organisme et la partie représentée?
 
@@ -84,6 +85,11 @@ Le texte en vigueur sur Légifrance est _à vérifier_.
 Il ne nomme le samedi que pour le registre foncier.
 Le samedi est-il un jour ouvrable pour les autres délais?
 Le profil `ca-qc` saute les samedis jusqu’à la réponse des conseillers juridiques.
+
+. *Jours fériés d’un lieu.* La Loi d’interprétation fédérale compte aussi, à son article 35, les jours fériés provinciaux et civiques.
+Pour un délai fédéral, quel lieu compte : l’organisme, le bureau qui traite le dossier ou la personne requérante?
+Quelles lois d’une province y font d’un jour un jour non juridique, et visent-elles le samedi?
+Le profil `ca-federal` marque son calendrier national incomplet jusqu’à la réponse des conseillers juridiques.
 
 == Historique du document
 

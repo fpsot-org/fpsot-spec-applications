@@ -5,14 +5,18 @@
 # The research read the federal texts at the Justice Laws Website (current to 2026-10-29) and the
 # Treasury Board instruments at tbs-sct.canada.ca. Not legal advice.
 # Section 26 of the Interpretation Act moves a time limit that falls on a holiday to the next day
-# that is not a holiday; section 35 lists the holidays, Sunday included and Saturday excluded.
-# Section 35 also counts days that a proclamation appoints, the holidays of each province and the
-# civic holidays of each place: the calendar below holds the national days only, and a service
-# adds the days of its place in its own release of this profile. Thanksgiving Day comes each year
+# that is not a holiday; section 35 lists the national holidays, Sunday included and Saturday
+# excluded. Section 35 also counts, in each province, the days that its lieutenant governor
+# proclaims and the non-juridical days of its own acts, and, in each place, the civic holidays
+# that its council fixes. The calendar below holds the national days only, so it is marked
+# incomplete: a deadline on it is a missing value under APP-013, and a person sets it. A service
+# builds the calendar of its place in its own release of this profile, with the national days, the
+# days of the province and the civic holidays of the place. Which place counts, that of the body,
+# of the office or of the applicant, is a question for counsel. Thanksgiving Day comes each year
 # from a proclamation that the research did not read, so its source is to be verified.
 # Section 29 reads a time of day as standard time; how a service shows a deadline during daylight
-# saving time is a question for counsel. The legal time zone of the calendar is the zone of the
-# National Capital Region; a program in another zone sets its own calendar.
+# saving time is a question for counsel. The time zone of the calendar is that of Ottawa; a
+# service in another zone sets its own calendar.
 code: ca-federal
 version: 0.1.0
 title: {en: Canada federal profile, fr: Profil fédéral canadien}
@@ -59,12 +63,12 @@ sources:
     date: "2026-10-29"
     verification: read
 calendars:
-  # Section 26: the next day that is not a holiday. Saturday is not a holiday, so a deadline that
-  # falls on a Saturday stays there. The calendar covers 2026; a deadline in 2027 is a missing value
-  # (APP-013) until the next release of this profile.
-  - code: ca-federal-ncr
+  # Section 26: the next day that is not a holiday. Saturday is not a national holiday. The
+  # calendar covers 2026; a deadline in 2027 is a missing value (APP-013) until the next release.
+  - code: ca-federal-national
     timeZone: America/Toronto
     validity: {start: "2026-01-01", end: "2027-01-01"}
+    complete: false
     weeklyHolidays: [sunday]
     roll: next-non-holiday
     sourceIds: [interpretation-act]
@@ -95,16 +99,16 @@ rules:
     summary: {en: "New and redesigned online services show the status of an application in real time.", fr: "Les services en ligne nouveaux ou remaniés montrent l’état d’une demande en temps réel."}
     sourceIds: [directive-service-digital]
   - code: published-service-standards
-    summary: {en: "Each service publishes service standards, and real-time performance against them.", fr: "Chaque service publie ses normes de service, et son rendement en temps réel par rapport à elles."}
+    summary: {en: "Each service has service standards, and the department reports real-time performance against them on its website.", fr: "Chaque service a des normes de service, et le ministère publie sur son site Web son rendement en temps réel par rapport à elles."}
     sourceIds: [directive-service-digital]
   - code: receipt-time-by-program
-    summary: {en: "No default time of receipt: each program may set by regulation when an electronic document counts as received.", fr: "Aucun moment de réception par défaut : chaque programme peut fixer par règlement quand un document électronique est reçu."}
+    summary: {en: "No default time of receipt: for a provision listed in Schedule 2 or 3, its responsible authority may set by regulation when an electronic document counts as sent or received; for other provisions, federal law sets no rule.", fr: "Aucun moment de réception par défaut : pour une disposition inscrite à l’annexe 2 ou 3, l’autorité responsable peut fixer par règlement quand un document électronique est réputé envoyé ou reçu; pour les autres dispositions, la loi fédérale ne fixe aucune règle."}
     sourceIds: [pipeda-part-2]
   - code: keep-time-of-receipt
     summary: {en: "An electronic record kept for a retention duty keeps the date and time when it was sent or received.", fr: "Un document électronique conservé pour une obligation de conservation garde la date et l’heure de son envoi ou de sa réception."}
     sourceIds: [pipeda-part-2]
   - code: retention-floor-two-years
-    summary: {en: "Personal information used for an administrative purpose stays at least two years after its last use.", fr: "Un renseignement personnel utilisé à des fins administratives est conservé au moins deux ans après sa dernière utilisation."}
+    summary: {en: "Personal information used for an administrative purpose stays at least two years after its last use, unless the person consents to its disposal; after a request for access, it stays until the person could exercise each right that the Act gives.", fr: "Un renseignement personnel utilisé à des fins administratives est conservé au moins deux ans après sa dernière utilisation, sauf si la personne consent à sa destruction; après une demande d’accès, il est conservé jusqu’à ce que la personne ait pu exercer chaque droit que la Loi lui donne."}
     sourceIds: [privacy-act, privacy-regulations]
   - code: collect-only-what-relates-to-a-program
     summary: {en: "An institution collects only the personal information that relates directly to one of its programs or activities.", fr: "Une institution ne recueille que les renseignements personnels qui ont un lien direct avec un de ses programmes ou une de ses activités."}

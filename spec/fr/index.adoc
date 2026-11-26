@@ -12,7 +12,7 @@ La recherche a comparé la réception des demandes au Canada, au Québec et en F
 La France oblige l’organisme à accuser réception de chaque demande.
 Le Canada et le Québec laissent ce point aux politiques.
 Le Québec présume qu’un document technologique est reçu quand il devient accessible à l’adresse de l’organisme.
-Chaque administration a ses jours fériés, ses règles sur la langue et ses règles sur les pièces manquantes.
+Chaque administration a ses jours fériés, ses règles sur la langue et ses règles sur les éléments manquants.
 Les trois veulent pourtant savoir ce qui est arrivé, quand, de qui, sous quelle forme et ce qui a suivi.
 
 Les règles reposent donc sur quelques éléments qui fonctionnent sous toute loi.
@@ -24,7 +24,7 @@ Les règles reposent donc sur quelques éléments qui fonctionnent sous toute lo
 * La pièce jointe : vérifiée d’après son contenu, hachée en SHA-256, analysée et jamais écrasée.
 * L’état : un court vocabulaire publié, qui ne révèle jamais un état interne ni un résultat.
 
-La décision elle-même relève de la spécification sur les décisions, et le traitement des dossiers d’une future spécification.
+La décision elle-même relève de la spécification sur les décisions, et le traitement des affaires d’une future spécification.
 Les frais relèvent de la spécification sur les frais, et les déclarations au registre de la spécification sur les registres.
 Les règles réutilisent les autres spécifications de la {abbr-fpsot-first} et n’en redéfinissent aucun élément.
 
@@ -35,7 +35,7 @@ Les règles réutilisent les autres spécifications de la {abbr-fpsot-first} et 
 Une demande sollicite une décision sur une partie, par exemple sur un permis, une prestation ou une subvention.
 Un système DOIT appliquer ces règles à chaque demande qu’il reçoit, du premier brouillon jusqu’à la fin.
 Les générateurs de formulaires, de règles et de flux sont hors de portée.
-Le traitement des dossiers, la décision, les frais et la preuve d’identité le sont aussi.
+Le traitement des affaires, la décision, les frais et la preuve d’identité le sont aussi.
 Le calendrier de conservation d’un dossier fermé est également hors de portée.
 
 La spécification s’arrête à la décision.
@@ -88,9 +88,9 @@ Elle NE DOIT PAS définir le sien.
 |===
 |Élément |Responsable et règles
 |Instants, heures locales, fuseaux horaires, dates, durées, identifiants, textes multilingues |Types de données : DAT-004 à DAT-006, DAT-010, DAT-014, DAT-015, DAT-020 à DAT-023, DAT-030 à DAT-033, DAT-060 à DAT-066
-|Résultats de décision, faits manquants, enregistrements de décision, étapes de révision et avis |Décisions : DEC-024 à DEC-027, DEC-040 à DEC-046, DEC-057, DEC-062 et DEC-063
+|Résultats de décision, faits manquants, enregistrements de décision, étapes de révision et avis |Décisions : DEC-024 à DEC-027, DEC-040 à DEC-046, DEC-057, DEC-061 à DEC-063
 |La personne requérante et la partie représentée en tant que parties |Modèles de données : DMO-040
-|Comptes, représentation et vérification de chaque requête |Identité : IAM-050, IAM-060 à IAM-064, IAM-091
+|Comptes, représentation, vérification de chaque requête et événement d’audit de l’identité |Identité : IAM-050, IAM-060 à IAM-064, IAM-091
 |Une demande de paiement qu’une demande crée |Frais : FEE-040
 |Une déclaration qu’une demande amorce |Registres : REG-020 à REG-024
 |Cachets, horodatages et journal de transparence des constats de réception |Documents signés : LOG-002, LOG-010, LOG-019, LOG-022, LOG-082
@@ -99,7 +99,7 @@ Elle NE DOIT PAS définir le sien.
 |Niveau d’assurance du logiciel et traitement des fichiers |Sécurité : SEC-005
 |Accessibilité des formulaires et des documents |Accessibilité : ACC-001, ACC-023 à ACC-026, ACC-031
 |Langues, paramètres régionaux et messages |Internationalisation : LOC-003 à LOC-005, LOC-012, LOC-020, LOC-030
-|Scénarios, suites de conformité et données synthétiques |Essais : TST-020 à TST-036, TST-044, TST-045, TST-050
+|Scénarios, suites de conformité et données synthétiques |Essais : TST-020 à TST-036, TST-043 à TST-045, TST-050
 |===
 
 Le modèle de `model/applications.yaml` importe des copies inchangées des modèles des types de données, des décisions et des parties.
@@ -150,7 +150,7 @@ Selon DEC-025, un fait manquant ne mène jamais à un résultat défavorable.
 Elle fixe les enregistrements de décision selon DEC-040 à DEC-046, et les étapes de révision selon DEC-062 et DEC-063.
 * La spécification sur l’identité et l’accès fixe un compte par personne selon IAM-060, et la représentation selon IAM-061 à IAM-064.
 * La spécification sur les modèles de données fixe la partie selon DMO-040.
-* La spécification sur les documents signés fixe le cachet, son manifeste et le journal, selon LOG-002 à LOG-082.
+* La spécification sur les documents signés fixe le cachet et le journal, selon LOG-002, LOG-010, LOG-019, LOG-022 et LOG-082.
 * La spécification sur les API RESTful fixe l’idempotence selon API-060 à API-063, et les événements selon API-100 à API-104.
 * La spécification sur les frais fixe la demande de paiement selon FEE-040.
 Celle sur les registres fixe les déclarations selon REG-020 à REG-024.
@@ -174,7 +174,7 @@ Elle amorce aussi la déclaration du projet pilote de registre.
 * `quebec-business-permit/` contient la demande de permis d’une entreprise, en français seulement, sous le profil québécois.
 * `information-request/` contient une demande de renseignements dont l’échéance tombe un jour férié, et qui suspend un décompte.
 * `on-behalf/` contient un dépôt fait par un représentant, et un dépôt fait pour autrui sur simple déclaration.
-* `paper-intake/` contient une demande papier que le personnel a saisie cinq jours après son arrivée.
+* `paper-intake/` contient une demande papier à tampon dateur, que le personnel a saisie cinq jours après son arrivée.
 * `draft-migration/` contient un brouillon passé à une nouvelle version du formulaire avant son dépôt.
 * `features/` contient les scénarios en anglais et en français.
 

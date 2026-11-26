@@ -35,6 +35,10 @@ Its `state` MUST be one of these seven values.
 `decided`, `withdrawn` and `closed` are final.
 A file in a final state never takes another state.
 
+For paper and other assisted channels, the body receives the application before the draft exists.
+The history then records when staff keyed it in.
+The receipt record holds when the body received it, under APP-041 and APP-092.
+
 [[APP-031]]
 *APP-031.* A file MUST move only along the moves of this table.
 Each move MUST add an entry to `stateHistory`.
@@ -54,13 +58,17 @@ A file that moved from a digital system to paper then keeps its true age.
 
 [[APP-032]]
 *APP-032.* Only a decision record under DEC-040 MAY move a file to `decided`.
-The entry MUST name that record, and state whether its outcome is adverse to the applicant.
+The entry MUST name that record, and copy its result kind and its outcome, under DEC-024.
+A `referred` result MUST NOT move a file to `decided`, since a person still has to decide, under DEC-061.
+A move to `decided` is adverse, unless it has the result kind `decided` and an outcome of `fullGrantOutcomes`.
 A review, an appeal or a reconsideration after a decision MUST follow the review steps of DEC-062 and DEC-063.
 It MUST NOT reopen or edit the file.
-A later case specification may hold the case that such a review opens.
 
-The result itself, such as `granted` or `refused`, stays in the decision record.
-The file only records that a decision exists.
+A later case specification may hold the case that such a review opens.
+The intake copies the result, and never chooses it, under APP-101.
+A refusal, a partial grant, `insufficient-information` and `not-applicable` are therefore adverse to the applicant.
+So is each outcome that the program does not list as a full grant.
+The reasons stay in the decision record, and the status that the applicant sees shows no outcome, under APP-082.
 
 == Drafts
 

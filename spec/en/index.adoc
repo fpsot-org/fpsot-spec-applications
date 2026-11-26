@@ -84,9 +84,9 @@ It MUST NOT define its own.
 |===
 |Part |Owner and rules
 |Instants, local times, time zones, dates, durations, identifiers, multilingual text |Data types: DAT-004 to DAT-006, DAT-010, DAT-014, DAT-015, DAT-020 to DAT-023, DAT-030 to DAT-033, DAT-060 to DAT-066
-|Decision results, missing facts, decision records, review steps and notices |Decisions: DEC-024 to DEC-027, DEC-040 to DEC-046, DEC-057, DEC-062 and DEC-063
+|Decision results, missing facts, decision records, review steps and notices |Decisions: DEC-024 to DEC-027, DEC-040 to DEC-046, DEC-057, DEC-061 to DEC-063
 |The applicant and the represented party as parties |Data models: DMO-040
-|Accounts, representation and the check of each request |Identity: IAM-050, IAM-060 to IAM-064, IAM-091
+|Accounts, representation, the check of each request and the identity audit event |Identity: IAM-050, IAM-060 to IAM-064, IAM-091
 |A fee order that an application creates |Fees: FEE-040
 |A filing that an application starts |Registry: REG-020 to REG-024
 |Seals, time stamps and the transparency log of receipt records |Signed records: LOG-002, LOG-010, LOG-019, LOG-022, LOG-082
@@ -95,7 +95,7 @@ It MUST NOT define its own.
 |The level of assurance of the software and its file handling |Security: SEC-005
 |Accessibility of forms and documents |Accessibility: ACC-001, ACC-023 to ACC-026, ACC-031
 |Languages, locales and messages |Internationalization: LOC-003 to LOC-005, LOC-012, LOC-020, LOC-030
-|Scenarios, conformance suites and synthetic data |Testing: TST-020 to TST-036, TST-044, TST-045, TST-050
+|Scenarios, conformance suites and synthetic data |Testing: TST-020 to TST-036, TST-043 to TST-045, TST-050
 |===
 
 The model in `model/applications.yaml` imports unchanged copies of the data types, decisions and party models.
@@ -143,7 +143,7 @@ This specification builds on other {abbr-fpsot} specifications, and cites their 
 It sets decision records under DEC-040 to DEC-046, and review steps under DEC-062 and DEC-063.
 * The identity and access specification sets one account per person under IAM-060, and representation under IAM-061 to IAM-064.
 * The data models specification sets the party under DMO-040.
-* The signed records specification sets the seal, its manifest and the log of sealed records, under LOG-002 to LOG-082.
+* The signed records specification sets the seal, its manifest and the log, under LOG-002, LOG-010, LOG-019, LOG-022 and LOG-082.
 * The RESTful API specification sets idempotency under API-060 to API-063 and events under API-100 to API-104.
 * The fees specification sets the fee order under FEE-040, and the registry specification sets filings under REG-020 to REG-024.
 * The observability specification sets the business events under OBS-070, and the personal information in records under OBS-090.
@@ -163,7 +163,7 @@ It also starts the filing of the registry pilot.
 * `quebec-business-permit/` holds a permit application of a business, in French only, under the Québec profile.
 * `information-request/` holds a request for information whose deadline falls on a holiday, and which suspends a clock.
 * `on-behalf/` holds a submission by a representative, and a self-declared submission for another person.
-* `paper-intake/` holds a paper application that staff keyed in five days after it arrived.
+* `paper-intake/` holds a paper application with a date stamp only, which staff keyed in five days after it arrived.
 * `draft-migration/` holds a draft that moved to a new form version before its submission.
 * `features/` holds the scenarios in English and in French.
 

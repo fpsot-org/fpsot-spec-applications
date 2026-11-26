@@ -19,7 +19,7 @@ The record MUST NOT change once created.
 It MUST hold these parts.
 
 * The file, the file version and the reference number.
-* The received instant in UTC, to the second at least, under DAT-010.
+* The received instant in UTC, to the second, under DAT-010, and its precision under APP-041.
 * The local date and time of receipt with the legal time zone of the profile, under DAT-015.
 * The channel, the submitter and any representative, under APP-071, and the destination, such as the address or the office.
 * The SHA-256 digests of the form version used, of the answers and of each attachment, under APP-062.
@@ -33,8 +33,14 @@ The federal Interpretation Act reads a time of day as standard time, and the pro
 It MUST NOT be the instant when a person or a process first opened, checked or processed it.
 For paper, it MUST be the instant that the body stamped on the document when it arrived, under APP-092.
 The received instant MUST stay the same when the file moves to another channel or another system.
+The record MUST state its precision in `receivedPrecision`, from this list.
+
+* `day` for a stamp with a date only, with the start of that local day in the legal time zone.
+* `minute` for a stamp to the minute, with the start of that minute.
+* `second` for every other receipt.
 
 A queue, a backlog or a migration then never changes the age of a file.
+A date stamp counts from its own date, and no body invents an hour for it.
 The profile states what the received instant proves in its law.
 
 [[APP-042]]
@@ -91,6 +97,7 @@ The reference is like a bearer token, so a sequence would let someone guess the 
 Eight characters give about a trillion values, and the check character catches a wrong character or two swapped ones.
 The check symbols include `*`, `~`, `$`, `=` and `U`.
 A front end therefore shows the reference in a monospace font.
+A web address percent-encodes those symbols, and staff spell them out on the phone.
 
 [[APP-046]]
 *APP-046.* A service MUST read a reference without regard to case, spaces and hyphens.

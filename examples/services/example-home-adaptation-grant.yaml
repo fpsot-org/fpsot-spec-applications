@@ -35,6 +35,8 @@ extensionRule:
 closingForNoResponse: true
 selfDeclaredSubmissions: false
 favorableWhileOpenAllowed: false
+fullGrantOutcomes:
+- granted
 channels:
 - digital
 - telephone

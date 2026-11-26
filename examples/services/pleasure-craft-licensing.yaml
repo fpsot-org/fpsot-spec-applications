@@ -26,6 +26,8 @@ clocks:
 closingForNoResponse: false
 selfDeclaredSubmissions: false
 favorableWhileOpenAllowed: false
+fullGrantOutcomes:
+- granted
 channels:
 - digital
 - counter

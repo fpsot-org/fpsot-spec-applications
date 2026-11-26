@@ -38,7 +38,7 @@ The deadline MUST be the deadline of that request, in the legal time zone.
 
 [[APP-082]]
 *APP-082.* A projection MUST NOT show a queue, a sub-state, a risk flag, a score or a staff name.
-No label MAY show the outcome of a decision.
+A label MUST NOT show the outcome of a decision.
 The decision reaches the applicant in its notice, under DEC-057.
 A projection MUST show the reference number, the received instant and the body that handles the file.
 It MUST also show the expected date or the service standard.
@@ -46,7 +46,8 @@ It MUST also show the expected date or the service standard.
 A label on a shared screen then tells nobody whether the answer was yes or no.
 
 [[APP-083]]
-*APP-083.* The service MUST update the projection from the file of record at each change, including a change by staff.
+*APP-083.* The service MUST derive the projection from the file of record on each read.
+It MAY instead rebuild the projection in the same transaction as each change, staff changes included.
 A projection MUST NOT keep a copy of data that can drift from the file.
 
 People call when a tracking page shows an old date of birth or an old email address.
@@ -55,7 +56,8 @@ People call when a tracking page shows an old date of birth or an old email addr
 
 [[APP-084]]
 *APP-084.* The service MUST notify the applicant of each submission, through a channel that the applicant chose.
-It SHOULD notify the applicant when a request opens and before its deadline.
+It MUST notify the applicant when a request opens, and record that notice with the request, under APP-087.
+It SHOULD notify the applicant again before the deadline of the request.
 It SHOULD also do so when a decision is available, and before it purges a draft.
 It SHOULD NOT send one for a change that keeps the same label.
 
@@ -66,16 +68,19 @@ A change of internal step is noise, and leads to calls.
 *APP-085.* A notification MUST NOT hold the content of a decision, its reasons, an answer or any sensitive data.
 It MUST NOT ask for personal information, and MUST NOT carry an attachment.
 It MUST say where the applicant can read the content, such as a signed-in page or an official notice.
-It SHOULD name the applicant in the body of the message, which makes phishing harder.
 
 Text messages travel without encryption, and some emails do too.
 A notification therefore says that something changed and where to look, and nothing more.
+A name next to a program on a locked phone tells others that a person applied.
+So a notification names neither.
 
 [[APP-086]]
 *APP-086.* Each link in a notification MUST point to a domain of the body, written in full.
 It MUST NOT go through a redirect or carry a tracking parameter.
+Each notification SHOULD come from a sender address or number that the body publishes.
 
 A person can then check where a link goes before they follow it.
+A known sender and a full domain make phishing harder, without any personal data in the message.
 
 [[APP-087]]
 *APP-087.* The service MUST record each notification on the file, with its kind, channel, instant and delivery status.
