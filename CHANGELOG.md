@@ -6,6 +6,8 @@ and versions follow [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.h
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-26
+
 ### Added
 
 - Scope, conformance classes, legal status, owners of the parts and conformance APP-001 to APP-006: any application to a public body, in any channel; the classes `service`, `front-end`, `profile` and `operator`; no claim that an intake, an acknowledgment or a deadline meets a law; each part taken from the specification that owns it; pinned versions; suites that check output only.
@@ -35,3 +37,6 @@ and versions follow [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.h
 - The federal calendar holds the national holidays only and is marked incomplete, so a federal deadline is referred to a person until a service releases the calendar of its place; which place counts is a question for counsel.
 - How articles 21.4 and 21.6 of the Charter of the French language apply to applications under article 21.9 is to be verified.
 - The generated forms of the model under DMO-014 and DMO-015, and the `model/examples/` folder of DMO-017, are deferred to the conformance suite.
+
+[Unreleased]: https://github.com/fpsot-org/fpsot-spec-applications/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/fpsot-org/fpsot-spec-applications/releases/tag/v0.1.0
