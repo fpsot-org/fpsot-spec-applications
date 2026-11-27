@@ -1,0 +1,36 @@
+# Comparison data. The format is defined by fpsot-spec-doc (model/jurisdiction.yaml).
+# The research read the French text of each act at LégisQuébec, current to 2026-10-15. The archived
+# copies are older and serve as copies only. This file is informational and not legal advice.
+code: CA-QC
+name: {en: Québec, fr: Québec}
+rows:
+  - id: APP-041
+    text: {en: "A technology-based document is presumed received when it becomes accessible at the active address that the recipient names. Stored data that fix the date, hour, minute and second, with origin and destination, can prove the time.", fr: "Un document technologique est présumé reçu quand il devient accessible à l’adresse active que le destinataire indique. Des données conservées qui fixent la date, l’heure, la minute et la seconde, avec la provenance et la destination, peuvent prouver le moment."}
+    status: same
+    source: {title: "Loi concernant le cadre juridique des technologies de l'information, RLRQ, c. C-1.1, article 31", date: "2026-10-15", url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-1.1", archive: "https://web.archive.org/web/20260209145552/https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-1.1"}
+    last_checked: "2026-11-23"
+  - id: APP-052
+    text: {en: "The person has the chance to complete the file. When the body finds the file incomplete or lacking information, it delays an unfavorable decision on an indemnity or a benefit for the time needed. The act sets no number of days.", fr: "La personne a l’occasion de compléter son dossier. Quand l’organisme constate que le dossier est incomplet ou qu’il y manque des renseignements, il retarde une décision défavorable sur une indemnité ou une prestation le temps nécessaire. La loi ne fixe aucun nombre de jours."}
+    status: same
+    source: {title: "Loi sur la justice administrative, RLRQ, c. J-3, articles 4 à 6", date: "2026-10-15", url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/J-3", archive: "https://web.archive.org/web/20251107184238/https://www.legisquebec.gouv.qc.ca/fr/document/lc/J-3"}
+    last_checked: "2026-11-23"
+  - id: APP-054
+    text: {en: "A time limit that ends on a holiday moves to the next working day. The list of holidays adds 24 June and omits 30 September and 11 November. Whether a Saturday is a working day outside the land register is to be verified.", fr: "Un délai qui expire un jour férié est prolongé jusqu’au jour ouvrable suivant. La liste des jours fériés ajoute le 24 juin et omet le 30 septembre et le 11 novembre. La question de savoir si le samedi est un jour ouvrable hors du registre foncier est à vérifier."}
+    status: same
+    source: {title: "Loi d'interprétation, RLRQ, c. I-16, articles 52 et 61", date: "2026-10-15", url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/I-16", archive: "https://web.archive.org/web/20251107184320/https://www.legisquebec.gouv.qc.ca/fr/document/lc/I-16"}
+    last_checked: "2026-11-23"
+  - id: APP-025
+    text: {en: "The Administration writes in French. A legal person or an enterprise applies for a permit, an authorization, a subsidy or financial aid in French only, with the exceptions of articles 21.4 and 21.6 as adapted, which are to be verified, and those that a regulation may add. English is allowed for a person eligible for English instruction and where natural justice requires it.", fr: "L’Administration écrit en français. Une personne morale ou une entreprise demande un permis, une autorisation, une subvention ou une aide financière en français seulement, sous réserve des exceptions des articles 21.4 et 21.6 adaptées, qui sont à vérifier, et de celles qu’un règlement peut ajouter. L’anglais est permis pour une personne admissible à l’enseignement en anglais et quand la justice naturelle l’exige."}
+    status: stricter
+    source: {title: "Charte de la langue française, RLRQ, c. C-11, articles 13.2, 21.4, 21.6, 21.9, 22.2 et 22.3", date: "2026-10-15", url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-11", archive: "https://web.archive.org/web/20261104193630/https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-11"}
+    last_checked: "2026-11-23"
+  - id: APP-024
+    text: {en: "The government may name official sources of government digital data, and public bodies then collect those data from them. No general right to be asked only once was found.", fr: "Le gouvernement peut désigner des sources officielles de données numériques gouvernementales, auprès desquelles les organismes recueillent alors ces données. Aucun droit général de n’être interrogé qu’une fois n’a été trouvé."}
+    status: looser
+    source: {title: "Loi sur la gouvernance et la gestion des ressources informationnelles des organismes publics et des entreprises du gouvernement, RLRQ, c. G-1.03, article 12.14", date: "2026-10-15", url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/G-1.03", archive: "https://web.archive.org/web/20260302093338/https://www.legisquebec.gouv.qc.ca/fr/document/lc/G-1.03"}
+    last_checked: "2026-11-23"
+  - id: APP-093
+    text: {en: "When a product, a service or information exists on several media, the person chooses the medium. Nobody must use a technology that a law does not require.", fr: "Quand un produit, un service ou de l’information existe sur plusieurs supports, la personne choisit le support. Nul n’est tenu d’employer une technologie qu’une loi n’exige pas."}
+    status: stricter
+    source: {title: "Loi concernant le cadre juridique des technologies de l'information, RLRQ, c. C-1.1, article 29", date: "2026-10-15", url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-1.1", archive: "https://web.archive.org/web/20260209145552/https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-1.1"}
+    last_checked: "2026-11-23"

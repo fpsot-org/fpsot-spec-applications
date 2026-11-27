@@ -1,0 +1,119 @@
+{
+  "url": "https://formulaires.example.org/permis-exploitation",
+  "version": "1.0.0",
+  "status": "active",
+  "title": [
+    {
+      "language": "fr",
+      "text": "Demande de permis d’exploitation"
+    }
+  ],
+  "languages": [
+    "fr"
+  ],
+  "profiles": [
+    "core",
+    "ca-qc"
+  ],
+  "publishedAt": "2026-02-02T14:00:00Z",
+  "collectionNotice": [
+    {
+      "language": "fr",
+      "uri": "https://formulaires.example.org/avis-de-collecte"
+    }
+  ],
+  "questions": [
+    {
+      "id": "businessNumber",
+      "kind": "answer",
+      "labels": [
+        {
+          "language": "fr",
+          "text": "Numéro d’entreprise du Québec"
+        }
+      ],
+      "required": true,
+      "purpose": "identify-business",
+      "prefill": {
+        "source": "enterprise-register",
+        "basis": "official-data-source",
+        "binding": true
+      }
+    },
+    {
+      "id": "establishmentAddress",
+      "kind": "answer",
+      "labels": [
+        {
+          "language": "fr",
+          "text": "Adresse de l’établissement"
+        }
+      ],
+      "required": true,
+      "purpose": "locate-establishment"
+    },
+    {
+      "id": "activityCode",
+      "kind": "answer",
+      "labels": [
+        {
+          "language": "fr",
+          "text": "Activité exercée"
+        }
+      ],
+      "required": true,
+      "purpose": "classify-activity"
+    },
+    {
+      "id": "floorPlan",
+      "kind": "attachment",
+      "labels": [
+        {
+          "language": "fr",
+          "text": "Plan de l’établissement"
+        }
+      ],
+      "required": true,
+      "purpose": "check-premises",
+      "allowedMediaTypes": [
+        "application/pdf",
+        "image/png"
+      ],
+      "maxBytes": 20971520
+    }
+  ],
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://formulaires.example.org/permis-exploitation/1.0.0/schema.json",
+    "type": "object",
+    "properties": {
+      "businessNumber": {
+        "type": "string",
+        "pattern": "^[0-9]{10}$"
+      },
+      "establishmentAddress": {
+        "type": "string",
+        "minLength": 1
+      },
+      "activityCode": {
+        "type": "string",
+        "enum": [
+          "food-retail",
+          "food-service",
+          "workshop"
+        ]
+      },
+      "floorPlan": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+      }
+    },
+    "required": [
+      "businessNumber",
+      "establishmentAddress",
+      "activityCode",
+      "floorPlan"
+    ],
+    "additionalProperties": false
+  }
+}

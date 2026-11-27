@@ -1,0 +1,17 @@
+{
+  "specversion": "1.0",
+  "id": "019c5a00-00e0-7000-8000-000000000003",
+  "source": "/v1/applications",
+  "type": "org.fpsot.applications.receipt.issued",
+  "time": "2026-06-15T13:42:07Z",
+  "datacontenttype": "application/json",
+  "subject": "019c5a00-0001-7000-8000-000000000002",
+  "dataschema": "https://fpsot.org/schemas/applications/events/org.fpsot.applications.receipt.issued.schema.json",
+  "data": {
+    "receiptRecordId": "019c5a00-0003-7000-8000-000000000002",
+    "fileId": "019c5a00-0001-7000-8000-000000000002",
+    "fileVersionId": "019c5a00-0002-7000-8000-000000000002",
+    "channel": "digital",
+    "receivedAt": "2026-06-15T13:42:07Z"
+  }
+}

@@ -1,0 +1,126 @@
+= Jurisdiction profiles
+include::_fpsot-terms.adoc[]
+
+The intake rules that the research compared share their mechanics and split on every legal value.
+Federal law extends a time limit that falls on a holiday to the next day that is not a holiday.
+Québec extends it to the next working day, and its list of holidays differs from the federal list.
+Québec presumes when an electronic document arrives, and federal law leaves that to the regulations of some programs.
+
+Québec asks a legal person or an enterprise to apply for a permit or a grant in French.
+It allows a few exceptions.
+Federal law gives a choice of two languages.
+
+No single rule could serve all of them.
+This page therefore keeps each legal value and each legal rule in a jurisdiction profile, apart from the core rules.
+A profile states the practice of {abbr-fpsot-first}, and it is not legal advice.
+
+== Profile files
+
+[[APP-010]]
+*APP-010.* Each {term-deploying-body} MUST name the profiles whose law applies to each of its services.
+Each profile MUST be a file of the class `ApplicationProfile` of `model/applications.yaml`, in the folder `profiles/`.
+Each profile MUST list its sources.
+For each source, it MUST state whether the research read it, or mark it `to-be-verified`.
+A source read in an archived copy counts as read only when that copy holds the text in force.
+
+[cols="2,3,4",options="header"]
+|===
+|Profile |Applies to |Content of this release
+|`core` |Every application |The defaults of APP-014.
+|`ca-federal` |Applications to federal bodies of Canada |The holidays and the roll to the next day that is not a holiday, standard time, real-time status and service standards, both official languages, direct collection and the retention floor of two years, and no default time of receipt.
+|`ca-qc` |Applications to Québec public bodies |The holidays and the roll to the next working day, the presumption of receipt of electronic documents, the chance to complete a file, French by default with French only for the permits and grants of a legal person or an enterprise, and its exceptions, the notice at collection, official data sources for prefill, and the accessibility standard.
+|===
+
+A French profile does not exist in this release.
+The research read the French code only in archived copies of 2024 and 2025.
+The file `jurisdictions/fr.yaml` therefore describes France without a normative profile.
+
+The `ca-federal` profile follows the Interpretation Act and the Directive on Service and Digital.
+It also follows the Official Languages Act and the Privacy Act.
+Its section 26 moves a time limit that falls on a holiday to the next day that is not one.
+Section 35 lists the national holidays, and Sunday is among them, while Saturday is not.
+It also counts the holidays of each province and of each place, which no single list holds.
+
+The national calendar of the profile is therefore incomplete, and a deadline on it is a missing value under APP-013.
+A federal service builds the calendar of its place in its own release of the profile, under APP-011.
+
+Part 2 of the federal law on electronic documents covers only the provisions in its schedules.
+For such a provision, its responsible authority may set by regulation when a document counts as sent or received.
+For other provisions, federal law sets no rule, so the profile holds no default time of receipt.
+
+The `ca-qc` profile follows the Québec Interpretation Act and the Québec law on information technology.
+It follows the Act respecting administrative justice and the Charter of the French language.
+It also follows the Québec law on access to documents, and the law on the information resources of public bodies.
+The research read the French text of each at LégisQuébec, current to 2026-10-15.
+
+Article 52 of the Québec act moves a time limit that ends on a holiday to the next working day.
+Whether a Saturday is a working day outside the land register is _to be verified_.
+The profile therefore skips Saturdays as well.
+
+== Sources, dates and versions
+
+[[APP-011]]
+*APP-011.* Each rule and each value of a profile MUST cite one of the sources of that profile.
+Each dated value, such as a holiday, MUST carry the dates to which it applies.
+Each profile MUST have its own version number under Semantic Versioning 2.0.0, apart from the version of this specification.
+A release that removes or relaxes a value of the same profile MUST take a new major version.
+
+The holidays of 2027 are then a profile release, not a change to the rules.
+The decisions specification dates its parameters in the same way, under DEC-037.
+
+== No law in the core
+
+[[APP-012]]
+*APP-012.* A service MUST take each calendar and each legal time zone from a profile.
+It MUST take each rule on language and each rule on the time of receipt from a profile.
+It MUST take each period of acknowledgment, each retention floor and each basis for prefill from a profile too.
+It MUST NOT hard-code one.
+A profile MUST NOT relax a MUST of the core rules.
+
+A service declaration holds the values of one program, such as its clocks.
+A profile holds the law that many programs share.
+The same service then takes in a federal license and a Québec permit, each with its own profile.
+
+== Missing values
+
+[[APP-013]]
+*APP-013.* A rule may need a value that neither the profile, the service declaration nor `core` gives for a date.
+Examples are a calendar with no holidays for the year of a deadline, or a roll that leaves it.
+Another is a calendar that its profile marks incomplete, since it lacks days that its law counts.
+The service MUST NOT then compute the date or apply the rule.
+It MUST refer the file to a person, with a code that names the missing value.
+It MUST NOT assume a value.
+
+A silent default would turn a gap in a profile into a deadline that nobody set.
+The calendars of the examples end on 1 January 2027 for that reason.
+
+== Defaults
+
+[[APP-014]]
+*APP-014.* Each service MUST also follow the `core` profile, which sets these defaults.
+
+* An attachment field that declares no limit accepts files of 10 MiB at most, under APP-060.
+* An attachment field that declares no types accepts PDF, JPEG and PNG files only.
+* The digest of every file and every submission uses SHA-256, under APP-062.
+* The service seals each receipt record at least under the profile `seal-log` of the signed records specification, under APP-042.
+* A notice goes to the applicant at least 14 days before the service purges a draft, under APP-034.
+
+A service declaration MAY lower the size limit or narrow the types of a field.
+It MAY raise the size limit of a field when the program needs larger files, and it states why.
+It MUST NOT choose another digest algorithm.
+
+== References
+
+=== Informative
+
+* link:https://laws-lois.justice.gc.ca/eng/acts/I-21/FullText.html[Interpretation Act], R.S.C. 1985, c. I-21, sections 26, 29 and 35, Justice Laws Website, current to 2026-10-29. link:https://web.archive.org/web/20261111153752/https://laws-lois.justice.gc.ca/eng/acts/i-21/FullText.html[Archived copy]
+* link:https://laws-lois.justice.gc.ca/eng/acts/P-8.6/FullText.html[Personal Information Protection and Electronic Documents Act], S.C. 2000, c. 5, Part 2, Justice Laws Website, current to 2026-10-29. link:https://web.archive.org/web/20261109215403/https://laws-lois.justice.gc.ca/eng/acts/P-8.6/FullText.html[Archived copy]
+* link:https://www.legisquebec.gouv.qc.ca/fr/document/lc/I-16[Loi d'interprétation], RLRQ, c. I-16, articles 52 and 61, LégisQuébec, current to 2026-10-15. link:https://web.archive.org/web/20251107184320/https://www.legisquebec.gouv.qc.ca/fr/document/lc/I-16[Archived copy]
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-26 |First version.
+|===

@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fpsot.org/schemas/applications/events/org.fpsot.applications.draft.migrated.schema.json",
+  "$comment": "SPDX-License-Identifier: Community-Spec-1.0. FPSOT applications event data (APP-088). The data holds identifiers, codes and instants only, never a party id, a reference number, an answer, a name or an address. A consumer reads the file by its id. The CloudEvents attributes follow API-101, and the subject is the id of the file.",
+  "title": "org.fpsot.applications.draft.migrated",
+  "description": "A draft moved to a newer form version (APP-035, APP-088).",
+  "type": "object",
+  "required": [
+    "fileId",
+    "fromFormVersion",
+    "toFormVersion",
+    "migratedAt"
+  ],
+  "properties": {
+    "fileId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "description": "The draft (APP-033)."
+    },
+    "fromFormVersion": {
+      "type": "string",
+      "pattern": "^\\S{1,64}$",
+      "description": "The version that the draft left (APP-035)."
+    },
+    "toFormVersion": {
+      "type": "string",
+      "pattern": "^\\S{1,64}$",
+      "description": "The version that the draft moved to (APP-035)."
+    },
+    "migratedAt": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?Z$",
+      "description": "When it moved (APP-035)."
+    }
+  },
+  "additionalProperties": false
+}

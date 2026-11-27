@@ -1,33 +1,40 @@
-= FPSOT specification template
+= FPSOT applications specification
 
-This repository is the starting point for an FPSOT specification.
-Create a new repository from it, then replace this text.
-
-== Start a specification
-
-. Set `SPEC_PREFIX` in `.github/workflows/ci.yml` to the three-letter prefix of the requirement IDs.
-. Replace the titles in `spec/`, `docs/antora.yml`, `publiccode.yml`, `AGENTS.md`, `NOTICE` and `skill/SKILL.md`.
-. Replace the example requirement TPL-001 and the example row in `jurisdictions/baseline.yaml`.
-. List each spec page in `spec/<lang>/book.adoc`. The glossary stays the last include.
-
-Each page ends with a document history.
-Each guide page sets `:page-type:` to tutorial, how-to, reference or explanation.
-Write abbreviations and defined terms as `{abbr-…}` and `{term-…}` from the term base of `fpsot-spec-writing`.
-Write English in US spelling.
-Each page that cites outside sources ends with a References section, right before its document history.
-Each code block names its language, such as `[source,text]` or `[source,plantuml]`.
-The continuous integration writes `_fpsot-terms.adoc`, the glossaries and the comparison pages. Git ignores them.
+Rules for software that takes in an application to a public body, in any channel, from the first draft to the decision.
+Each form is a versioned JSON Schema, sealed with each submission.
+Each submission creates a sealed receipt record of the instant when it became accessible to the body, and an acknowledgment.
+A request for information carries its reason, its items, its deadline from the calendar of the profile and its effect on each clock.
+Attachments are checked by content, hashed with SHA-256 only, scanned before submission and never overwritten.
+The applicant sees one of seven published status labels, and notifications carry no decision and no answer.
+The decision belongs to the decisions specification, and every legal value to a jurisdiction profile.
+Version 0.1 is a draft.
 
 == Implement this spec
 
 Read the normative text in `spec/en/` or `spec/fr/`.
-Each requirement has an ID, such as `XYZ-001`.
-Check your implementation against every requirement.
+Each requirement has an ID from `APP-001` to `APP-105`.
+
+* State your conformance classes, and never claim that an intake or a deadline meets a law (APP-001 to APP-006).
+* Take every calendar, language rule and time of receipt from a jurisdiction profile, and refer the file to a person when a value is missing (APP-010 to APP-014). The profiles are data files in `profiles/`.
+* Publish each form as a JSON Schema 2020-12 document with a canonical address, a version and stable question ids (APP-020 to APP-025).
+* Keep one lifecycle of seven states, drafts that survive the session, explicit form migrations and versions that never change once submitted (APP-030 to APP-038).
+* Seal a receipt record for each submission, acknowledge it, and draw random reference numbers with a check character (APP-040 to APP-046).
+* Open one request for information at a time and notify it, compute its deadline from the calendar, block adverse decisions while it is open and after it ends unheard, and close a file only after a separate logged contact attempt (APP-050 to APP-057).
+* Check attachments by content, hash them with SHA-256 only, fail closed on scans and keep each original (APP-060 to APP-066).
+* Check the authority of each act, and record the acting party apart from the subject (APP-070 to APP-074).
+* Show a closed list of status labels, send notifications without decisions or answers, and send the events of `registry/events/` (APP-080 to APP-088).
+* Feed every channel into the same file, keep the received instant of paper, and make submit idempotent (APP-090 to APP-096).
+* Offer interfaces that never edit a submission, hand off to fees, registries and decisions, and test on synthetic fixtures (APP-100 to APP-105).
+* Run `bash examples/test-examples.sh` to check the example files, after `pip install --require-hashes -r examples/requirements.txt`.
 
 == Adopt this spec
 
-Read the guides in `docs/modules/en/pages/` or `docs/modules/fr/pages/`.
-They explain what the spec gives your organization and how to require it.
+Read the guide in `docs/modules/en/pages/index.adoc` or `docs/modules/fr/pages/index.adoc`.
+It takes one program through every step, with six synthetic applications as examples.
+A request for proposals can require an intake service, a front end, a profile or an operator to meet the conformance classes of APP-002.
+The comparison data in `jurisdictions/` shows how Canada, Québec and France handle the same topics.
+The pages `alignment.adoc` and `questions-for-counsel.adoc` are informative, and the latter lists the legal questions that a lawyer must settle.
+This specification is not legal advice.
 
 == Layout
 
@@ -36,10 +43,22 @@ They explain what the spec gives your organization and how to require it.
 | Folder | Content
 
 | `spec/`
-| Normative text, in English and French. `book.adoc` joins the pages into one book.
+| Normative text, in English and French. `book.adoc` joins the pages into one book, published as PDF with each release.
 
 | `docs/`
 | Guides, in the Antora folder layout.
+
+| `model/`
+| The LinkML model of applications, and unchanged copies of the data types, decisions and party models.
+
+| `profiles/`
+| The jurisdiction profiles, each released apart from the core rules.
+
+| `registry/`
+| The JSON Schemas of the data of each event type.
+
+| `examples/`
+| Synthetic forms, service declarations, application files, attachments and events, with their check, its test and scenarios in English and French.
 
 | `skill/`
 | The agent skill: a short summary that cites requirement IDs.
@@ -48,10 +67,10 @@ They explain what the spec gives your organization and how to require it.
 | Machine-checkable rules.
 
 | `diagrams/`
-| PlantUML sources and their rendered SVG files.
+| PlantUML sources and their rendered SVG files, such as the lifecycle of a file.
 
 | `jurisdictions/`
-| Comparison data per jurisdiction. `baseline.yaml` lists the compared requirements.
+| Comparison data: how each government handles the same topics.
 |===
 
 == License

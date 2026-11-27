@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fpsot.org/schemas/applications/events/org.fpsot.applications.receipt.issued.schema.json",
+  "$comment": "SPDX-License-Identifier: Community-Spec-1.0. FPSOT applications event data (APP-088). The data holds identifiers, codes and instants only, never a party id, a reference number, an answer, a name or an address. A consumer reads the file by its id. The CloudEvents attributes follow API-101, and the subject is the id of the file.",
+  "title": "org.fpsot.applications.receipt.issued",
+  "description": "A submission or a reply created a receipt record (APP-040, APP-088).",
+  "type": "object",
+  "required": [
+    "receiptRecordId",
+    "fileId",
+    "fileVersionId",
+    "channel",
+    "receivedAt"
+  ],
+  "properties": {
+    "receiptRecordId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "description": "The receipt record, which is also the id of its seal manifest (APP-042)."
+    },
+    "fileId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "description": "The file (APP-030)."
+    },
+    "fileVersionId": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+      "description": "The file version (APP-037)."
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "digital",
+        "assisted-digital",
+        "counter",
+        "telephone",
+        "paper",
+        "email"
+      ],
+      "description": "The channel (APP-091)."
+    },
+    "receivedAt": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\\.[0-9]{1,9})?Z$",
+      "description": "The received instant (APP-041)."
+    }
+  },
+  "additionalProperties": false
+}

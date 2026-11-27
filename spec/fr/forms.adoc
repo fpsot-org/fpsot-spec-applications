@@ -1,0 +1,84 @@
+= Formulaires
+include::_fpsot-terms.adoc[]
+
+Un formulaire change au fil des ans, mais une demande doit toujours montrer le formulaire auquel la personne a répondu.
+GOV.UK Forms garde une copie complète du formulaire avec chaque dépôt.
+FHIR nomme chaque questionnaire par une adresse canonique et une version métier, et chaque réponse renvoie aux deux.
+Cette page reprend ces deux idées et laisse l’apparence du formulaire à chaque interface utilisateur.
+
+== Définitions de formulaire
+
+[[APP-020]]
+*APP-020.* Chaque formulaire DOIT être un fichier de la classe `FormDefinition` de `model/applications.yaml`.
+Il DOIT contenir une adresse canonique dans `url`, une version métier dans `version` et un statut dans `status`.
+Son `schema` DOIT être un document JSON Schema 2020-12 que respectent les réponses au formulaire.
+Chaque question DOIT garder son `id` dans chaque version du formulaire, tant que son sens reste le même.
+Une question dont le sens change DOIT prendre un nouvel `id`.
+
+La paire formée de l’adresse et de la version, écrite `url|version`, désigne partout une version d’un formulaire.
+L’`id` stable permet à un brouillon de reporter une réponse dans une nouvelle version, selon APP-035.
+
+[[APP-021]]
+*APP-021.* Le statut d’une version de formulaire DOIT être `draft`, `active` ou `retired`.
+Une version de formulaire NE DOIT PAS changer une fois `active`.
+Une modification DOIT être une nouvelle version.
+Un service DOIT ouvrir les nouveaux brouillons sur une version `active` seulement.
+Il NE DOIT PAS en ouvrir sur une version `retired`.
+
+Une version `retired` sert encore chaque brouillon et chaque dossier qui ont commencé sur elle.
+Le formulaire que la personne a vu reste alors celui que montre le dossier.
+
+[[APP-022]]
+*APP-022.* Une interface utilisateur PEUT afficher un formulaire avec toute mise en page, tout assistant ou tout schéma d’interface.
+Cette mise en page NE DOIT PAS changer ce que le schéma accepte ou refuse.
+Cette spécification n’exige aucun schéma d’interface utilisateur.
+
+JSON Forms, react-jsonschema-form et d’autres ont chacun leur propre dialecte.
+Un organisme peut alors changer d’interface sans toucher à ses formulaires ni à ses dossiers.
+
+== Questions
+
+[[APP-023]]
+*APP-023.* Chaque question DOIT indiquer dans `required` si une réponse est obligatoire.
+Elle DOIT indiquer dans `purpose` pourquoi l’organisme pose la question.
+Chaque formulaire DOIT renvoyer à un avis de collecte dans chacune de ses langues.
+Le profil fixe le contenu de cet avis.
+L’étiquette de chaque question DOIT respecter ACC-023.
+
+La finalité de chaque question permet à l’organisme de montrer qu’il ne demande que ce dont le programme a besoin.
+Le Québec demande à l’organisme d’indiquer à la collecte le caractère obligatoire ou facultatif d’une réponse.
+
+[[APP-024]]
+*APP-024.* Une question PEUT nommer dans `prefill` une source qui peut la remplir, et la base qui permet de l’employer.
+La base DOIT être un code du profil, comme `consent` ou `legal-basis`.
+L’interface utilisateur DOIT montrer chaque réponse qu’elle a préremplie, et sa provenance.
+La personne DOIT pouvoir corriger une telle réponse, sauf si le profil nomme une source officielle qui s’impose.
+L’interface DOIT reprendre ou proposer chaque réponse que la personne a déjà donnée au cours de la même démarche.
+Cela respecte le critère 3.3.7 des WCAG 2.2, selon ACC-001.
+
+La loi fédérale sur la protection des renseignements personnels privilégie la collecte auprès de la personne.
+Un formulaire fédéral ne se remplit donc auprès d’un autre organisme qu’avec un consentement ou une base légale.
+Le Québec désigne des sources officielles de données gouvernementales auprès desquelles les organismes doivent recueillir.
+Le profil décide quelle base s’applique, et le formulaire ne fait que la nommer.
+
+== Langues
+
+[[APP-025]]
+*APP-025.* Chaque formulaire DOIT énumérer ses langues dans `languages`, et chaque question DOIT avoir une étiquette dans chacune.
+Un formulaire DOIT offrir chaque langue que son profil exige pour ce genre de demande.
+Chaque dossier DOIT consigner sa langue de correspondance et le code de la base que le profil donne pour elle.
+Le texte qu’une personne voit DOIT venir de catalogues de messages, selon LOC-020.
+
+Le profil fédéral offre le français et l’anglais, au choix de la personne.
+Le profil québécois garde le français par défaut.
+Il ne permet l’anglais que sur une base que nomme la Charte de la langue française.
+Une personne morale ou une entreprise qui y demande un permis ou une subvention écrit en français seulement.
+Ce formulaire n’a alors qu’une langue, sauf si une exception de la Charte s’applique au dossier.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-26 |Première version.
+|===

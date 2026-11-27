@@ -1,0 +1,118 @@
+# SPDX-License-Identifier: Community-Spec-1.0
+# Jurisdiction profile of the FPSOT applications specification (APP-010 to APP-013), in the form
+# of the class ApplicationProfile of model/applications.yaml. Released apart from the core rules
+# (APP-011). Applications to federal bodies of Canada.
+# The research read the federal texts at the Justice Laws Website (current to 2026-10-29) and the
+# Treasury Board instruments at tbs-sct.canada.ca. Not legal advice.
+# Section 26 of the Interpretation Act moves a time limit that falls on a holiday to the next day
+# that is not a holiday; section 35 lists the national holidays, Sunday included and Saturday
+# excluded. Section 35 also counts, in each province, the days that its lieutenant governor
+# proclaims and the non-juridical days of its own acts, and, in each place, the civic holidays
+# that its council fixes. The calendar below holds the national days only, so it is marked
+# incomplete: a deadline on it is a missing value under APP-013, and a person sets it. A service
+# builds the calendar of its place in its own release of this profile, with the national days, the
+# days of the province and the civic holidays of the place. Which place counts, that of the body,
+# of the office or of the applicant, is a question for counsel. Thanksgiving Day comes each year
+# from a proclamation that the research did not read, so its source is to be verified.
+# Section 29 reads a time of day as standard time; how a service shows a deadline during daylight
+# saving time is a question for counsel. The time zone of the calendar is that of Ottawa; a
+# service in another zone sets its own calendar.
+code: ca-federal
+version: 0.1.0
+title: {en: Canada federal profile, fr: Profil fédéral canadien}
+jurisdiction: CA
+sources:
+  - id: interpretation-act
+    title: "Interpretation Act, R.S.C. 1985, c. I-21, sections 26, 27, 29 and 35, current to 2026-10-29"
+    url: "https://laws-lois.justice.gc.ca/eng/acts/I-21/FullText.html"
+    archive: "https://web.archive.org/web/20261111153752/https://laws-lois.justice.gc.ca/eng/acts/i-21/FullText.html"
+    date: "2026-10-29"
+    verification: read
+  - id: thanksgiving-proclamation-2026
+    title: "Proclamation appointing Thanksgiving Day for 2026"
+    url: "https://gazette.gc.ca/accueil-home-eng.html"
+    verification: to-be-verified
+  - id: directive-service-digital
+    title: "Directive on Service and Digital, Treasury Board of Canada Secretariat, sections 4.6.2, 4.6.5 and 4.6.6, modified 2025-08-29"
+    url: "https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32601"
+    archive: "https://web.archive.org/web/20261103002505/https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32601"
+    date: "2025-08-29"
+    verification: read
+  - id: official-languages-act
+    title: "Official Languages Act, R.S.C. 1985, c. 31 (4th Supp.), Part IV, sections 21, 22, 25, 27 and 28, current to 2026-10-29"
+    url: "https://laws-lois.justice.gc.ca/eng/acts/O-3.01/FullText.html"
+    archive: "https://web.archive.org/web/20261017152438/https://laws-lois.justice.gc.ca/eng/acts/o-3.01/FullText.html"
+    date: "2026-10-29"
+    verification: read
+  - id: privacy-act
+    title: "Privacy Act, R.S.C. 1985, c. P-21, sections 3 to 8, current to 2026-10-29"
+    url: "https://laws-lois.justice.gc.ca/eng/acts/P-21/FullText.html"
+    archive: "https://web.archive.org/web/20261004121608/https://laws-lois.justice.gc.ca/eng/acts/P-21/FullText.html"
+    date: "2026-10-29"
+    verification: read
+  - id: privacy-regulations
+    title: "Privacy Regulations, SOR/83-508, section 4, current to 2026-10-29"
+    url: "https://laws-lois.justice.gc.ca/eng/regulations/SOR-83-508/FullText.html"
+    archive: "https://web.archive.org/web/20260307024532/https://laws-lois.justice.gc.ca/eng/regulations/sor-83-508/FullText.html"
+    date: "2026-10-29"
+    verification: read
+  - id: pipeda-part-2
+    title: "Personal Information Protection and Electronic Documents Act, S.C. 2000, c. 5, Part 2, sections 33, 35, 37 and 50, current to 2026-10-29"
+    url: "https://laws-lois.justice.gc.ca/eng/acts/P-8.6/FullText.html"
+    archive: "https://web.archive.org/web/20261109215403/https://laws-lois.justice.gc.ca/eng/acts/P-8.6/FullText.html"
+    date: "2026-10-29"
+    verification: read
+calendars:
+  # Section 26: the next day that is not a holiday. Saturday is not a national holiday. The
+  # calendar covers 2026; a deadline in 2027 is a missing value (APP-013) until the next release.
+  - code: ca-federal-national
+    timeZone: America/Toronto
+    validity: {start: "2026-01-01", end: "2027-01-01"}
+    complete: false
+    weeklyHolidays: [sunday]
+    roll: next-non-holiday
+    sourceIds: [interpretation-act]
+    holidays:
+      - {date: "2026-01-01", name: {en: "New Year's Day", fr: "jour de l'An"}, sourceId: interpretation-act}
+      - {date: "2026-04-03", name: {en: Good Friday, fr: Vendredi saint}, sourceId: interpretation-act}
+      - {date: "2026-04-06", name: {en: Easter Monday, fr: lundi de Pâques}, sourceId: interpretation-act}
+      - {date: "2026-05-18", name: {en: Victoria Day, fr: fête de Victoria}, sourceId: interpretation-act}
+      - {date: "2026-07-01", name: {en: Canada Day, fr: fête du Canada}, sourceId: interpretation-act}
+      - {date: "2026-09-07", name: {en: Labour Day, fr: fête du Travail}, sourceId: interpretation-act}
+      - {date: "2026-09-30", name: {en: National Day for Truth and Reconciliation, fr: Journée nationale de la vérité et de la réconciliation}, sourceId: interpretation-act}
+      - {date: "2026-10-12", name: {en: Thanksgiving Day, fr: jour de l’Action de grâces}, sourceId: thanksgiving-proclamation-2026}
+      - {date: "2026-11-11", name: {en: Remembrance Day, fr: jour du Souvenir}, sourceId: interpretation-act}
+      - {date: "2026-12-25", name: {en: Christmas Day, fr: jour de Noël}, sourceId: interpretation-act}
+languageRules:
+  # Part IV: either official language, at the choice of the member of the public, with an active
+  # offer (sections 22, 27 and 28).
+  - {code: official-languages-choice-en, language: en, appliesTo: any, exclusive: false, sourceId: official-languages-act}
+  - {code: official-languages-choice-fr, language: fr, appliesTo: any, exclusive: false, sourceId: official-languages-act}
+prefillBases:
+  # Section 5 favors collection from the person; collection from another source rests on consent
+  # or on a ground of disclosure of section 8. Whether consent shown in a form suffices is a
+  # question for counsel.
+  - {code: consent, sourceId: privacy-act}
+  - {code: disclosure-ground, sourceId: privacy-act}
+rules:
+  - code: real-time-status
+    summary: {en: "New and redesigned online services show the status of an application in real time.", fr: "Les services en ligne nouveaux ou remaniés montrent l’état d’une demande en temps réel."}
+    sourceIds: [directive-service-digital]
+  - code: published-service-standards
+    summary: {en: "Each service has service standards, and the department reports real-time performance against them on its website.", fr: "Chaque service a des normes de service, et le ministère publie sur son site Web son rendement en temps réel par rapport à elles."}
+    sourceIds: [directive-service-digital]
+  - code: receipt-time-by-program
+    summary: {en: "No default time of receipt: for a provision listed in Schedule 2 or 3, its responsible authority may set by regulation when an electronic document counts as sent or received; for other provisions, federal law sets no rule.", fr: "Aucun moment de réception par défaut : pour une disposition inscrite à l’annexe 2 ou 3, l’autorité responsable peut fixer par règlement quand un document électronique est réputé envoyé ou reçu; pour les autres dispositions, la loi fédérale ne fixe aucune règle."}
+    sourceIds: [pipeda-part-2]
+  - code: keep-time-of-receipt
+    summary: {en: "An electronic record kept for a retention duty keeps the date and time when it was sent or received.", fr: "Un document électronique conservé pour une obligation de conservation garde la date et l’heure de son envoi ou de sa réception."}
+    sourceIds: [pipeda-part-2]
+  - code: retention-floor-two-years
+    summary: {en: "Personal information used for an administrative purpose stays at least two years after its last use, unless the person consents to its disposal; after a request for access, it stays until the person could exercise each right that the Act gives.", fr: "Un renseignement personnel utilisé à des fins administratives est conservé au moins deux ans après sa dernière utilisation, sauf si la personne consent à sa destruction; après une demande d’accès, il est conservé jusqu’à ce que la personne ait pu exercer chaque droit que la Loi lui donne."}
+    sourceIds: [privacy-act, privacy-regulations]
+  - code: collect-only-what-relates-to-a-program
+    summary: {en: "An institution collects only the personal information that relates directly to one of its programs or activities.", fr: "Une institution ne recueille que les renseignements personnels qui ont un lien direct avec un de ses programmes ou une de ses activités."}
+    sourceIds: [privacy-act]
+  - code: purpose-notice
+    summary: {en: "The institution tells the person the purpose of the collection.", fr: "L’institution informe la personne de la fin de la collecte."}
+    sourceIds: [privacy-act]

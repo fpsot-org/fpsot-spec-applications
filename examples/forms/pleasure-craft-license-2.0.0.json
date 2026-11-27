@@ -1,0 +1,184 @@
+{
+  "url": "https://forms.example.org/pleasure-craft-license",
+  "version": "2.0.0",
+  "status": "active",
+  "title": [
+    {
+      "language": "en",
+      "text": "Apply for a pleasure craft license"
+    },
+    {
+      "language": "fr",
+      "text": "Demander un permis d’embarcation de plaisance"
+    }
+  ],
+  "languages": [
+    "en",
+    "fr"
+  ],
+  "profiles": [
+    "core",
+    "ca-federal"
+  ],
+  "publishedAt": "2026-01-05T15:00:00Z",
+  "collectionNotice": [
+    {
+      "language": "en",
+      "uri": "https://forms.example.org/collection-notice"
+    },
+    {
+      "language": "fr",
+      "uri": "https://forms.example.org/avis-de-collecte"
+    }
+  ],
+  "questions": [
+    {
+      "id": "hullSerialNumber",
+      "kind": "answer",
+      "labels": [
+        {
+          "language": "en",
+          "text": "Hull serial number"
+        },
+        {
+          "language": "fr",
+          "text": "Numéro de série de la coque"
+        }
+      ],
+      "required": true,
+      "purpose": "identify-craft"
+    },
+    {
+      "id": "craftLengthMeters",
+      "kind": "answer",
+      "labels": [
+        {
+          "language": "en",
+          "text": "Length of the craft, in meters"
+        },
+        {
+          "language": "fr",
+          "text": "Longueur de l’embarcation, en mètres"
+        }
+      ],
+      "required": true,
+      "purpose": "classify-craft"
+    },
+    {
+      "id": "propulsion",
+      "kind": "answer",
+      "labels": [
+        {
+          "language": "en",
+          "text": "Propulsion"
+        },
+        {
+          "language": "fr",
+          "text": "Propulsion"
+        }
+      ],
+      "required": true,
+      "purpose": "classify-craft"
+    },
+    {
+      "id": "ownerName",
+      "kind": "answer",
+      "labels": [
+        {
+          "language": "en",
+          "text": "Name of the owner"
+        },
+        {
+          "language": "fr",
+          "text": "Nom du propriétaire"
+        }
+      ],
+      "required": true,
+      "purpose": "identify-owner",
+      "prefill": {
+        "source": "sign-in-profile",
+        "basis": "consent"
+      }
+    },
+    {
+      "id": "declaresSection35Right",
+      "kind": "answer",
+      "labels": [
+        {
+          "language": "en",
+          "text": "Do you declare a right under section 35 of the Constitution Act, 1982?"
+        },
+        {
+          "language": "fr",
+          "text": "Déclarez-vous un droit visé à l’article 35 de la Loi constitutionnelle de 1982?"
+        }
+      ],
+      "required": true,
+      "purpose": "fee-exemption"
+    },
+    {
+      "id": "proofOfOwnership",
+      "kind": "attachment",
+      "labels": [
+        {
+          "language": "en",
+          "text": "Proof of ownership"
+        },
+        {
+          "language": "fr",
+          "text": "Preuve de propriété"
+        }
+      ],
+      "required": true,
+      "purpose": "prove-ownership",
+      "allowedMediaTypes": [
+        "application/pdf"
+      ],
+      "maxBytes": 5242880
+    }
+  ],
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://forms.example.org/pleasure-craft-license/2.0.0/schema.json",
+    "type": "object",
+    "properties": {
+      "hullSerialNumber": {
+        "type": "string",
+        "pattern": "^[A-Z0-9]{12,14}$"
+      },
+      "craftLengthMeters": {
+        "type": "string",
+        "pattern": "^[0-9]{1,2}\\.[0-9]$"
+      },
+      "propulsion": {
+        "type": "string",
+        "enum": [
+          "outboard",
+          "inboard",
+          "sail",
+          "electric"
+        ]
+      },
+      "ownerName": {
+        "type": "string",
+        "minLength": 1
+      },
+      "declaresSection35Right": {
+        "type": "boolean"
+      },
+      "proofOfOwnership": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+      }
+    },
+    "required": [
+      "hullSerialNumber",
+      "craftLengthMeters",
+      "propulsion",
+      "ownerName",
+      "declaresSection35Right",
+      "proofOfOwnership"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,33 @@
+# Comparison data. The format is defined by fpsot-spec-doc (model/jurisdiction.yaml).
+# Légifrance refuses automated readers, so the research read the articles of the code des
+# relations entre le public et l'administration in archived copies of 2024 and 2025, each
+# consolidated as of its snapshot date. Later changes are to be verified. France has no normative
+# profile in this release. This file is informational and not legal advice.
+code: FR
+name: {en: France, fr: France}
+rows:
+  - id: APP-043
+    text: {en: "Each electronic submission gets an electronic acknowledgment with the date of receipt, the handling service and the date when silence becomes a decision. A notice of registration comes within one working day when the acknowledgment is not instant, and the acknowledgment within ten. Without a proper acknowledgment, appeal time limits do not run against the applicant. To be verified at Légifrance.", fr: "Chaque saisine électronique reçoit un accusé de réception électronique avec la date de réception, le service chargé du dossier et la date où le silence vaut décision. Un accusé d’enregistrement suit dans un jour ouvré quand l’accusé de réception n’est pas instantané, et celui-ci dans les dix jours ouvrés. Sans accusé conforme, les délais de recours ne sont pas opposables. À vérifier sur Légifrance."}
+    status: stricter
+    source: {title: "Code des relations entre le public et l'administration, articles L112-11 à L112-12 et R112-11-1 à R112-11-4, copie archivée de Légifrance", date: "2025-02-10", url: "https://web.archive.org/web/20250210012953/https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000031366350/LEGISCTA000031367356/", archive: "https://web.archive.org/web/20250210012953/https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000031366350/LEGISCTA000031367356/"}
+    last_checked: "2026-11-23"
+  - id: APP-052
+    text: {en: "For an incomplete request, the body lists the missing items that a text requires and sets a deadline. The clock of silence that means acceptance runs only once the items arrive, and the clock that means refusal is suspended. To be verified at Légifrance.", fr: "Pour une demande incomplète, l’administration énumère les pièces manquantes qu’un texte exige et fixe un délai. Le délai du silence qui vaut acceptation ne court qu’à la réception des pièces, et celui du silence qui vaut rejet est suspendu. À vérifier sur Légifrance."}
+    status: stricter
+    source: {title: "Code des relations entre le public et l'administration, articles L114-5 à L114-6, copie archivée de Légifrance", date: "2024-11-27", url: "https://web.archive.org/web/20241127031135/https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000031366350/LEGISCTA000031367400/", archive: "https://web.archive.org/web/20241127031135/https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000031366350/LEGISCTA000031367400/"}
+    last_checked: "2026-11-23"
+  - id: APP-024
+    text: {en: "A person who applies cannot be required to give information that the administration holds or can obtain from another administration of the exchange system. The person then attests on their honor that the information is accurate. To be verified at Légifrance.", fr: "La personne qui fait une demande ne peut être tenue de produire des informations que l’administration détient ou peut obtenir d’une autre administration du système d’échange. Elle atteste alors sur l’honneur leur exactitude. À vérifier sur Légifrance."}
+    status: stricter
+    source: {title: "Code des relations entre le public et l'administration, articles L113-12 et L113-13, copie archivée de Légifrance", date: "2025-04-15", url: "https://web.archive.org/web/20250415152005/https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000031366350/LEGISCTA000031367382/", archive: "https://web.archive.org/web/20250415152005/https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000031366350/LEGISCTA000031367382/"}
+    last_checked: "2026-11-23"
+  - id: APP-093
+    text: {en: "Where an online service is reserved for a procedure, the administration is properly seized electronically only through that service. To be verified at Légifrance.", fr: "Quand un téléservice est réservé à une démarche, l’administration n’est régulièrement saisie par voie électronique que par ce téléservice. À vérifier sur Légifrance."}
+    status: looser
+    source: {title: "Code des relations entre le public et l'administration, article L112-9, copie archivée de Légifrance", date: "2024", url: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031367350", archive: "https://web.archive.org/web/2024/https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000031367350"}
+    last_checked: "2026-11-23"
+  - id: APP-054
+    text: {en: "Two months of silence on a request mean acceptance, with many exceptions where silence means refusal, such as financial requests. The list of procedures under silence means acceptance is published on service-public.fr. To be verified at Légifrance.", fr: "Le silence gardé pendant deux mois sur une demande vaut acceptation, avec de nombreuses exceptions où il vaut rejet, comme les demandes à caractère financier. La liste des démarches soumises au silence vaut accord est publiée sur service-public.fr. À vérifier sur Légifrance."}
+    status: stricter
+    source: {title: "Code des relations entre le public et l'administration, articles L231-1 à L231-4, copie archivée de Légifrance", date: "2024-07-14", url: "https://web.archive.org/web/20240714221557/https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000031366350/LEGISCTA000031367609/", archive: "https://web.archive.org/web/20240714221557/https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000031366350/LEGISCTA000031367609/"}
+    last_checked: "2026-11-23"

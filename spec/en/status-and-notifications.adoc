@@ -1,0 +1,128 @@
+= Status and notifications
+include::_fpsot-terms.adoc[]
+
+The federal Directive on Service and Digital asks new online services to show the status of applications in real time.
+The tracker of the federal immigration department shows three overall states.
+One of its section states asks the applicant to act.
+Its closed state says nothing about the outcome, and the decision comes in its own letter.
+GOV.UK leaves sensitive data out of emails, and links only to its own domain.
+This page takes those lessons, and sets the events that other systems read.
+
+== The status that the applicant sees
+
+[[APP-080]]
+*APP-080.* The status that an applicant sees MUST be a `StatusProjection`, with a label from this closed list.
+Each state of a file MUST map to one label, as the table shows.
+The service MUST publish the labels and their translations.
+
+[cols="1,1,2",options="header"]
+|===
+|State of the file |Label |Text in English and French
+|`draft` |`not-sent` |Not sent, Non transmise
+|`submitted` |`received` |Received, Reçue
+|`in-review` |`in-progress` |In progress, En traitement
+|`information-requested` |`action-needed` |Action needed, Action requise
+|`decided` |`decision-made` |Decision made, Décision rendue
+|`withdrawn` |`withdrawn` |Withdrawn, Retirée
+|`closed` |`closed` |Closed, Fermée
+|===
+
+A small closed list is what people can learn.
+Each internal step of a review shows as `in-progress`, so the label changes only at the moments that matter.
+
+[[APP-081]]
+*APP-081.* `action-needed` MUST be the only label that asks the applicant to act.
+With it, the projection MUST show what is needed, by when, and how to respond.
+The items MUST be those of the open request.
+The deadline MUST be the deadline of that request, in the legal time zone.
+
+[[APP-082]]
+*APP-082.* A projection MUST NOT show a queue, a sub-state, a risk flag, a score or a staff name.
+A label MUST NOT show the outcome of a decision.
+The decision reaches the applicant in its notice, under DEC-057.
+A projection MUST show the reference number, the received instant and the body that handles the file.
+It MUST also show the expected date or the service standard.
+
+A label on a shared screen then tells nobody whether the answer was yes or no.
+
+[[APP-083]]
+*APP-083.* The service MUST derive the projection from the file of record on each read.
+It MAY instead rebuild the projection in the same transaction as each change, staff changes included.
+A projection MUST NOT keep a copy of data that can drift from the file.
+
+People call when a tracking page shows an old date of birth or an old email address.
+
+== Notifications
+
+[[APP-084]]
+*APP-084.* The service MUST notify the applicant of each submission, through a channel that the applicant chose.
+It MUST notify the applicant when a request opens, and record that notice with the request, under APP-087.
+It SHOULD notify the applicant again before the deadline of the request.
+It SHOULD also do so when a decision is available, and before it purges a draft.
+It SHOULD NOT send one for a change that keeps the same label.
+
+Receipt is itself the most useful news.
+A change of internal step is noise, and leads to calls.
+
+[[APP-085]]
+*APP-085.* A notification MUST NOT hold the content of a decision, its reasons, an answer or any sensitive data.
+It MUST NOT ask for personal information, and MUST NOT carry an attachment.
+It MUST say where the applicant can read the content, such as a signed-in page or an official notice.
+
+Text messages travel without encryption, and some emails do too.
+A notification therefore says that something changed and where to look, and nothing more.
+A name next to a program on a locked phone tells others that a person applied.
+So a notification names neither.
+
+[[APP-086]]
+*APP-086.* Each link in a notification MUST point to a domain of the body, written in full.
+It MUST NOT go through a redirect or carry a tracking parameter.
+Each notification SHOULD come from a sender address or number that the body publishes.
+
+A person can then check where a link goes before they follow it.
+A known sender and a full domain make phishing harder, without any personal data in the message.
+
+[[APP-087]]
+*APP-087.* The service MUST record each notification on the file, with its kind, channel, instant and delivery status.
+It MUST record each delivery failure that the channel reports.
+After a failure, the service SHOULD try another channel on record, such as post or the representative.
+
+The record of delivery is what shows, under APP-057, that the body tried to reach the applicant.
+
+== Events
+
+[[APP-088]]
+*APP-088.* The service MUST send the events of this table as CloudEvents, under API-100 to API-104.
+The data of each event type MUST follow its JSON Schema in `registry/events/`, under API-103.
+The `subject` of each event MUST be the id of the file, even for a draft.
+The data MUST hold ids, codes and instants only.
+It MUST NOT hold a party id, a reference number, an answer, a name or an address.
+Each event MUST also be a business event under OBS-070, whose main object is the file, under OBS-079.
+
+[cols="2,3",options="header"]
+|===
+|Type |When
+|`org.fpsot.applications.receipt.issued` |A submission or a reply created a receipt record.
+|`org.fpsot.applications.file.changed` |A file moved to another state.
+|`org.fpsot.applications.information-request.changed` |A request opened, was resolved, was cancelled or expired.
+|`org.fpsot.applications.draft.migrated` |A draft moved to a newer form version.
+|`org.fpsot.applications.draft.purged` |The service purged a draft.
+|===
+
+A case system, a fee engine or a register reads the file by its id, with its own authority.
+
+== References
+
+=== Informative
+
+* link:https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32601[Directive on Service and Digital], Treasury Board of Canada Secretariat, section 4.6.2, modified 2025-08-29. link:https://web.archive.org/web/20261103002505/https://www.tbs-sct.canada.ca/pol/doc-eng.aspx?id=32601[Archived copy]
+* link:https://www.gov.uk/service-manual/design/sending-emails-and-text-messages[Sending emails and text messages], GOV.UK Service Manual, updated 2017-10-03. link:https://web.archive.org/web/20260802115617/https://www.gov.uk/service-manual/design/sending-emails-and-text-messages[Archived copy]
+* link:https://notification.canada.ca/security[Security, GC Notify], Canadian Digital Service, read 2026-11-23. link:https://web.archive.org/web/20261003005850/https://notification.canada.ca/security[Archived copy]
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-26 |First version.
+|===

@@ -1,0 +1,155 @@
+# SPDX-License-Identifier: Community-Spec-1.0
+# Jurisdiction profile of the FPSOT applications specification (APP-010 to APP-013), in the form
+# of the class ApplicationProfile of model/applications.yaml. Released apart from the core rules
+# (APP-011). Applications to Québec public bodies.
+# The research read the French text of each Québec act at LégisQuébec, current to 2026-10-15. The
+# archived copies below are older; they serve as copies, and the reading rests on the live text.
+# Not legal advice.
+# Article 52 of the Loi d'interprétation moves a time limit that ends on a jour férié to the next
+# jour ouvrable, and names Saturday only for the land register. Whether a Saturday is a working
+# day for other time limits is to be verified; this profile skips Saturdays, the reading that
+# gives the applicant the later date, until counsel answers.
+# Article 61(23) lists the holidays. Its point i is the day that the Governor General fixes by
+# proclamation for the birthday of the Sovereign; the date below is that of Victoria Day, and the
+# proclamation itself was not read, so that source is to be verified.
+# The Loi sur la justice administrative binds the Administration gouvernementale of its article 3
+# only; a municipality or a body of the health network declares whether it follows its rules.
+code: ca-qc
+version: 0.1.0
+title: {en: Québec profile, fr: Profil québécois}
+jurisdiction: CA-QC
+sources:
+  - id: interpretation-act-qc
+    title: "Loi d'interprétation, RLRQ, chapitre I-16, articles 52 et 61, à jour au 2026-10-15"
+    url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/I-16"
+    archive: "https://web.archive.org/web/20251107184320/https://www.legisquebec.gouv.qc.ca/fr/document/lc/I-16"
+    date: "2026-10-15"
+    verification: read
+  - id: sovereign-birthday-proclamation
+    title: "Proclamation fixant le jour de l'anniversaire du Souverain"
+    url: "https://gazette.gc.ca/accueil-home-fra.html"
+    verification: to-be-verified
+  - id: it-framework-act
+    title: "Loi concernant le cadre juridique des technologies de l'information, RLRQ, chapitre C-1.1, articles 28 à 31, à jour au 2026-10-15"
+    url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-1.1"
+    archive: "https://web.archive.org/web/20260209145552/https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-1.1"
+    date: "2026-10-15"
+    verification: read
+  - id: administrative-justice-act
+    title: "Loi sur la justice administrative, RLRQ, chapitre J-3, articles 2 à 8, à jour au 2026-10-15"
+    url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/J-3"
+    archive: "https://web.archive.org/web/20251107184238/https://www.legisquebec.gouv.qc.ca/fr/document/lc/J-3"
+    date: "2026-10-15"
+    verification: read
+  - id: charter-french-language
+    title: "Charte de la langue française, RLRQ, chapitre C-11, articles 1, 13.1, 13.2, 21.4, 21.6, 21.9, 22.2 et 22.3, à jour au 2026-10-15"
+    url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-11"
+    archive: "https://web.archive.org/web/20261104193630/https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-11"
+    date: "2026-10-15"
+    verification: read
+  - id: charter-21-9-exceptions
+    title: "Charte de la langue française, articles 21.4 et 21.6, appliqués aux écrits de l'article 21.9 avec les adaptations requises"
+    url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/C-11"
+    verification: to-be-verified
+  - id: access-act
+    title: "Loi sur l'accès aux documents des organismes publics et sur la protection des renseignements personnels, RLRQ, chapitre A-2.1, articles 63.5, 63.7, 64, 65 et 73, à jour au 2026-10-15"
+    url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/A-2.1"
+    archive: "https://web.archive.org/web/20261007185511/https://www.legisquebec.gouv.qc.ca/fr/document/lc/A-2.1"
+    date: "2026-10-15"
+    verification: read
+  - id: information-resources-act
+    title: "Loi sur la gouvernance et la gestion des ressources informationnelles des organismes publics et des entreprises du gouvernement, RLRQ, chapitre G-1.03, articles 12.14 à 12.18, à jour au 2026-10-15"
+    url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/G-1.03"
+    archive: "https://web.archive.org/web/20260302093338/https://www.legisquebec.gouv.qc.ca/fr/document/lc/G-1.03"
+    date: "2026-10-15"
+    verification: read
+  - id: public-administration-act
+    title: "Loi sur l'administration publique, RLRQ, chapitre A-6.01, article 6, à jour au 2026-10-15"
+    url: "https://www.legisquebec.gouv.qc.ca/fr/document/lc/A-6.01"
+    archive: "https://web.archive.org/web/20260421042221/https://www.legisquebec.gouv.qc.ca/fr/document/lc/a-6.01"
+    date: "2026-10-15"
+    verification: read
+  - id: sgqri-008
+    title: "Standard sur l'accessibilité des sites Web, SGQRI 008 3.0, ministère de la Cybersécurité et du Numérique, en vigueur le 2024-04-29"
+    url: "https://www.quebec.ca/gouvernement/ministeres-organismes/cybersecurite-numerique/publications/standard-accessibilite-sites-web"
+    archive: "https://web.archive.org/web/20261103004830/https://www.quebec.ca/gouvernement/ministeres-organismes/cybersecurite-numerique/publications/standard-accessibilite-sites-web"
+    date: "2026-06-08"
+    verification: read
+calendars:
+  - code: ca-qc
+    timeZone: America/Toronto
+    validity: {start: "2026-01-01", end: "2027-01-01"}
+    complete: true
+    weeklyHolidays: [sunday]
+    nonWorkingWeekdays: [saturday, sunday]
+    roll: next-working-day
+    sourceIds: [interpretation-act-qc]
+    holidays:
+      - {date: "2026-01-01", name: {en: "New Year's Day", fr: "1er janvier"}, sourceId: interpretation-act-qc}
+      - {date: "2026-04-03", name: {en: Good Friday, fr: Vendredi saint}, sourceId: interpretation-act-qc}
+      - {date: "2026-04-06", name: {en: Easter Monday, fr: lundi de Pâques}, sourceId: interpretation-act-qc}
+      - {date: "2026-05-18", name: {en: Birthday of the Sovereign, fr: anniversaire du Souverain}, sourceId: sovereign-birthday-proclamation}
+      - {date: "2026-06-24", name: {en: National Holiday, fr: fête nationale}, sourceId: interpretation-act-qc}
+      - {date: "2026-07-01", name: {en: Anniversary of Confederation, fr: anniversaire de la Confédération}, sourceId: interpretation-act-qc}
+      - {date: "2026-09-07", name: {en: Labour Day, fr: fête du Travail}, sourceId: interpretation-act-qc}
+      - {date: "2026-10-12", name: {en: Second Monday of October, fr: deuxième lundi d’octobre}, sourceId: interpretation-act-qc}
+      - {date: "2026-12-25", name: {en: Christmas Day, fr: 25 décembre}, sourceId: interpretation-act-qc}
+languageRules:
+  # French is the language of the Administration (articles 1 and 13.2). A legal person or an
+  # enterprise writes in French only to obtain a permit, a similar authorization, a subsidy or other
+  # financial aid, and in the writings that such aid or authorization later requires (article 21.9).
+  # Article 21.9 applies the exceptions of articles 21.4 and 21.6 with the necessary adaptations,
+  # and lets the government allow another language by regulation. Article 21.4 lets a version in
+  # another language be joined for some parties, such as a legal person whose seat is in a State
+  # where French is not an official language and that need not register in Québec; article 21.6
+  # lets such a party write only in another language when it starts the steps. How those
+  # adaptations read for an application is to be verified, so the two exceptions below cite a
+  # source to be verified. English is also allowed for a person declared eligible for English
+  # instruction (article 22.2) and where health, public safety or natural justice requires it
+  # (article 22.3). How far article 21.9 reaches attachments is a question for counsel.
+  - {code: french-default, language: fr, appliesTo: any, exclusive: false, sourceId: charter-french-language}
+  - {code: charter-21-9, language: fr, appliesTo: legal-person-permit-or-grant, exclusive: true, sourceId: charter-french-language}
+  - {code: charter-21-4-joined-version, language: en, appliesTo: legal-person-permit-or-grant, exclusive: false, exceptionTo: charter-21-9, sourceId: charter-21-9-exceptions}
+  - {code: charter-21-6-foreign-party, language: en, appliesTo: legal-person-permit-or-grant, exclusive: false, exceptionTo: charter-21-9, sourceId: charter-21-9-exceptions}
+  - {code: english-instruction-eligible, language: en, appliesTo: any, exclusive: false, sourceId: charter-french-language}
+  - {code: natural-justice, language: en, appliesTo: any, exclusive: false, sourceId: charter-french-language}
+prefillBases:
+  - {code: official-data-source, sourceId: information-resources-act}
+  - {code: joint-service-agreement, sourceId: access-act}
+rules:
+  - code: receipt-when-accessible
+    summary: {en: "A technology-based document is presumed received when it becomes accessible at the active address that the recipient names.", fr: "Un document technologique est présumé reçu quand il devient accessible à l’adresse active que le destinataire indique."}
+    sourceIds: [it-framework-act]
+  - code: proof-of-time-to-the-second
+    summary: {en: "Stored data that fix the date, hour, minute and second, with origin and destination, can prove the time of sending or receipt.", fr: "Des données conservées qui fixent la date, l’heure, la minute et la seconde, avec la provenance et la destination, peuvent prouver le moment de l’envoi ou de la réception."}
+    sourceIds: [it-framework-act]
+  - code: choice-of-medium
+    summary: {en: "When a service exists on several media, the person chooses the medium.", fr: "Quand un service existe sur plusieurs supports, la personne choisit le support."}
+    sourceIds: [it-framework-act]
+  - code: chance-to-complete-file
+    summary: {en: "The person has the chance to give the useful information and to complete the file.", fr: "La personne a l’occasion de fournir les renseignements utiles et de compléter son dossier."}
+    sourceIds: [administrative-justice-act]
+  - code: delay-unfavorable-benefit-decision
+    summary: {en: "When the body finds the file incomplete or lacking information, it delays an unfavorable decision on an indemnity or a benefit for the time needed to let the person complete the file.", fr: "Quand l’organisme constate que le dossier est incomplet ou qu’il y manque des renseignements, il retarde une décision défavorable sur une indemnité ou une prestation le temps nécessaire pour que la personne complète son dossier."}
+    sourceIds: [administrative-justice-act]
+  - code: notice-before-unfavorable-permit-decision
+    summary: {en: "Before an unfavorable decision on a permit, the body tells the person of its intention and reasons, and lets them complete the file.", fr: "Avant une décision défavorable sur un permis, l’organisme informe la personne de son intention et de ses motifs, et lui permet de compléter son dossier."}
+    sourceIds: [administrative-justice-act]
+  - code: collect-only-what-is-necessary
+    summary: {en: "A body collects personal information only when it is necessary to its functions or to a program that it manages.", fr: "Un organisme ne recueille un renseignement personnel que s’il est nécessaire à ses fonctions ou à un programme dont il a la gestion."}
+    sourceIds: [access-act]
+  - code: notice-at-collection
+    summary: {en: "At collection, the body says who collects, why, by what means, whether an answer is mandatory, the effect of a refusal and the rights of access and correction.", fr: "À la collecte, l’organisme indique qui recueille, à quelles fins, par quels moyens, si la réponse est obligatoire, l’effet d’un refus et les droits d’accès et de rectification."}
+    sourceIds: [access-act]
+  - code: privacy-by-default
+    summary: {en: "A product with privacy settings offers the highest level of confidentiality by default.", fr: "Un produit qui a des paramètres de confidentialité offre par défaut le niveau de confidentialité le plus élevé."}
+    sourceIds: [access-act]
+  - code: destroy-when-purpose-done
+    summary: {en: "When the purposes are achieved, the body destroys or anonymizes the personal information, subject to the archives law.", fr: "Quand les fins sont accomplies, l’organisme détruit ou anonymise le renseignement personnel, sous réserve de la loi sur les archives."}
+    sourceIds: [access-act]
+  - code: statement-of-services
+    summary: {en: "A body that serves citizens publishes a statement of services with its objectives on the diligence of its services.", fr: "Un organisme qui sert les citoyens publie une déclaration de services avec ses objectifs sur la diligence de ses services."}
+    sourceIds: [public-administration-act]
+  - code: web-accessibility-standard
+    summary: {en: "New web content, and each significant change to existing content, meets SGQRI 008 3.0: WCAG 2.1 AA with some changes, and some criteria of WCAG 2.2 such as 3.3.7 and 3.3.8.", fr: "Tout nouveau contenu Web, et toute modification importante d’un contenu existant, respecte le SGQRI 008 3.0 : les WCAG 2.1 AA avec quelques changements, et certains critères des WCAG 2.2 comme 3.3.7 et 3.3.8."}
+    sourceIds: [sgqri-008]

@@ -1,0 +1,42 @@
+# SPDX-License-Identifier: Community-Spec-1.0
+# Synthetic service declaration of the FPSOT applications examples (APP-012), in the form of the class
+# ServiceDeclaration of model/applications.yaml. Every body, program and address is fictional.
+code: example-federal-benefit
+version: 1.1.0
+title:
+- language: en
+  text: Example federal benefit
+- language: fr
+  text: Prestation fédérale d’exemple
+deployingBodyPartyId: 019c5a00-0010-7000-8000-000000000300
+profiles:
+- core
+- ca-federal
+forms:
+- https://forms.example.org/example-benefit|1.0.0
+- https://forms.example.org/example-benefit|1.1.0
+applicationKind: any
+draftStorage: server
+draftInactivityDays: 30
+purgeNoticeDays: 14
+clocks:
+- code: service-standard
+  kind: service-standard
+  startsOn: submission
+  duration: P20D
+closingForNoResponse: false
+selfDeclaredSubmissions: true
+favorableWhileOpenAllowed: false
+fullGrantOutcomes:
+- granted
+channels:
+- digital
+- assisted-digital
+- telephone
+- counter
+- paper
+serviceStandard: P20D
+handlingContact: https://benefit.example.org/contact
+statusUri: https://benefit.example.org/status
+domains:
+- benefit.example.org

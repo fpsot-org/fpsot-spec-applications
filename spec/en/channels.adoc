@@ -1,0 +1,90 @@
+= Channels
+include::_fpsot-terms.adoc[]
+
+In 2022, the passport office of the United Kingdom moved 134,000 applications from its digital system to paper.
+Its National Audit Office found that staff could not tell when a case had moved.
+Some applications then showed the wrong age.
+A federal audit of 2026 found that only 41% of the reviewed counter applications had no error.
+Denmark makes many services digital by default, and must still offer another route to people who cannot use them.
+This page makes every channel feed the same file, with the same rules.
+
+== One file for every channel
+
+[[APP-090]]
+*APP-090.* Paper, telephone, counter and digital intake MUST create or update the same kind of file, with the same lifecycle.
+They MUST use the same form version, the same checks of answers and the same checks of attachments.
+A staff screen MUST NOT accept an answer that the digital channel would refuse.
+
+Validation at the point of capture is what keeps assisted intake from adding errors.
+
+[[APP-091]]
+*APP-091.* Each file version MUST record its `channel`: `digital`, `assisted-digital`, `counter`, `telephone`, `paper` or `email`.
+For assisted entry, it MUST record in `capturedBy` the staff member who keyed in the answers.
+That staff member also appears as the actor under APP-071.
+
+[[APP-092]]
+*APP-092.* For paper and for documents brought to a counter, the received instant MUST be the stamp on arrival.
+The record gives that stamp to the second, the minute or the day, under APP-041.
+The service MUST record the instant of keying apart, in `keyedAt`.
+The first version of a paper application MUST hold its original or a scan with its digest as an attachment.
+
+A backlog in the mailroom then never shortens the time of the applicant.
+
+[[APP-093]]
+*APP-093.* A service that is digital by default MUST offer a route that is not digital to the same file.
+A service MAY offer only a digital route when its profile cites a law that allows it.
+The service declaration then names that source.
+
+Québec leaves the choice of medium to the person when a service exists on several media.
+In France, a body may reserve an online service for a procedure.
+That service is then the only electronic route for that procedure.
+That rule says nothing of paper, and the comparison data says so.
+
+== Repeated submits
+
+[[APP-094]]
+*APP-094.* Submitting a draft MUST be idempotent.
+A repeated submit of the same draft MUST return the existing reference number and receipt record.
+It MUST NOT create a second file.
+An interface MUST accept an `Idempotency-Key` on submit, under API-060 to API-063.
+It MUST refuse a key that comes back with a different body.
+
+A double click, a timeout or the back button then never creates two files.
+GOV.UK reminds teams that a button that blocks a double click works in the browser only.
+The server must also guard.
+
+[[APP-095]]
+*APP-095.* A service SHOULD flag for staff a second open file of the same subject for the same program.
+It MUST NOT merge, drop or refuse that file on its own.
+
+An applicant and a representative can both submit.
+Only a person can tell a duplicate from a second real need.
+
+== Outages
+
+[[APP-096]]
+*APP-096.* During an outage of a digital channel, the operator MUST accept the same applications through another channel.
+That holds unless the service is digital only under APP-093.
+Such a service applies the extension rule of its program instead, under APP-056.
+The received instant then follows APP-041.
+A page of error or outage MUST say whether the service kept the answers in progress, and until when.
+It MUST also say when the service expects to return, and what happens to deadlines.
+
+The record of the outage itself comes under APP-056.
+
+== References
+
+=== Informative
+
+* link:https://www.nao.org.uk/wp-content/uploads/2022/12/Investigation-into-the-performance-of-HM-Passport-Office-Summary.pdf[Investigation into the performance of HM Passport Office, summary], National Audit Office, HC 949, 2022-12-09. link:https://web.archive.org/web/20260204133202/https://www.nao.org.uk/wp-content/uploads/2022/12/Investigation-into-the-performance-of-HM-Passport-Office-Summary.pdf[Archived copy]
+* link:https://www.canada.ca/en/employment-social-development/corporate/reports/audits/2026-passport-service-delivery.html[Audit of Passport Service Delivery], Employment and Social Development Canada, 2026-09-25. link:https://web.archive.org/web/20261007095821/https://www.canada.ca/en/employment-social-development/corporate/reports/audits/2026-passport-service-delivery.html[Archived copy]
+* link:https://lifeindenmark.borger.dk/apps-and-digital-services/mandatory-self-service[Mandatory self-service], Life in Denmark, updated 2026-06-26. link:https://web.archive.org/web/20261015011506/https://lifeindenmark.borger.dk/apps-and-digital-services/mandatory-self-service[Archived copy]
+* link:https://design-system.service.gov.uk/components/button/[Button], GOV.UK Design System, read 2026-11-23. link:https://web.archive.org/web/20261123160403/https://design-system.service.gov.uk/components/button/[Archived copy]
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-26 |First version.
+|===

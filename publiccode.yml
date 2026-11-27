@@ -9,22 +9,46 @@ developmentStatus: concept
 softwareType: "standalone/other"
 description:
   en:
-    shortDescription: Template for FPSOT specification repositories.
+    shortDescription: Rules that prove what arrived in each application to a public body, when and from whom.
     longDescription: >
-      Starting point for an FPSOT specification repository. It holds the
-      layout, the Community Specification License files, and the CI that
-      checks requirement IDs, links, languages and prose.
+      Rules for software that takes in an application to a public body, in any
+      channel, from the first draft to the decision. Each form is a versioned
+      JSON Schema, sealed with each submission. Each submission creates a
+      sealed receipt record of the instant when it became accessible to the
+      body, and an acknowledgment. A request for information carries its
+      reason, its items, its deadline from the calendar of the profile and its
+      effect on each clock. Attachments are checked by content, hashed with
+      SHA-256 only and scanned before submission. The applicant sees one of
+      seven published status labels.
     features:
-      - Specification repository layout
+      - Versioned forms as JSON Schema, sealed with each submission
+      - One lifecycle for every channel, with immutable file versions
+      - Sealed receipt records and acknowledgments
+      - Random reference numbers with a check character
+      - Requests for information with deadlines from calendar data
+      - Attachments hashed with SHA-256 and scanned before submission
+      - Jurisdiction profiles for Canada and Québec
   fr:
-    shortDescription: Gabarit des dépôts de spécification de FPSOT.
+    shortDescription: Règles qui prouvent ce qui est arrivé dans chaque demande à un organisme public, quand et de qui.
     longDescription: >
-      Point de départ d'un dépôt de spécification de FPSOT. Il contient la
-      structure, les fichiers de la Community Specification License, et
-      l'intégration continue qui vérifie les identifiants, les liens, les
-      langues et la rédaction.
+      Règles pour les logiciels qui reçoivent une demande adressée à un
+      organisme public, par tout canal, du premier brouillon jusqu’à la
+      décision. Chaque formulaire est un schéma JSON versionné, cacheté avec
+      chaque dépôt. Chaque dépôt crée un constat de réception cacheté du moment
+      où il est devenu accessible à l’organisme, et un accusé de réception. Une
+      demande de renseignements porte son motif, ses éléments, son échéance
+      tirée du calendrier du profil et son effet sur chaque décompte. Les pièces
+      jointes sont vérifiées d’après leur contenu, hachées en SHA-256 seulement
+      et analysées avant le dépôt. La personne voit une de sept étiquettes
+      d’état publiées.
     features:
-      - Structure d'un dépôt de spécification
+      - Formulaires versionnés en schéma JSON, cachetés avec chaque dépôt
+      - Un seul cycle de vie pour tous les canaux, avec des versions figées
+      - Constats de réception cachetés et accusés de réception
+      - Numéros de référence aléatoires avec un caractère de contrôle
+      - Demandes de renseignements avec des échéances tirées des calendriers
+      - Pièces jointes hachées en SHA-256 et analysées avant le dépôt
+      - Profils juridictionnels pour le Canada et le Québec
 legal:
   license: Community-Spec-1.0
 maintenance:

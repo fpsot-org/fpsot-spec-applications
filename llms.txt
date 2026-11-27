@@ -1,0 +1,34 @@
+# FPSOT applications specification
+
+> What software must record and prove when a public body takes in an application, in any channel: forms as versioned JSON Schema documents sealed with each submission; one lifecycle of seven states with drafts, explicit form migrations and immutable file versions; sealed receipt records of the instant when a submission became accessible, with acknowledgments and random reference numbers that carry a Crockford check character; requests for information with their reason, items, deadline from the calendar of the profile and effect on each clock, and no adverse decision while one is open; attachments checked by content, hashed with SHA-256 only and scanned before submission; representation checked on every act; a closed list of status labels; notifications without decisions or answers; and channels that all feed the same file.
+
+## Specification
+
+- [Overview](spec/en/index.adoc): scope, conformance classes, legal status, owners of the parts and conformance; APP-001 to APP-006.
+- [Jurisdiction profiles](spec/en/profiles.adoc): APP-010 to APP-014.
+- [Forms](spec/en/forms.adoc): APP-020 to APP-025.
+- [Lifecycle](spec/en/lifecycle.adoc): APP-030 to APP-038.
+- [Receipts and acknowledgments](spec/en/receipts.adoc): APP-040 to APP-046.
+- [Requests for information and clocks](spec/en/requests.adoc): APP-050 to APP-057.
+- [Attachments](spec/en/attachments.adoc): APP-060 to APP-066.
+- [Representation](spec/en/representation.adoc): APP-070 to APP-074.
+- [Status and notifications](spec/en/status-and-notifications.adoc): APP-080 to APP-088.
+- [Channels](spec/en/channels.adoc): APP-090 to APP-096.
+- [Interfaces, handoffs and conformance](spec/en/conformance.adoc): APP-100 to APP-105.
+- [Alignment with other standards](spec/en/alignment.adoc): informative.
+- [Questions for counsel](spec/en/questions-for-counsel.adoc): informative, not legal advice.
+
+## Model, profiles and examples
+
+- [LinkML model](model/applications.yaml)
+- [Profiles](profiles/)
+- [Event schemas](registry/events/)
+- [Forms](examples/forms/), [service declarations](examples/services/) and application files ([pleasure craft](examples/pleasure-craft/application.json), [request for information](examples/information-request/application.json))
+- [Scenario](examples/features/en/applications.feature)
+- [Lifecycle diagram](diagrams/application-lifecycle-en.svg)
+- [How-to guide: take in applications under the specification](docs/modules/en/pages/index.adoc)
+
+## Optional
+
+- [Agent skill](skill/SKILL.md)
+- [Français](spec/fr/index.adoc)

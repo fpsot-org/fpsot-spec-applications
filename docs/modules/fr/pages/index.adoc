@@ -1,15 +1,81 @@
-= Guide
-:page-type: explanation
+= Recevoir des demandes selon la spécification sur les demandes
+:page-type: how-to
 include::_fpsot-terms.adoc[]
 
-Cette page explique la spécification aux personnes qui l’adoptent.
-Chaque page de guide a un seul type.
-C’est un tutoriel, un guide pratique, une référence ou une explication.
+Ce guide mène un organisme public d’un programme à une réception conforme.
+Chaque étape cite la règle qu’elle respecte.
+Il ne constitue pas un avis juridique.
+La page des questions pour les conseillers juridiques énumère les points qu’un juriste doit trancher.
+Les fichiers de `examples/` suivent six demandes synthétiques à chaque étape.
+
+== Nommer le droit
+
+Trouvez le profil dont le droit s’applique au programme, comme `ca-federal` ou `ca-qc`, selon APP-010.
+Si aucun ne convient, rédigez-en un, et citez une source pour chaque règle et chaque jour férié, selon APP-011.
+Marquez `to-be-verified` chaque source que personne n’a lue à son origine.
+Gardez les calendriers, les règles de langue et les moments de réception dans le profil, jamais dans le code.
+Cela suit APP-012.
+
+== Déclarer le service
+
+Rédigez une déclaration de service avec ses formulaires, ses décomptes, ses canaux et la durée de ses brouillons.
+Indiquez si le programme permet la fermeture faute de réponse, selon APP-057, et le dépôt sur simple déclaration, selon APP-072.
+Offrez une voie non numérique, selon APP-093.
+Le fichier `examples/services/example-home-adaptation-grant.yaml` montre un programme québécois à deux décomptes.
+
+== Publier le formulaire
+
+Rédigez chaque formulaire comme un document JSON Schema 2020-12 avec une adresse canonique et une version, selon APP-020.
+Gardez l’id de chaque question tant que son sens reste, et donnez un nouvel id quand il change.
+Ne modifiez jamais une version active : publiez-en une nouvelle, selon APP-021.
+Donnez à chaque question une étiquette par langue, une finalité et un caractère obligatoire, selon APP-023 et APP-025.
+
+== Garder les brouillons et recevoir les dépôts
+
+Gardez les brouillons chez le service, et gardez-les après la fin d’une session, selon APP-033.
+Indiquez à la personne la durée d’un brouillon, et envoyez un avis avant une purge, selon APP-034.
+Montrez chaque réponse avant le dépôt, vérifiez les réponses et refusez tant qu’un fichier n’est pas sain, selon APP-036.
+Rendez le dépôt idempotent, selon APP-094.
+
+== Consigner l’arrivée
+
+Créez un constat de réception cacheté pour chaque dépôt, avec l’instant où il est devenu accessible, selon APP-040 à APP-042.
+Pour le papier, employez l’estampille de l’arrivée, et non l’instant de la saisie, selon APP-092.
+Un tampon dateur compte à partir du début de son jour local, selon APP-041.
+Envoyez un accusé de réception avec le numéro, l’heure de réception, l’organisme responsable et la date prévue, selon APP-043.
+Tirez chaque numéro au hasard, avec un caractère de contrôle de Crockford, selon APP-045.
+
+== Demander des compléments
+
+Ouvrez une seule demande de renseignements à la fois, selon APP-051.
+Donnez-lui un motif, ses éléments, une échéance et son effet sur chaque décompte, selon APP-050.
+Calculez l’échéance à partir du calendrier du profil, selon APP-055.
+
+Avisez la personne requérante à son ouverture, selon APP-084.
+Ne rendez aucune décision défavorable tant que la demande de renseignements est ouverte et dans les délais, selon APP-052.
+Après sa fin, n’en rendez aucune avant que la personne en ait eu connaissance, selon APP-052 et APP-053.
+Ne fermez un dossier faute de réponse qu’après l’échéance et une tentative de contact distincte et consignée, selon APP-057.
+
+== Traiter les fichiers
+
+Vérifiez chaque fichier d’après son contenu, hachez-le en SHA-256 seulement, et gardez son original, selon APP-061, APP-062 et APP-064.
+N’employez jamais MD5 ni SHA-1, pas même comme somme de contrôle en transit.
+
+== Montrer l’état
+
+Montrez une de sept étiquettes, tirée de l’état, selon APP-080.
+Ne montrez ce qu’il faut, pour quand et comment, qu’avec `action-needed`, selon APP-081.
+Gardez les notifications libres de décisions et de réponses, et ne renvoyez qu’à vos propres domaines, selon APP-085 et APP-086.
+
+== Vérifier
+
+Lancez `bash examples/test-examples.sh` après `pip install --require-hashes -r examples/requirements.txt`.
+Rédigez des scénarios en anglais et en français, selon APP-102, avec des données synthétiques seulement, selon APP-103.
 
 == Historique du document
 
 [cols="1,1,4",options="header"]
 |===
 |Version |Date |Changement
-|0.1.0 |2026-11-03 |Première version.
+|0.1.0 |2026-11-26 |Première version.
 |===

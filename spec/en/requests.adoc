@@ -1,0 +1,140 @@
+= Requests for information and clocks
+include::_fpsot-terms.adoc[]
+
+Most files lack something at some point.
+Québec gives the applicant the chance to complete the file.
+It delays an unfavorable decision on a benefit until the applicant could do so.
+France lists the missing items in a letter with a deadline.
+That letter stops or suspends the clocks of silence.
+Canada leaves both points to each program and its service standard.
+
+Démarche Numérique turns this into data.
+A request there is a message with a reason, and at most one is open at a time.
+GovStack lets staff mark the field or the document that is wrong.
+This page joins the two, and keeps each clock and each calendar in data.
+
+== Requests
+
+[[APP-050]]
+*APP-050.* Each request for information MUST be a record of the class `InformationRequest` of `model/applications.yaml`.
+It MUST hold these parts.
+
+* A reason: `incorrect`, `incomplete`, `outdated` or `complement`.
+* The items that it concerns, each a question `id` or an attachment that the file version holds.
+* A deadline, computed under APP-055.
+* Its effect on each clock of the program: `start-on-completion`, `suspend` or `none`, under APP-054.
+* The acting party who opened it, under APP-071.
+
+`complement` means that the body added something and waits for the applicant to confirm it.
+The items tell the applicant what to fix, and the front end shows them in place.
+
+[[APP-051]]
+*APP-051.* A file MUST NOT have more than one open request for information at a time.
+Opening a request MUST move the file to `information-requested`, under APP-031.
+A request MUST ask only for items that the form or the rules of the program need.
+A request MUST have one status: `open`, `resolved`, `cancelled` or `expired`.
+
+One open request gives the applicant one list and one deadline.
+France asks the body to list the missing items that the texts require, and the French comparison says so.
+
+[[APP-052]]
+*APP-052.* While a request is open and in time, a file MUST NOT move to `decided` on an adverse outcome.
+The service MUST tell the decision service that the request is open.
+After a request ends unanswered, an adverse move MUST NOT follow until the applicant has heard of it.
+The file shows that by a delivered notice of the request, under APP-084, or by a contact attempt under APP-057.
+A full grant MAY still go ahead while a request is open, when the program allows it.
+
+A missing fact then leads to `insufficient-information` or `referred`, under DEC-025.
+
+Québec asks the body to delay an unfavorable decision on a benefit while the applicant completes the file.
+France lets the grant of a right go ahead while a document is missing, with effect once it arrives.
+This rule holds the first everywhere, and lets the program allow the second.
+A request that never reached the applicant gave no chance to reply.
+Its end then never opens the way to a refusal.
+
+[[APP-053]]
+*APP-053.* A reply is a submission, so APP-036, APP-063 and APP-065 apply to it as to the first one.
+A reply MUST add a new `FileVersion` and a new receipt record, under APP-037 and APP-040.
+Its receipt record MUST seal again the copy of the form version that it answers, under APP-042.
+A new file for an item MUST be a new attachment version, under APP-064.
+The reply MUST resolve the request, which records the instant and the new version.
+The front end MUST fill the reply with the answers already given, under APP-024.
+
+A body MAY cancel a request only for a reason of this list, and it MUST record the instant.
+
+* `issued-in-error`: the body issued it by mistake.
+* `no-longer-needed`: the body no longer needs its items.
+* `superseded`: a later request replaces it.
+
+Until the deadline of a canceled request ends, a file MUST NOT move to `decided` on an adverse outcome.
+An adverse outcome MUST NOT rest on an item of a canceled request.
+
+The reply then has its own received instant, and the first submission keeps its own.
+A cancel never shortens the time that the request gave the applicant.
+
+== Clocks
+
+[[APP-054]]
+*APP-054.* Each service declaration MUST list the clocks of its program, such as a service standard.
+Each clock MUST state its code, its kind and when it starts: on submission or on a complete file.
+Each change to a clock MUST be an entry of the file, with the instant.
+The change is `started`, `suspended`, `resumed` or `stopped`.
+The service MUST apply the effect of each request on each clock from data, and MUST NOT code it.
+
+A service standard and a statutory time limit can react in two ways to the same request.
+France starts the clock of silence that means acceptance once the file is complete.
+It suspends the clock of silence that means refusal.
+
+[[APP-055]]
+*APP-055.* A service MUST compute each deadline from a `CalendarRule` of the profile.
+The rule names the legal time zone and the holidays with their dates.
+It also names the way to roll a deadline that falls on a holiday.
+The record of the deadline MUST name the calendar and its version, the start and the period.
+It MUST also hold the raw date and the date after the roll.
+A service MUST NOT hard-code a calendar or a holiday.
+
+The federal and Québec lists of holidays differ.
+Québec has 24 June, and the federal list has 30 September and 11 November.
+Federal law also counts the holidays of each province and the civic holidays of each place.
+So 24 June is a federal holiday in Québec too, and a deadline that falls on it rolls in both.
+The national calendar of the `ca-federal` profile is therefore marked incomplete, under APP-013.
+
+[[APP-056]]
+*APP-056.* A service MUST record each outage as an `OutageWindow`, with its start, its end and its channels.
+It MUST publish each window to the applicants of the program.
+A service declaration MAY name an extension rule of its program for a deadline that falls in an outage.
+The service MUST apply that rule from data, and record on the deadline the window and the rule that applied.
+
+This specification owns the record of an outage, not the policy of an extension.
+A program that extends a deadline after an outage can then show why the date moved.
+
+== Closing for no response
+
+[[APP-057]]
+*APP-057.* A service MAY move a file to `closed` only when all of these hold.
+
+* The service declaration allows closing for no response.
+* The deadline of the open request has passed, and the request is `expired`.
+* The file holds a logged contact attempt about the request, made after it opened.
+* That attempt is distinct from the notice of the request, under APP-084.
+* That attempt did not fail, under APP-087, and its channel confirmed delivery or differs from the channel of the notice.
+
+A contact attempt SHOULD come once part of the period has passed, such as half of it.
+A file never closes for silence while the applicant might not know that the body asked.
+The front end tells the applicant before a file closes, under APP-081.
+
+== References
+
+=== Informative
+
+* link:https://www.legisquebec.gouv.qc.ca/fr/document/lc/J-3[Loi sur la justice administrative], RLRQ, c. J-3, articles 4 to 6, LégisQuébec, current to 2026-10-15. link:https://web.archive.org/web/20251107184238/https://www.legisquebec.gouv.qc.ca/fr/document/lc/J-3[Archived copy]
+* link:https://github.com/demarche-numerique/demarche.numerique.gouv.fr/blob/45f9ede2ada6cde5f03df822d7c83e3e3a3ab486/app/models/dossier_correction.rb[Démarche Numérique, model of a correction request], release 2026-11-19-02, commit 45f9ede.
+* link:https://github.com/GovStackWorkingGroup/bb-registration/blob/f439f802c93a43a6d2083971e973e88552e04a24/spec/6-functional-requirements.md[GovStack Registration, functional requirements], repository commit f439f80, 2024-12-24.
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-26 |First version.
+|===

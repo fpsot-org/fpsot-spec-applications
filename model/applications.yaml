@@ -1,0 +1,647 @@
+# SPDX-License-Identifier: Community-Spec-1.0
+id: https://fpsot.org/model/applications
+name: applications
+title: FPSOT applications model
+description: >-
+  LinkML model of the FPSOT applications specification: the form
+  definition with its JSON Schema, its questions and its versions; the
+  service declaration of a program; the application file with its states,
+  its file versions, its clocks and its handoffs; the receipt record and
+  the acknowledgment; the request for information; the attachment with its
+  SHA-256 digest and its scan state; the acting party of each act; the
+  status projection that the applicant sees; notifications, contact
+  attempts, outage windows and draft events; and the jurisdiction profile
+  of applications with its calendar rules. Instants, dates, time zones and
+  multilingual text come from the data types specification (DAT-004 to
+  DAT-066), decision records and legal sources from the decisions
+  specification (DEC-031, DEC-040), and parties from the Party model of the
+  data models specification (DMO-040); this model redefines none of them.
+  The only digest algorithm is sha-256 (APP-062). Each element cites its
+  requirement IDs. The model says nothing about storage (DMO-003).
+  The application file, the file version, the receipt record, the
+  acknowledgment, the request, the attachment, the notification, the
+  contact attempt, the outage window and the draft event are entities
+  under DMO-021, each with its id. A form definition, a service
+  declaration and a profile are published versioned artifacts, identified
+  by url or code and version, so they have no id.
+version: 0.1.0
+license: Community-Spec-1.0
+prefixes:
+  linkml: https://w3id.org/linkml/
+  dat: https://fpsot.org/model/data-types/
+  decisions: https://fpsot.org/model/decisions/
+  party: https://fpsot.org/model/party/
+  applications: https://fpsot.org/model/applications/
+default_prefix: applications
+default_range: string
+imports:
+  - linkml:types
+  # A copy of model/data-types.yaml, release v0.1.2 of the FPSOT data types specification (DMO-012).
+  # The file is identical in releases v0.1.1 and v0.1.2.
+  - imports/data-types
+  # A copy of model/decisions.yaml, release v0.2.0 of the FPSOT decisions specification, with no
+  # change (DMO-012). LinkML resolves its own import, imports/data-types, from its folder, so
+  # model/imports/imports/data-types.yaml holds a second copy of the same data types file.
+  - imports/decisions
+  # A copy of model/party.yaml, release v0.1.1 of the FPSOT data models specification, with no
+  # change (DMO-012). It imports the same data types file from model/imports/imports/.
+  - imports/party
+
+types:
+  JurisdictionCode:
+    typeof: string
+    description: "An ISO 3166-1 alpha-2 code, or an ISO 3166-2 subdivision code, such as CA or CA-QC. APP-010."
+    pattern: "^[A-Z]{2}(-[A-Z0-9]{1,3})?$"
+  ReferenceNumber:
+    typeof: string
+    description: >-
+      The reference number of a file: eight characters of the Crockford Base32 alphabet and one
+      check character, the value of the eight modulo 37 in the check symbols of the same scheme,
+      shown as XXXX-XXXX-C. Random, never sequential, and it encodes nothing. APP-045, DAT-062.
+    pattern: "^[0-9A-HJKMNP-TV-Z]{4}-[0-9A-HJKMNP-TV-Z]{4}-[0-9A-HJKMNP-TV-Z*~$=U]$"
+  MediaType:
+    typeof: string
+    description: "A media type under RFC 6838, without parameters, such as application/pdf. APP-060, APP-061."
+    pattern: "^[a-z0-9][a-z0-9!#$&^_.+-]{0,126}/[a-z0-9][a-z0-9!#$&^_.+-]{0,126}$"
+  QuestionId:
+    typeof: string
+    description: "The stable id of a question, in camelCase, kept across the versions of a form while its meaning stays. APP-020, NAM-010."
+    pattern: "^[a-z][A-Za-z0-9]{0,63}$"
+  MonthDay:
+    typeof: string
+    description: "A day of the year, as --MM-DD, such as --06-24. APP-055."
+    pattern: "^--[0-9]{2}-[0-9]{2}$"
+
+classes:
+  ApplicationsContainer:
+    tree_root: true
+    description: >-
+      A container that carries records of this model in one document, one list per class, such as
+      for a fixture or a bulk export. It is not an entity. DMO-014.
+    attributes:
+      files: {range: ApplicationFile, multivalued: true, inlined_as_list: true, description: "Application files. APP-030."}
+      versions: {range: FileVersion, multivalued: true, inlined_as_list: true, description: "File versions. APP-036, APP-037."}
+      receiptRecords: {range: ReceiptRecord, multivalued: true, inlined_as_list: true, description: "Receipt records. APP-040."}
+      acknowledgments: {range: Acknowledgment, multivalued: true, inlined_as_list: true, description: "Acknowledgments and notices of registration. APP-043, APP-044."}
+      requests: {range: InformationRequest, multivalued: true, inlined_as_list: true, description: "Requests for information. APP-050."}
+      attachments: {range: Attachment, multivalued: true, inlined_as_list: true, description: "Attachments and their versions. APP-060 to APP-066."}
+      projections: {range: StatusProjection, multivalued: true, inlined_as_list: true, description: "Status projections, one per file at the end of the example. APP-080."}
+      notifications: {range: Notification, multivalued: true, inlined_as_list: true, description: "Notifications. APP-084 to APP-087."}
+      contactAttempts: {range: ContactAttempt, multivalued: true, inlined_as_list: true, description: "Logged contact attempts. APP-057, APP-087."}
+      outages: {range: OutageWindow, multivalued: true, inlined_as_list: true, description: "Outage windows. APP-056."}
+      draftEvents: {range: DraftEvent, multivalued: true, inlined_as_list: true, description: "Draft events: notices, purges and migrations. APP-034, APP-035."}
+
+  # Forms (APP-020 to APP-025)
+
+  FormDefinition:
+    description: >-
+      One version of a form: its canonical address, its business version, its status, its
+      languages, its questions and the JSON Schema 2020-12 document that its answers meet. A
+      version never changes once active. APP-020 to APP-025.
+    attributes:
+      url: {range: uri, required: true, description: "The canonical address of the form, the same for every version. APP-020."}
+      version: {required: true, pattern: "^\\S{1,64}$", description: "The business version of the form. APP-020."}
+      status: {range: FormStatus, required: true, description: "draft, active or retired. APP-021."}
+      title: {range: LocalizedText, multivalued: true, inlined_as_list: true, required: true, description: "The title, one entry per language of the form. APP-025."}
+      languages: {range: LanguageTag, multivalued: true, required: true, description: "The languages of the form. APP-025, LOC-001."}
+      profiles: {range: CodeValue, multivalued: true, required: true, description: "The codes of the profiles whose law applies, core included. APP-010."}
+      publishedAt: {range: Instant, description: "When the version became active. APP-021."}
+      retiredAt: {range: Instant, description: "When the version became retired. No draft starts on it after that instant. APP-021."}
+      derivedFrom: {description: "The url|version of the version that this one replaces, if any. APP-021, APP-035."}
+      collectionNotice: {range: LocalizedLink, multivalued: true, inlined_as_list: true, required: true, description: "The collection notice, one address per language of the form. APP-023."}
+      questions: {range: Question, multivalued: true, inlined_as_list: true, required: true, description: "The questions of the form. APP-020, APP-023."}
+      schema: {range: Any, required: true, description: "The JSON Schema 2020-12 document that the answers meet, keyed by question id. APP-020."}
+
+  LocalizedText:
+    description: "A text in one language. It allows a form with one language only, as Charter article 21.9 asks in the ca-qc profile. APP-025."
+    attributes:
+      language: {range: LanguageTag, required: true, description: "The language. LOC-001."}
+      text: {required: true, pattern: "\\S", description: "The text. DAT-006."}
+
+  LocalizedLink:
+    description: "An address of a page in one language. APP-023."
+    attributes:
+      language: {range: LanguageTag, required: true, description: "The language. LOC-001."}
+      uri: {range: uri, required: true, description: "The address. APP-023."}
+
+  Question:
+    description: "One question of a form, with its stable id, its labels, whether an answer is required, why the body asks it, and its prefill or attachment rules. APP-020, APP-023, APP-024, APP-060."
+    attributes:
+      id: {range: QuestionId, required: true, description: "The stable id. APP-020."}
+      kind: {range: QuestionKind, required: true, description: "answer or attachment. APP-060."}
+      labels: {range: LocalizedText, multivalued: true, inlined_as_list: true, required: true, description: "The label, one entry per language of the form. APP-025, ACC-023."}
+      required: {range: boolean, required: true, description: "Whether an answer is required. APP-023."}
+      purpose: {range: CodeValue, required: true, description: "Why the body asks the question, as a code of the program. APP-023."}
+      prefill: {range: PrefillRule, inlined: true, description: "The source that can fill the answer and its basis. APP-024."}
+      allowedMediaTypes: {range: MediaType, multivalued: true, description: "For an attachment, the media types that it accepts. Absent: the core defaults. APP-060, APP-014."}
+      maxBytes: {range: integer, minimum_value: 1, description: "For an attachment, the maximum size in bytes. Absent: the core default. APP-060, APP-014."}
+
+  PrefillRule:
+    description: "Where a question can be filled from, and on which basis of the profile. APP-024."
+    attributes:
+      source: {range: CodeValue, required: true, description: "The code of the source, such as an official data source. APP-024."}
+      basis: {range: CodeValue, required: true, description: "The code of a prefill basis of the profile, such as consent or legal-basis. APP-024."}
+      binding: {range: boolean, description: "True when the profile names the source as official and binding, so the applicant cannot correct it. APP-024."}
+
+  # Service declarations (APP-012, APP-033, APP-034, APP-054, APP-056, APP-057, APP-072, APP-093)
+
+  ServiceDeclaration:
+    description: "What one program declares: its profiles, its forms, its drafts, its clocks, its channels and its rules on closing and self-declared submissions. APP-012."
+    attributes:
+      code: {range: CodeValue, required: true, description: "The code of the service. APP-012."}
+      version: {range: SemanticVersion, required: true, description: "The version of the declaration. APP-011."}
+      title: {range: LocalizedText, multivalued: true, inlined_as_list: true, required: true, description: "The name of the service, one entry per language. APP-025."}
+      deployingBodyPartyId: {range: Organization, required: true, description: "The body that runs the service. DMO-040."}
+      profiles: {range: CodeValue, multivalued: true, required: true, description: "The profiles whose law applies, core included. APP-010."}
+      forms: {multivalued: true, required: true, description: "The url|version of each form of the service. APP-020."}
+      applicationKind: {range: CodeValue, required: true, description: "The kind of application, which selects the language rules of the profile, such as any or legal-person-permit-or-grant. APP-025."}
+      draftStorage: {range: DraftStorage, required: true, description: "server or client. APP-033."}
+      draftInactivityDays: {range: integer, minimum_value: 1, required: true, description: "How long a draft lasts without activity. APP-034."}
+      purgeNoticeDays: {range: integer, minimum_value: 1, description: "How many days before a purge the notice goes out, at least the default of the profile. APP-034, APP-014."}
+      clocks: {range: ClockDefinition, multivalued: true, inlined_as_list: true, description: "The clocks of the program. APP-054."}
+      extensionRule: {range: ExtensionRule, inlined: true, description: "The rule of the program for a deadline that falls in an outage. APP-056."}
+      closingForNoResponse: {range: boolean, required: true, description: "Whether the program allows closing for no response. APP-057."}
+      selfDeclaredSubmissions: {range: boolean, required: true, description: "Whether the service accepts a self-declared submission for another party. APP-072."}
+      favorableWhileOpenAllowed: {range: boolean, description: "Whether the program allows a decision that grants in full while a request is open. APP-052."}
+      fullGrantOutcomes: {range: CodeValue, multivalued: true, description: "The outcome codes of the program that grant the application in full, such as granted. Every other result is adverse. APP-032, APP-052."}
+      channels: {range: Channel, multivalued: true, required: true, description: "The channels that the service offers. APP-090, APP-093."}
+      digitalOnlySourceId: {description: "When the service offers only digital channels, the id of the source of its profile that allows it. APP-093."}
+      serviceStandard: {range: Duration, description: "The service standard, such as P20D. APP-043."}
+      handlingContact: {range: uri, required: true, description: "How to contact the body that handles the files. APP-043."}
+      statusUri: {range: uri, required: true, description: "Where the applicant sees the status. APP-043, APP-080."}
+      domains: {multivalued: true, required: true, description: "The domains of the body to which notification links may point. APP-086."}
+
+  ClockDefinition:
+    description: "A clock of a program. APP-054."
+    attributes:
+      code: {range: CodeValue, required: true, description: "The code of the clock. APP-054."}
+      kind: {range: ClockKind, required: true, description: "service-standard or statutory. APP-054."}
+      startsOn: {range: ClockStart, required: true, description: "submission or complete-file. APP-054."}
+      duration: {range: Duration, required: true, description: "The length of the clock. DAT-020."}
+
+  ExtensionRule:
+    description: "The rule of a program for a deadline that falls in an outage. APP-056."
+    attributes:
+      code: {range: CodeValue, required: true, description: "The code of the rule. APP-056."}
+      extendByDaysAfterOutageEnd: {range: integer, minimum_value: 0, required: true, description: "The deadline moves to this many days after the day the outage ends, in the legal time zone. APP-056."}
+      legalSource: {range: LegalSource, inlined: true, description: "The provision or policy of the program that sets it. DEC-031."}
+
+  # Application files (APP-030 to APP-038, APP-054, APP-071, APP-101)
+
+  ApplicationFile:
+    description: "One application, from its draft to its end, in every channel. APP-030."
+    attributes:
+      id: {identifier: true, range: Uuid, description: "The id of the file. DMO-021, DAT-063."}
+      service: {range: CodeValue, required: true, description: "The code of the service declaration. APP-012."}
+      reference: {range: ReferenceNumber, description: "The reference number, set on the first submission. APP-045."}
+      formUrl: {range: uri, required: true, description: "The url of the form of the current version or draft. APP-033."}
+      formVersion: {required: true, description: "The version of the form of the current version or draft. APP-033."}
+      subjectPartyId: {range: Party, required: true, description: "The party whose file it is. DMO-040, APP-071."}
+      state: {range: FileState, required: true, description: "The state of the file. APP-030."}
+      stateHistory: {range: StateChange, multivalued: true, inlined_as_list: true, required: true, description: "Every move, in order. APP-031."}
+      assurance: {range: Assurance, required: true, description: "verified, or self-declared under APP-072."}
+      correspondenceLanguage: {range: LanguageTag, required: true, description: "The language of correspondence. APP-025."}
+      languageBasis: {range: CodeValue, required: true, description: "The code of the language rule of the profile that allows that language. APP-025."}
+      handlingBodyPartyId: {range: Organization, required: true, description: "The body that handles the file. APP-043, APP-082."}
+      draftStartedAt: {range: Instant, required: true, description: "When the draft started. APP-033."}
+      draftExpiresAt: {range: Instant, description: "When an untouched draft expires. APP-034."}
+      clocks: {range: ClockState, multivalued: true, inlined_as_list: true, description: "The clocks of the file. APP-054."}
+      handoffs: {range: Handoff, multivalued: true, inlined_as_list: true, description: "The records that the file started in other specifications. APP-101."}
+      possibleDuplicateOf: {range: ApplicationFile, description: "Another open file of the same subject for the same program, flagged for staff. APP-095."}
+      createdAt: {range: Instant, required: true, description: "DMO-050."}
+      updatedAt: {range: Instant, required: true, description: "DMO-050."}
+
+  StateChange:
+    description: "One move of a file. APP-031."
+    attributes:
+      state: {range: FileState, required: true, description: "The new state. APP-031."}
+      at: {range: Instant, required: true, description: "When the file moved. DAT-010."}
+      actor: {range: ActingParty, inlined: true, required: true, description: "Who moved it, and for whom. APP-071."}
+      reason: {range: CodeValue, required: true, description: "Why it moved. APP-031."}
+      decisionRecordId: {range: DecisionRecord, description: "The decision record, required for a move to decided. APP-032, DEC-040."}
+      resultKind: {range: ResultKind, description: "The result kind of the decision record, copied from it, required for a move to decided; never referred. APP-032, DEC-024."}
+      outcome: {range: CodeValue, description: "The outcome of the decision record, copied from it, required when the result kind is decided. The move is adverse unless the outcome is a full grant of the service declaration. APP-032, APP-052, DEC-024."}
+      requestId: {range: InformationRequest, description: "The request, for a move to or from information-requested and to closed. APP-051, APP-057."}
+      contactAttemptId: {range: ContactAttempt, description: "The logged contact attempt, required for a move to closed. APP-057."}
+
+  ActingParty:
+    description: "Who did an act, and for whom, kept apart. APP-070, APP-071."
+    attributes:
+      actorId: {range: OpaqueId, required: true, description: "The account of the actor, by an opaque id. IAM-060, IAM-091."}
+      role: {range: ActorRole, required: true, description: "applicant, representative, staff or service. APP-071."}
+      actingPartyId: {range: Party, description: "The party who acts, a person, required unless the role is service. DMO-040."}
+      subjectPartyId: {range: Party, required: true, description: "The party whose file it is. DMO-040."}
+      representationId: {range: OpaqueId, description: "The representation of IAM-061 that the act rests on, required for the role representative. APP-070."}
+      authorityCheckedAt: {range: Instant, description: "When the service asked the authorization engine for this act, required for each act of an applicant, a representative or a staff member. APP-070, IAM-050."}
+      assurance: {range: Assurance, required: true, description: "verified, or self-declared under APP-072."}
+
+  ClockState:
+    description: "One clock of a file, with its changes. APP-054."
+    attributes:
+      code: {range: CodeValue, required: true, description: "The clock of the service declaration. APP-054."}
+      changes: {range: ClockChange, multivalued: true, inlined_as_list: true, required: true, description: "Each change, in order. APP-054."}
+
+  ClockChange:
+    description: "One change of a clock. APP-054."
+    attributes:
+      change: {range: ClockChangeKind, required: true, description: "started, suspended, resumed or stopped. APP-054."}
+      at: {range: Instant, required: true, description: "When it changed. DAT-010."}
+      requestId: {range: InformationRequest, description: "The request that caused the change, if any. APP-054."}
+
+  Handoff:
+    description: "A record that the file started in another specification. APP-101."
+    attributes:
+      kind: {range: HandoffKind, required: true, description: "fee-order, filing or decision-record. APP-101."}
+      id: {range: Uuid, required: true, description: "The id of that record, kept as its owner wrote it. DAT-066."}
+
+  FileVersion:
+    description: "One submitted version of a file, which never changes. APP-036, APP-037."
+    attributes:
+      id: {identifier: true, range: Uuid, description: "DMO-021."}
+      fileId: {range: ApplicationFile, required: true, description: "The file. APP-037."}
+      number: {range: integer, minimum_value: 1, required: true, description: "1 for the first submission, then one more for each reply. APP-037."}
+      previousVersionId: {range: FileVersion, description: "The version that this one follows, required from number 2. APP-037."}
+      requestId: {range: InformationRequest, description: "The request that this version answers, required from number 2. APP-053."}
+      formUrl: {range: uri, required: true, description: "The url of the form answered. APP-036."}
+      formVersion: {required: true, description: "The version of the form answered. APP-036."}
+      formDigest: {range: Digest, inlined: true, required: true, description: "The digest of the byte-exact copy of the form version used. APP-036, APP-062."}
+      answers: {range: Any, required: true, description: "The answers, keyed by question id. APP-036."}
+      answersDigest: {range: Digest, inlined: true, required: true, description: "The digest of the answers in the canonical form of RFC 8785. APP-040."}
+      attachmentIds: {range: Attachment, multivalued: true, description: "The attachments of this version. APP-064."}
+      channel: {range: Channel, required: true, description: "The channel. APP-091."}
+      capturedBy: {range: OpaqueId, description: "The staff member who keyed in the answers, required for assisted channels. APP-091."}
+      keyedAt: {range: Instant, description: "When staff keyed in a paper or counter application, required for paper. APP-092."}
+      submittedBy: {range: ActingParty, inlined: true, required: true, description: "Who submitted, and for whom. APP-071."}
+      submittedAt: {range: Instant, required: true, description: "The received instant of its receipt record. APP-041."}
+      idempotencyKey: {description: "The Idempotency-Key of the submit, if the channel sent one. APP-094, API-060."}
+
+  # Receipt records and acknowledgments (APP-040 to APP-046)
+
+  ReceiptRecord:
+    description: "The sealed record of one arrival. It never changes. Distinct from the receipt of a fee. APP-040 to APP-042."
+    attributes:
+      id: {identifier: true, range: Uuid, description: "The id of its seal manifest. APP-042, LOG-019."}
+      fileId: {range: ApplicationFile, required: true, description: "APP-040."}
+      fileVersionId: {range: FileVersion, required: true, description: "APP-040."}
+      reference: {range: ReferenceNumber, required: true, description: "APP-040, APP-045."}
+      receivedAt: {range: Instant, required: true, description: "When the submission became accessible in the system of the body, to the second at least. APP-041, DAT-010."}
+      receivedLocal: {range: ZonedLocalDateTime, inlined: true, required: true, description: "The local date and time of receipt in the legal time zone of the profile. APP-040, DAT-015."}
+      receivedPrecision: {range: ReceivedPrecision, required: true, description: "What the received instant holds: second, or for a stamp on arrival minute or day; a day is recorded as the start of that local day. APP-040, APP-041, APP-092."}
+      channel: {range: Channel, required: true, description: "APP-040, APP-091."}
+      submitter: {range: ActingParty, inlined: true, required: true, description: "The submitter and any representative. APP-040, APP-071."}
+      destination: {required: true, pattern: "\\S", description: "The address or office that received it. APP-040."}
+      formDigest: {range: Digest, inlined: true, required: true, description: "APP-040."}
+      answersDigest: {range: Digest, inlined: true, required: true, description: "APP-040."}
+      attachmentDigests: {range: AttachmentDigest, multivalued: true, inlined_as_list: true, description: "One per attachment of the version. APP-040."}
+      renditionDigest: {range: Digest, inlined: true, required: true, description: "The digest of the PDF/A rendition. APP-065."}
+      assurance: {range: Assurance, required: true, description: "APP-072."}
+      sealProfile: {range: CodeValue, required: true, description: "seal-log or higher. APP-042, LOG-002."}
+      corrects: {range: ReceiptRecord, description: "The receipt record that this one corrects. APP-042."}
+      createdAt: {range: Instant, required: true, description: "DMO-050."}
+
+  AttachmentDigest:
+    description: "The digest of one attachment in a receipt record. APP-040."
+    attributes:
+      attachmentId: {range: Attachment, required: true, description: "APP-040."}
+      digest: {range: Digest, inlined: true, required: true, description: "APP-062."}
+
+  Digest:
+    description: "A digest as an algorithm and a value. The only algorithm is sha-256. APP-062."
+    attributes:
+      algorithm: {range: DigestAlgorithm, required: true, description: "sha-256. APP-062."}
+      value: {range: Sha256Digest, required: true, description: "64 lower-case hexadecimal digits. APP-062."}
+
+  Acknowledgment:
+    description: "What the service sends for each submission: an acknowledgment, or first a notice of registration. APP-043, APP-044."
+    attributes:
+      id: {identifier: true, range: Uuid, description: "DMO-021."}
+      kind: {range: AcknowledgmentKind, required: true, description: "acknowledgment or registration-notice. APP-044."}
+      receiptRecordId: {range: ReceiptRecord, required: true, description: "APP-043."}
+      fileId: {range: ApplicationFile, required: true, description: "APP-043."}
+      reference: {range: ReferenceNumber, required: true, description: "APP-043."}
+      receivedLocal: {range: ZonedLocalDateTime, inlined: true, required: true, description: "The received instant, shown in the legal time zone. APP-043."}
+      handlingBodyPartyId: {range: Organization, description: "Required for an acknowledgment. APP-043."}
+      handlingContact: {range: uri, description: "Required for an acknowledgment. APP-043."}
+      expectedDecisionDate: {range: CalendarDate, description: "The expected date of a decision. APP-043."}
+      serviceStandard: {range: Duration, description: "The service standard, when no expected date is given. APP-043."}
+      missingItems: {range: MissingItem, multivalued: true, inlined_as_list: true, description: "Each missing item that the service already knows of, with its deadline. APP-043."}
+      statusUri: {range: uri, description: "How to see the status. Required for an acknowledgment. APP-043."}
+      language: {range: LanguageTag, required: true, description: "The language of the file. APP-043."}
+      sentAt: {range: Instant, required: true, description: "APP-044."}
+
+  MissingItem:
+    description: "A missing item with its deadline. APP-043."
+    attributes:
+      item: {range: QuestionId, required: true, description: "The question. APP-043."}
+      deadline: {range: CalendarDate, required: true, description: "APP-043, APP-055."}
+
+  # Requests for information (APP-050 to APP-057)
+
+  InformationRequest:
+    description: "A request for information: a message with its reason, its items, its deadline and its effect on each clock. APP-050."
+    attributes:
+      id: {identifier: true, range: Uuid, description: "DMO-021."}
+      fileId: {range: ApplicationFile, required: true, description: "APP-050."}
+      fileVersionId: {range: FileVersion, required: true, description: "The version that it concerns. APP-050."}
+      reason: {range: RequestReason, required: true, description: "APP-050."}
+      items: {range: RequestItem, multivalued: true, inlined_as_list: true, required: true, description: "APP-050."}
+      openedAt: {range: Instant, required: true, description: "APP-050."}
+      openedBy: {range: ActingParty, inlined: true, required: true, description: "APP-050, APP-071."}
+      deadline: {range: DeadlineComputation, inlined: true, required: true, description: "APP-055."}
+      clockEffects: {range: ClockEffect, multivalued: true, inlined_as_list: true, required: true, description: "The effect on each clock of the program. APP-050, APP-054."}
+      status: {range: RequestStatus, required: true, description: "APP-051."}
+      resolvedAt: {range: Instant, description: "Required when resolved. APP-053."}
+      resolvedByVersionId: {range: FileVersion, description: "Required when resolved. APP-053."}
+      cancelledAt: {range: Instant, description: "Required when cancelled. APP-053."}
+      cancelReason: {range: CancelReason, description: "Required when cancelled. APP-053."}
+      expiredAt: {range: Instant, description: "Required when expired. APP-057."}
+      messageId: {range: Uuid, description: "The message of the secure messaging of the body that carries the request. APP-050."}
+
+  RequestItem:
+    description: "One item of a request: a question of the form, or an attachment of the version. APP-050."
+    attributes:
+      questionId: {range: QuestionId, required: true, description: "The question. APP-050."}
+      attachmentId: {range: Attachment, description: "The attachment, when the item is a file. APP-050."}
+
+  ClockEffect:
+    description: "The effect of a request on one clock. APP-050, APP-054."
+    attributes:
+      clock: {range: CodeValue, required: true, description: "The clock. APP-054."}
+      effect: {range: ClockEffectKind, required: true, description: "start-on-completion, suspend or none. APP-050."}
+
+  DeadlineComputation:
+    description: "How a deadline was computed from a calendar of the profile. APP-055."
+    attributes:
+      calendar: {range: CodeValue, required: true, description: "The code of the CalendarRule. APP-055."}
+      calendarVersion: {range: SemanticVersion, required: true, description: "The version of the profile that holds it. APP-055, APP-011."}
+      startDate: {range: CalendarDate, required: true, description: "The local date of the start, in the legal time zone. APP-055."}
+      periodDays: {range: integer, minimum_value: 1, required: true, description: "The period in days. APP-055."}
+      rawDate: {range: CalendarDate, required: true, description: "The start plus the period. APP-055."}
+      date: {range: CalendarDate, required: true, description: "The date after the roll and any extension. APP-055, APP-056."}
+      extension: {range: AppliedExtension, inlined: true, description: "The outage and the rule that moved the date, if any. APP-056."}
+
+  AppliedExtension:
+    description: "An extension that an outage caused. APP-056."
+    attributes:
+      outageId: {range: OutageWindow, required: true, description: "APP-056."}
+      rule: {range: CodeValue, required: true, description: "The extension rule of the service declaration. APP-056."}
+
+  OutageWindow:
+    description: "An outage of one or more channels. APP-056."
+    attributes:
+      id: {identifier: true, range: Uuid, description: "DMO-021."}
+      service: {range: CodeValue, required: true, description: "APP-056."}
+      start: {range: Instant, required: true, description: "APP-056."}
+      end: {range: Instant, required: true, description: "APP-056."}
+      channels: {range: Channel, multivalued: true, required: true, description: "The channels that it hit. APP-056."}
+      publishedAt: {range: Instant, required: true, description: "When the service published the window. APP-056."}
+
+  # Attachments (APP-060 to APP-066)
+
+  Attachment:
+    description: "One version of one file that an applicant sent for a question. APP-060 to APP-066."
+    attributes:
+      id: {identifier: true, range: Uuid, description: "DMO-021."}
+      fileId: {range: ApplicationFile, required: true, description: "APP-064."}
+      questionId: {range: QuestionId, required: true, description: "The attachment question. APP-060."}
+      version: {range: integer, minimum_value: 1, required: true, description: "APP-064."}
+      previousAttachmentId: {range: Attachment, description: "The version that this one follows, required from version 2. APP-064."}
+      originalName: {required: true, pattern: "\\S", description: "The name that the client sent, kept as data only. APP-061."}
+      storageName: {required: true, pattern: "^[0-9a-f-]{36}$", description: "The name that the service generated. APP-061."}
+      path: {description: "In the examples only: the path of the synthetic file, relative to the example folder."}
+      detectedMediaType: {range: MediaType, required: true, description: "The type from the content. APP-061."}
+      byteSize: {range: integer, minimum_value: 1, required: true, description: "APP-060."}
+      digest: {range: Digest, inlined: true, required: true, description: "APP-062."}
+      scanState: {range: ScanState, required: true, description: "APP-063."}
+      scannedAt: {range: Instant, description: "Required unless pending. APP-063."}
+      receivedAt: {range: Instant, required: true, description: "APP-066."}
+      uploadedBy: {range: ActingParty, inlined: true, required: true, description: "APP-071."}
+
+  # Status, notifications and contact (APP-080 to APP-087)
+
+  StatusProjection:
+    description: "What the applicant sees. It holds no queue, sub-state, flag, score, staff name or outcome. APP-080 to APP-083."
+    attributes:
+      fileId: {range: ApplicationFile, required: true, description: "APP-080."}
+      label: {range: StatusLabel, required: true, description: "APP-080."}
+      since: {range: Instant, required: true, description: "When the label last changed. APP-080."}
+      reference: {range: ReferenceNumber, description: "Required once submitted. APP-082."}
+      receivedAt: {range: Instant, description: "Required once submitted. APP-082."}
+      handlingBodyPartyId: {range: Organization, description: "Required once submitted. APP-082."}
+      expectedDecisionDate: {range: CalendarDate, description: "APP-082."}
+      serviceStandard: {range: Duration, description: "APP-082."}
+      actionNeeded: {range: ActionNeeded, inlined: true, description: "Required with action-needed, and only then. APP-081."}
+      updatedAt: {range: Instant, required: true, description: "APP-083."}
+
+  ActionNeeded:
+    description: "What the applicant must do. APP-081."
+    attributes:
+      requestId: {range: InformationRequest, required: true, description: "APP-081."}
+      items: {range: QuestionId, multivalued: true, required: true, description: "APP-081."}
+      deadline: {range: CalendarDate, required: true, description: "In the legal time zone. APP-081."}
+      howToRespond: {range: uri, required: true, description: "APP-081."}
+
+  Notification:
+    description: "A notification that the service sent. It holds no content of a decision and no answer. APP-084 to APP-087."
+    attributes:
+      id: {identifier: true, range: Uuid, description: "DMO-021."}
+      fileId: {range: ApplicationFile, required: true, description: "APP-087."}
+      kind: {range: NotificationKind, required: true, description: "APP-084."}
+      channel: {range: NotificationChannel, required: true, description: "APP-087."}
+      recipientRole: {range: RecipientRole, required: true, description: "applicant, represented-party or representative. APP-073."}
+      language: {range: LanguageTag, required: true, description: "APP-025."}
+      template: {range: CodeValue, required: true, description: "The code of the message template, whose text holds no answer and no decision. APP-085."}
+      links: {range: uri, multivalued: true, description: "Each link, in full, on a domain of the body. APP-086."}
+      sentAt: {range: Instant, required: true, description: "APP-087."}
+      deliveryStatus: {range: DeliveryStatus, required: true, description: "APP-087."}
+      failedAt: {range: Instant, description: "Required when failed. APP-087."}
+      requestId: {range: InformationRequest, description: "The request that the notification concerns, required for the notice of a request. APP-084, APP-057."}
+
+  ContactAttempt:
+    description: "A logged attempt to reach the applicant about an open request. APP-057."
+    attributes:
+      id: {identifier: true, range: Uuid, description: "DMO-021."}
+      fileId: {range: ApplicationFile, required: true, description: "APP-057."}
+      requestId: {range: InformationRequest, required: true, description: "APP-057."}
+      notificationId: {range: Notification, required: true, description: "The notification that carried it, never the notice of the request itself. APP-057, APP-087."}
+      at: {range: Instant, required: true, description: "APP-057."}
+
+  DraftEvent:
+    description: "A logged event of a draft: a notice before a purge, a purge, or a migration to a newer form version. APP-034, APP-035."
+    attributes:
+      id: {identifier: true, range: Uuid, description: "DMO-021."}
+      fileId: {range: ApplicationFile, required: true, description: "The draft. APP-034."}
+      kind: {range: DraftEventKind, required: true, description: "APP-034, APP-035."}
+      at: {range: Instant, required: true, description: "APP-034."}
+      actor: {range: ActingParty, inlined: true, required: true, description: "APP-071."}
+      fromFormVersion: {description: "Required for migrated. APP-035."}
+      toFormVersion: {description: "Required for migrated. APP-035."}
+      carriedQuestionIds: {range: QuestionId, multivalued: true, description: "Answers carried by question id. APP-035."}
+      changedQuestionIds: {range: QuestionId, multivalued: true, description: "Questions shown again because they changed. APP-035."}
+      newQuestionIds: {range: QuestionId, multivalued: true, description: "New questions. APP-035."}
+      droppedQuestionIds: {range: QuestionId, multivalued: true, description: "Answers to questions that the new version no longer has, kept in the event and shown to the applicant. APP-035."}
+      shownToApplicantAt: {range: Instant, description: "When the front end showed the changes, required for migrated. APP-035."}
+
+  # Profiles (APP-010 to APP-014, APP-055)
+
+  ApplicationProfile:
+    description: "A jurisdiction profile of applications, released apart from the core rules. APP-010, APP-011."
+    attributes:
+      code: {range: CodeValue, required: true, description: "APP-010."}
+      version: {range: SemanticVersion, required: true, description: "APP-011."}
+      title: {range: MultilingualText, inlined: true, required: true, description: "DAT-005."}
+      jurisdiction: {range: JurisdictionCode, description: "Absent for core. APP-010."}
+      sources: {range: ProfileSource, multivalued: true, inlined_as_list: true, description: "APP-010."}
+      defaults: {range: ProfileDefaults, inlined: true, description: "Only in core. APP-014."}
+      calendars: {range: CalendarRule, multivalued: true, inlined_as_list: true, description: "APP-055."}
+      languageRules: {range: LanguageRule, multivalued: true, inlined_as_list: true, description: "APP-025."}
+      prefillBases: {range: ProfileCode, multivalued: true, inlined_as_list: true, description: "The bases that a question may name for prefill. APP-024."}
+      rules: {range: ProfileRule, multivalued: true, inlined_as_list: true, description: "The other legal rules of the profile, each with its sources. APP-011."}
+
+  ProfileSource:
+    description: "A source of a profile, read or to be verified. APP-010."
+    attributes:
+      id: {range: CodeValue, required: true, description: "APP-010."}
+      title: {required: true, pattern: "\\S", description: "APP-010."}
+      url: {range: uri, required: true, description: "APP-010."}
+      archive: {range: uri, description: "An archived copy. APP-010."}
+      date: {range: CalendarDate, description: "The date to which the text is current. APP-010."}
+      verification: {range: Verification, required: true, description: "APP-010."}
+
+  ProfileDefaults:
+    description: "The defaults of core. APP-014."
+    attributes:
+      maxAttachmentBytes: {range: integer, minimum_value: 1, required: true, description: "APP-014."}
+      allowedMediaTypes: {range: MediaType, multivalued: true, required: true, description: "APP-014."}
+      digestAlgorithm: {range: DigestAlgorithm, required: true, description: "APP-014, APP-062."}
+      receiptSealProfile: {range: CodeValue, required: true, description: "APP-014, APP-042."}
+      purgeNoticeDays: {range: integer, minimum_value: 1, required: true, description: "APP-014, APP-034."}
+
+  CalendarRule:
+    description: "A calendar of a jurisdiction: the legal time zone, the holidays with their dates and the way to roll a deadline. APP-055."
+    attributes:
+      code: {range: CodeValue, required: true, description: "APP-055."}
+      timeZone: {range: TimeZoneName, required: true, description: "The legal time zone. DAT-030."}
+      validity: {range: DateInterval, inlined: true, required: true, description: "The dates that the calendar covers. A deadline, or a day of its roll, outside them is a missing value under APP-013."}
+      complete: {range: boolean, required: true, description: "False when the calendar lacks days that its law counts for some places, such as the holidays of a province or the civic holidays of a place. A deadline on an incomplete calendar is a missing value under APP-013."}
+      weeklyHolidays: {range: Weekday, multivalued: true, description: "Weekdays that are holidays every week, such as sunday. APP-055."}
+      nonWorkingWeekdays: {range: Weekday, multivalued: true, description: "Weekdays that are not working days, for the roll next-working-day. APP-055."}
+      holidays: {range: Holiday, multivalued: true, inlined_as_list: true, required: true, description: "APP-055."}
+      roll: {range: RollRule, required: true, description: "APP-055."}
+      sourceIds: {range: CodeValue, multivalued: true, required: true, description: "APP-011."}
+
+  Holiday:
+    description: "One dated holiday. APP-055, APP-011."
+    attributes:
+      date: {range: CalendarDate, required: true, description: "APP-055."}
+      name: {range: MultilingualText, inlined: true, required: true, description: "DAT-005."}
+      sourceId: {range: CodeValue, required: true, description: "APP-011."}
+
+  LanguageRule:
+    description: "A language that the profile allows for a kind of application, and its basis. APP-025."
+    attributes:
+      code: {range: CodeValue, required: true, description: "The code of the basis that a file records. APP-025."}
+      language: {range: LanguageTag, required: true, description: "APP-025."}
+      appliesTo: {range: CodeValue, required: true, description: "The kind of application, such as any or legal-person-permit-or-grant. APP-025."}
+      exclusive: {range: boolean, required: true, description: "True when that kind of application uses this language only, unless a file rests on an exception to the rule. APP-025."}
+      exceptionTo: {range: CodeValue, description: "The code of an exclusive rule of the same profile to which this rule is an exception. APP-025."}
+      sourceId: {range: CodeValue, required: true, description: "APP-011."}
+
+  ProfileCode:
+    description: "A code that a profile defines, with its source. APP-011."
+    attributes:
+      code: {range: CodeValue, required: true, description: "APP-011."}
+      sourceId: {range: CodeValue, required: true, description: "APP-011."}
+
+  ProfileRule:
+    description: "A legal rule of a profile, as a code with its sources. APP-011."
+    attributes:
+      code: {range: CodeValue, required: true, description: "APP-011."}
+      summary: {range: MultilingualText, inlined: true, required: true, description: "What the rule asks, in plain words. DAT-005."}
+      sourceIds: {range: CodeValue, multivalued: true, required: true, description: "APP-011."}
+
+enums:
+  FormStatus:
+    description: "APP-021."
+    permissible_values: {draft: {}, active: {}, retired: {}}
+  QuestionKind:
+    description: "APP-060."
+    permissible_values: {answer: {}, attachment: {}}
+  DraftStorage:
+    description: "APP-033."
+    permissible_values: {server: {}, client: {}}
+  ClockKind:
+    description: "APP-054."
+    permissible_values: {service-standard: {}, statutory: {}}
+  ClockStart:
+    description: "APP-054."
+    permissible_values: {submission: {}, complete-file: {}}
+  ClockChangeKind:
+    description: "APP-054."
+    permissible_values: {started: {}, suspended: {}, resumed: {}, stopped: {}}
+  ClockEffectKind:
+    description: "APP-050."
+    permissible_values: {start-on-completion: {}, suspend: {}, none: {}}
+  FileState:
+    description: "APP-030."
+    permissible_values: {draft: {}, submitted: {}, in-review: {}, information-requested: {}, decided: {}, withdrawn: {}, closed: {}}
+  Assurance:
+    description: "APP-072."
+    permissible_values: {verified: {}, self-declared: {}}
+  ActorRole:
+    description: "APP-071."
+    permissible_values: {applicant: {}, representative: {}, staff: {}, service: {}}
+  HandoffKind:
+    description: "APP-101."
+    permissible_values: {fee-order: {}, filing: {}, decision-record: {}}
+  Channel:
+    description: "APP-091."
+    permissible_values: {digital: {}, assisted-digital: {}, counter: {}, telephone: {}, paper: {}, email: {}}
+  DigestAlgorithm:
+    description: "The only digest algorithm. MD5 and SHA-1 are not values. APP-062."
+    permissible_values: {sha-256: {}}
+  AcknowledgmentKind:
+    description: "APP-044."
+    permissible_values: {acknowledgment: {}, registration-notice: {}}
+  RequestReason:
+    description: "APP-050."
+    permissible_values: {incorrect: {}, incomplete: {}, outdated: {}, complement: {}}
+  CancelReason:
+    description: "Why a body cancels a request: issued in error, no longer needed, or replaced by a later request. APP-053."
+    permissible_values: {issued-in-error: {}, no-longer-needed: {}, superseded: {}}
+  ReceivedPrecision:
+    description: "What a received instant holds. APP-040, APP-041."
+    permissible_values: {second: {}, minute: {}, day: {}}
+  RequestStatus:
+    description: "APP-051."
+    permissible_values: {open: {}, resolved: {}, cancelled: {}, expired: {}}
+  ScanState:
+    description: "APP-063."
+    permissible_values: {pending: {}, clean: {}, infected: {}, error: {}}
+  StatusLabel:
+    description: "The closed vocabulary that the applicant sees. APP-080."
+    permissible_values: {not-sent: {}, received: {}, in-progress: {}, action-needed: {}, decision-made: {}, withdrawn: {}, closed: {}}
+  NotificationKind:
+    description: "APP-084."
+    permissible_values: {receipt: {}, action-needed: {}, reminder: {}, decision-available: {}, withdrawn: {}, draft-expiry: {}, on-behalf-submitted: {}}
+  NotificationChannel:
+    description: "APP-087."
+    permissible_values: {email: {}, sms: {}, post: {}, portal: {}}
+  RecipientRole:
+    description: "APP-073."
+    permissible_values: {applicant: {}, represented-party: {}, representative: {}}
+  DeliveryStatus:
+    description: "APP-087."
+    permissible_values: {pending: {}, delivered: {}, failed: {}}
+  DraftEventKind:
+    description: "APP-034, APP-035."
+    permissible_values: {purge-notice: {}, purged: {}, migrated: {}}
+  Weekday:
+    description: "APP-055."
+    permissible_values: {monday: {}, tuesday: {}, wednesday: {}, thursday: {}, friday: {}, saturday: {}, sunday: {}}
+  RollRule:
+    description: "next-non-holiday: the next day that is not a holiday; next-working-day: the next day that is neither a holiday nor a non-working weekday. APP-055."
+    permissible_values: {next-non-holiday: {}, next-working-day: {}}
+  Verification:
+    description: "APP-010."
+    permissible_values: {read: {}, to-be-verified: {}}

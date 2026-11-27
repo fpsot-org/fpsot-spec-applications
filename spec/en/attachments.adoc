@@ -1,0 +1,95 @@
+= Attachments
+include::_fpsot-terms.adoc[]
+
+Attachments are where intake loses data and lets malware in.
+GOV.UK Forms caps a file at 7 MB, and fails closed when its scan fails.
+Démarche Numérique accepts 200 MB by default, and records an MD5 checksum with each file.
+The Dutch case APIs record the algorithm of each hash with its value.
+This page keeps the original of each file and hashes it with SHA-256 only.
+It lets no file in before its scan.
+
+The file handling chapter of the ASVS 5.0.0 applies to attachments at the level that each product chooses under SEC-005.
+
+== Types and sizes
+
+[[APP-060]]
+*APP-060.* Each attachment question MUST declare its allowed media types and its maximum size in bytes.
+A question that declares neither MUST take the defaults of `core`, under APP-014.
+The service MUST refuse a file that is empty, too large or locked by a password.
+It MUST also refuse a file of a type that the question does not allow.
+Each refusal MUST give its own message that says what to do.
+
+The declaration meets requirement 5.1.1 of the ASVS, which asks to document the types and sizes of each upload.
+A modest default keeps most files small, and a program that needs plans or scans can raise its own limit.
+
+[[APP-061]]
+*APP-061.* The service MUST check the type of each file from its content, such as its magic bytes.
+It MUST NOT trust the extension of the file name or the media type that the client sends.
+It MUST store each file under a name that it generates, and keep the original name as data only.
+
+A file called `scan.pdf` that holds a program then never passes as a PDF.
+
+== Digests
+
+[[APP-062]]
+*APP-062.* The service MUST compute a SHA-256 digest of each file, and record it as an algorithm and a value.
+That digest MUST be the only one that the service uses for integrity, for seals and for duplicate checks.
+The service MUST NOT use MD5 or SHA-1 for any purpose, not even as a checksum in transit.
+An upload channel that sends a checksum MUST send a SHA-256 digest in the `Content-Digest` field of link:https://www.rfc-editor.org/info/rfc9530[RFC 9530].
+The service MUST check that digest against the file, and refuse the file when they differ.
+
+link:https://www.rfc-editor.org/info/rfc9530[RFC 9530] marks MD5 and SHA-1 as deprecated, for accidental corruption only.
+One algorithm everywhere means that no record ever trusts a weaker digest by mistake.
+
+== Scans
+
+[[APP-063]]
+*APP-063.* Each file MUST have a scan state: `pending`, `clean`, `infected` or `error`.
+A file starts `pending`.
+The service MUST refuse a submission while any of its files is `pending` or in `error`.
+A file that is `infected` MUST NOT become part of a submission.
+The service MUST record the scan event and the digest of an infected file.
+It handles the content of that file as its security policy says.
+
+A scanner that is down then stops submissions, instead of letting unscanned files through.
+The front end shows "checking" while a file is `pending`, so the applicant knows why to wait.
+
+== Originals and versions
+
+[[APP-064]]
+*APP-064.* The service MUST keep the original of each clean file that a submission holds, byte for byte.
+A rendition, such as a conversion to PDF, MUST be a separate file with its own digest.
+A new file for the same item MUST be a new attachment version that names the previous one in `previousAttachmentId`.
+It MUST NOT overwrite it.
+
+The body can then prove what the applicant sent, even after a conversion or a reply.
+
+[[APP-065]]
+*APP-065.* On each submission, the service MUST render the submission as a PDF/A file.
+It MUST record the SHA-256 digest of that rendition in the receipt record.
+The rendition MUST show the answers and the list of attachments, with their names, sizes and digests.
+It MUST meet ACC-031, which asks for tagged PDF.
+
+The rendition is what a person reads in twenty years, when the front end of today is gone.
+The Library of Congress describes the PDF/A family as a format for long-term keeping.
+
+[[APP-066]]
+*APP-066.* Before and after submission, the front end MUST show each attachment by name, with its size and arrival.
+A service MAY let one attachment serve several files of the same applicant, by its id and digest.
+
+== References
+
+=== Informative
+
+* link:https://github.com/OWASP/ASVS/blob/a2ce628f8324a294202c09cff9b0c19f13cf0d68/5.0/en/0x14-V5-File-Handling.md[OWASP ASVS 5.0.0, V5 File Handling], OWASP, read at commit a2ce628.
+* link:https://www.rfc-editor.org/info/rfc9530[RFC 9530, Digest Fields], IETF, 2024-02. link:https://web.archive.org/web/20261107090504/https://www.rfc-editor.org/info/rfc9530/[Archived copy]
+* link:https://github.com/govuk-forms/forms-runner/blob/d6524d6c285e3a64231633918bf21ee01e46491d/app/models/question/file.rb[GOV.UK Forms, file question], forms-runner commit d6524d6.
+* link:https://www.loc.gov/preservation/digital/formats/fdd/fdd000318.shtml[PDF/A Family, PDF for Long-term Preservation], Library of Congress, page updated 2026-03-20. link:https://web.archive.org/web/20261021030201/https://www.loc.gov/preservation/digital/formats/fdd/fdd000318.shtml[Archived copy]
+
+== Document history
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Change
+|0.1.0 |2026-11-26 |First version.
+|===

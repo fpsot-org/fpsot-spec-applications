@@ -1,0 +1,78 @@
+= Représentation
+include::_fpsot-terms.adoc[]
+
+Beaucoup de demandes viennent d’une autre personne que la personne requérante.
+Ce peut être un parent, un mandataire, un comptable ou le dirigeant d’une entreprise.
+La spécification sur l’identité et l’accès fixe déjà qui peut agir pour qui, selon IAM-060 à IAM-064.
+Démarche Numérique accepte un dossier pour autrui sur simple déclaration.
+Les API néerlandaises consignent la partie autorisée et le mandant comme deux rôles du dossier.
+Cette page vérifie l’autorisation à chaque acte, et consigne les deux parties séparément.
+
+== Autorisation
+
+[[APP-070]]
+*APP-070.* L’acte d’un représentant DOIT reposer sur une représentation selon IAM-061, choisie dans la session selon IAM-064.
+Le service DOIT interroger le {term-authorization-engine} à chaque acte de la personne requérante, d’un représentant ou du personnel, selon IAM-050.
+Cela couvre chaque enregistrement d’un brouillon, chaque dépôt, chaque réponse, chaque retrait et chaque consultation.
+Le service DOIT consigner quand il a vérifié chaque acte, et DOIT refuser un acte qui échoue à la vérification.
+Il DOIT refuser l’acte d’un représentant quand aucune représentation valide ne le couvre.
+Un représentant DOIT agir depuis son propre compte, selon IAM-060, jamais depuis celui de la partie représentée.
+
+Une représentation peut prendre fin entre le brouillon et la réponse.
+Une vérification à chaque acte arrête alors une personne dont le mandat a pris fin.
+Le personnel agit selon l’autorisation de son rôle, selon IAM-050, et non selon une représentation.
+La même vérification s’applique à lui.
+
+[[APP-071]]
+*APP-071.* Chaque acte sur un dossier DOIT consigner une `ActingParty` qui sépare la partie agissante de la partie visée.
+Elle contient le compte de la personne qui agit, par un identifiant opaque.
+Elle contient la partie qui agit et la partie à qui appartient le dossier, toutes deux selon DMO-040.
+Elle contient aussi le rôle de la personne, la représentation par son identifiant et l’instant de la vérification.
+Un membre du personnel qui saisit une demande DOIT figurer comme la personne qui agit, avec le rôle `staff`.
+
+Le dossier répond alors à deux questions pour chaque acte : qui l’a fait, et pour qui.
+FHIR fait la même distinction entre le sujet d’une réponse, sa source et son auteur.
+
+[[APP-072]]
+*APP-072.* Un service PEUT accepter un dépôt qu’une personne déclare faire pour une autre partie, sans représentation selon IAM-061.
+Il NE DOIT le faire que si sa déclaration de service le permet, et ces règles s’appliquent alors.
+
+* Le service DOIT marquer `self-declared` le dossier, chaque acte et le constat de réception.
+* Le personnel DOIT voir cette marque.
+* Seuls le brouillon et son dépôt PEUVENT reposer sur une simple déclaration.
+* Un acte ultérieur, comme une réponse, un retrait ou une consultation, DOIT venir de la partie visée ou d’un représentant.
+* Le dépôt NE DOIT PAS donner à son auteur un accès ultérieur au dossier.
+* Un avis à l’auteur de la déclaration DOIT seulement confirmer le dépôt, sans lien vers le dossier.
+
+Une personne qui aide une voisine une fois peut alors déposer, et l’organisme sait quelle confiance y accorder.
+La partie visée apprend le dépôt selon APP-073, et décide de la suite.
+
+== Avis et révocation
+
+[[APP-073]]
+*APP-073.* Quand une personne dépose pour une autre partie, le service DOIT aviser la partie représentée du dépôt.
+Il PEUT omettre l’avis quand aucune coordonnée n’est connue.
+Il PEUT aussi l’omettre quand le profil ou une ordonnance d’un tribunal dit que l’avis met une personne en danger.
+Il DOIT alors consigner le motif.
+
+Un avis apprend à une personne qu’on a fait une demande en son nom, et lui permet de s’y opposer.
+
+[[APP-074]]
+*APP-074.* Une représentation révoquée ou échue DOIT bloquer chaque nouvel acte qui repose sur elle.
+Elle NE DOIT PAS effacer ni modifier les actes faits avant.
+La partie représentée DOIT pouvoir voir, dans son propre dossier, qui a agi pour elle et quand.
+
+== Références
+
+=== Références informatives
+
+* link:https://hl7.org/fhir/R5/questionnaireresponse.html[QuestionnaireResponse], HL7 FHIR R5, version 5.0.0. link:https://web.archive.org/web/20261123155929/https://hl7.org/fhir/R5/questionnaireresponse.html[Copie archivée]
+* link:https://github.com/VNG-Realisatie/gemma-zaken/blob/ab62b315fc901a04b5806b47131757de3cf74ea7/docs/standaard/zaken/zrc/1.8.x/1.8.0/openapi.yaml[Zaken API 1.8.0, OpenAPI description], VNG Realisatie, commit ab62b31.
+
+== Historique du document
+
+[cols="1,1,4",options="header"]
+|===
+|Version |Date |Changement
+|0.1.0 |2026-11-26 |Première version.
+|===
